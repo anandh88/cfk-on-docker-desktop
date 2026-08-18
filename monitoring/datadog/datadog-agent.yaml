@@ -1,0 +1,281 @@
+# Datadog Agent - full DaemonSet manifest (no Helm).
+# Replaces datadog-agent-values.yaml + helm install.
+# Incorporates all settings from datadog-agent-values.yaml.
+# Uses gcr.io/datadoghq/agent:latest-jmx as base; init container installs
+# the confluent_platform integration so no custom image build is required.
+#
+# Prerequisites:
+#   kubectl create secret generic datadog-secret \
+#     --from-literal=api-key='<YOUR_DD_API_KEY>' -n datadog-agent
+#
+# Apply:
+#   kubectl apply -f datadog-agent.yaml
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: datadog-agent
+  namespace: datadog-agent
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: datadog-agent
+rules:
+  - apiGroups: [""]
+    resources:
+      - nodes
+      - nodes/proxy
+      - nodes/stats
+      - nodes/metrics
+      - services
+      - endpoints
+      - pods
+      - namespaces
+      - componentstatuses
+      - events
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources:
+      - configmaps
+    resourceNames:
+      - datadogtoken
+      - datadog-leader-election
+    verbs: ["get", "update"]
+  - apiGroups: [""]
+    resources:
+      - configmaps
+    verbs: ["create"]
+  - nonResourceURLs:
+      - "/metrics"
+      - "/healthz"
+      - "/livez"
+      - "/readyz"
+    verbs: ["get"]
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+      - replicasets
+      - statefulsets
+      - daemonsets
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["batch"]
+    resources:
+      - cronjobs
+      - jobs
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["autoscaling"]
+    resources:
+      - horizontalpodautoscalers
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["policy"]
+    resources:
+      - poddisruptionbudgets
+    verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: datadog-agent
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: datadog-agent
+subjects:
+  - kind: ServiceAccount
+    name: datadog-agent
+    namespace: datadog-agent
+
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: datadog-agent
+  namespace: datadog-agent
+  labels:
+    app: datadog-agent
+spec:
+  selector:
+    matchLabels:
+      app: datadog-agent
+  template:
+    metadata:
+      labels:
+        app: datadog-agent
+    spec:
+      serviceAccountName: datadog-agent
+
+      # -----------------------------------------------------------------------
+      # Init container: installs the confluent_platform integration from the
+      # official GCR image — no separate image build or ACR push needed.
+      # Copies both the check file and its Python package to shared volumes
+      # that the main agent container mounts at startup.
+      # -----------------------------------------------------------------------
+      initContainers:
+        - name: install-confluent-integration
+          image: gcr.io/datadoghq/agent:latest-jmx
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+              echo "Installing datadog-confluent-platform integration..."
+              /opt/datadog-agent/bin/agent/agent integration install -r -t datadog-confluent-platform
+              echo "Copying check file..."
+              cp /opt/datadog-agent/checks.d/confluent_platform.py /custom-checks/ 2>/dev/null || true
+              echo "Copying Python packages..."
+              mkdir -p /custom-packages/datadog_checks
+              cp -r /opt/datadog-agent/embedded/lib/python*/site-packages/datadog_checks/confluent_platform \
+                /custom-packages/datadog_checks/ 2>/dev/null || true
+              echo "Done."
+          volumeMounts:
+            - name: custom-checks
+              mountPath: /custom-checks
+            - name: custom-packages
+              mountPath: /custom-packages
+
+      containers:
+        - name: agent
+          image: gcr.io/datadoghq/agent:latest-jmx
+          imagePullPolicy: IfNotPresent
+
+          env:
+            # --- Credentials ---
+            - name: DD_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: datadog-secret
+                  key: api-key
+
+            # --- Site ---
+            - name: DD_SITE
+              value: "us5.datadoghq.com"
+
+            # --- Logs ---
+            - name: DD_LOGS_ENABLED
+              value: "true"
+            - name: DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL
+              value: "false"   # only pods with ad.datadoghq.com/*.logs annotations
+
+            # --- APM ---
+            - name: DD_APM_ENABLED
+              value: "true"
+
+            # --- Process agent ---
+            - name: DD_PROCESS_AGENT_ENABLED
+              value: "false"
+
+            # --- Namespace scoping ---
+            - name: DD_CONTAINER_INCLUDE_METRICS
+              value: "kube_namespace:confluent"
+            - name: DD_CONTAINER_INCLUDE_LOGS
+              value: "kube_namespace:confluent"
+
+            # --- JMX ---
+            - name: DD_JMXFETCH_ENABLED
+              value: "true"
+
+            # --- Kubelet TLS (disable for self-signed certs) ---
+            - name: DD_KUBELET_TLS_VERIFY
+              value: "false"
+
+            # --- DogStatsD ---
+            - name: DD_DOGSTATSD_NON_LOCAL_TRAFFIC
+              value: "true"
+
+            # --- Events ---
+            - name: DD_COLLECT_KUBERNETES_EVENTS
+              value: "true"
+
+            # --- Prometheus scrape ---
+            - name: DD_PROMETHEUS_SCRAPE_ENABLED
+              value: "true"
+
+            # --- Pod labels as Datadog tags ---
+            - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+              value: '{"env":"env","service":"service","component":"component","team":"team"}'
+
+            # --- Disable unused features ---
+            - name: DD_REMOTE_CONFIGURATION_ENABLED
+              value: "false"
+            - name: DD_ORCHESTRATOR_EXPLORER_ENABLED
+              value: "false"
+
+            # --- Node identity ---
+            - name: DD_HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: DD_KUBERNETES_KUBELET_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+
+            # --- confluent_platform check location (from init container) ---
+            - name: DD_ADDITIONAL_CHECKSD
+              value: /custom-checks
+            - name: PYTHONPATH
+              value: /custom-packages
+
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+
+          volumeMounts:
+            # confluent_platform check + packages from init container
+            - name: custom-checks
+              mountPath: /custom-checks
+            - name: custom-packages
+              mountPath: /custom-packages
+            # Host paths required by the Datadog agent
+            - name: procdir
+              mountPath: /host/proc
+              readOnly: true
+            - name: cgroups
+              mountPath: /host/sys/fs/cgroup
+              readOnly: true
+            - name: pointerdir
+              mountPath: /opt/datadog-agent/run
+            - name: logpodpath
+              mountPath: /var/log/pods
+              readOnly: true
+            - name: logcontainerpath
+              mountPath: /var/lib/docker/containers
+              readOnly: true
+            - name: passwd
+              mountPath: /etc/passwd
+              readOnly: true
+
+      volumes:
+        # Shared between init container and agent container
+        - name: custom-checks
+          emptyDir: {}
+        - name: custom-packages
+          emptyDir: {}
+        # Host paths
+        - name: procdir
+          hostPath:
+            path: /proc
+        - name: cgroups
+          hostPath:
+            path: /sys/fs/cgroup
+        - name: pointerdir
+          hostPath:
+            path: /opt/datadog-agent/run
+            type: DirectoryOrCreate
+        - name: logpodpath
+          hostPath:
+            path: /var/log/pods
+        - name: logcontainerpath
+          hostPath:
+            path: /var/lib/docker/containers
+        - name: passwd
+          hostPath:
+            path: /etc/passwd

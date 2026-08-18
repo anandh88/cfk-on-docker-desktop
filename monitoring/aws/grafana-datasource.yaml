@@ -1,0 +1,30 @@
+# Grafana Datasource Reference for Amazon Managed Grafana
+#
+# This is a REFERENCE file, not a Kubernetes resource to apply with kubectl.
+# Amazon Managed Grafana does not run inside the cluster.
+#
+# Use this as a guide when configuring the Prometheus datasource through one of:
+#   1. AWS Console     - Add Amazon Managed Prometheus as a data source in AMG workspace
+#   2. Grafana UI      - Configuration > Data Sources > Add data source > Prometheus
+#   3. Grafana API     - POST /api/datasources
+#   4. Terraform       - aws_grafana_workspace_configuration or grafana_data_source
+#
+# IMPORTANT: The datasource UID must be set to "prometheus" so that all
+# dashboard JSON files in monitoring/dashboards/ work without modification.
+
+# Datasource settings:
+#   Name:         Prometheus
+#   Type:         prometheus
+#   UID:          prometheus    <-- must match dashboard references
+#   URL:          https://aps-workspaces.<AWS_REGION>.amazonaws.com/workspaces/<AMP_WORKSPACE_ID>
+#   Access:       Server (proxy)
+#   Default:      true
+#   Auth:         SigV4 (auto-configured when AMP workspace is linked to AMG)
+#
+# SigV4 settings:
+#   Authentication Provider:  AWS SDK Default (uses AMG workspace IAM role)
+#   Default Region:           <AWS_REGION>
+#
+# Additional settings (under JSON Data / Misc):
+#   HTTP Method:      POST
+#   Scrape interval:  15s

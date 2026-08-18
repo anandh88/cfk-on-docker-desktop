@@ -1,0 +1,29 @@
+# Grafana Datasource Reference for Google Cloud Managed Grafana
+#
+# This is a REFERENCE file, not a Kubernetes resource to apply with kubectl.
+#
+# Google Cloud offers two Grafana options:
+#   1. Self-hosted Grafana on GKE (using kube-prometheus-stack or standalone)
+#   2. Grafana Cloud (third-party, integrated with Google Cloud Monitoring)
+#
+# In both cases, use this as a guide when configuring the Prometheus datasource.
+#
+# IMPORTANT: The datasource UID must be set to "prometheus" so that all
+# dashboard JSON files in monitoring/dashboards/ work without modification.
+
+# Datasource settings:
+#   Name:         Prometheus
+#   Type:         prometheus
+#   UID:          prometheus    <-- must match dashboard references
+#   URL:          https://monitoring.googleapis.com/v1/projects/<GCP_PROJECT_ID>/location/global/prometheus
+#   Access:       Server (proxy)
+#   Default:      true
+#   Auth:         Google Authentication (Workload Identity or service account key)
+#
+# Google Authentication settings:
+#   Authentication Type:   Google Workload Identity (recommended on GKE)
+#   Service Account:       <GSA_EMAIL> (if using service account key)
+#
+# Additional settings (under JSON Data / Misc):
+#   HTTP Method:      POST
+#   Scrape interval:  15s

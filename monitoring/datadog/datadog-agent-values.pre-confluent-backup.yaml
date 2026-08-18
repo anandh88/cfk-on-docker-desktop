@@ -1,0 +1,49 @@
+# Datadog Agent Helm values for Docker Desktop Kubernetes + CFK OpenMetrics setup.
+# Used by scripts/deploy-monitoring.sh.
+# Reference: https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
+
+datadog:
+  # site is set via --set at install time from DD_API_KEY / DD_SITE env vars
+  # so these are left as placeholders to make the file self-documenting.
+  # apiKey is injected at install time; do NOT commit real keys here.
+  site: us5.datadoghq.com   # override with DD_SITE env var if different
+
+  # --- Feature toggles ---
+  # Keep disabled to minimise resource usage on Docker Desktop.
+  logs:
+    enabled: false
+  apm:
+    enabled: false
+  processAgent:
+    enabled: false
+
+  # Scope collection to CFK workloads in the confluent namespace.
+  # This limits container-level metric/log collection to Kafka platform pods.
+  containerIncludeMetrics: "kube_namespace:confluent"
+  containerIncludeLogs: "kube_namespace:confluent"
+
+  # OpenMetrics autodiscovery is handled entirely through pod annotations
+  # (ad.datadoghq.com/* on each CFK resource), so no additional config
+  # is required here.
+
+  # Uncomment the block below to switch to the Confluent Platform JMX
+  # integration instead of OpenMetrics scraping.
+  # jmxfetch:
+  #   enabled: true
+
+# Cluster Agent is not needed for this single-node Docker Desktop setup.
+clusterAgent:
+  enabled: false
+
+# Resource requests/limits for the DaemonSet pod.
+# Tune upward if you see OOMKills on the agent pod.
+agents:
+  containers:
+    agent:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi

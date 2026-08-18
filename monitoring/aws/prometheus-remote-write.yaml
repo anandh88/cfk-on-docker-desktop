@@ -1,0 +1,142 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-remote-write-config
+  namespace: monitoring
+data:
+  # This ConfigMap configures a self-hosted Prometheus (from kube-prometheus-stack)
+  # to remote-write metrics to Amazon Managed Prometheus (AMP).
+  #
+  # Alternatively, if using the AWS Distro for OpenTelemetry (ADOT) Collector
+  # or the AWS managed Prometheus scraper, see the README for those approaches.
+  #
+  # Apply with: kubectl apply -f monitoring/aws/prometheus-remote-write.yaml
+  #
+  # Then add the following to your kube-prometheus-stack Helm values under
+  # prometheus.prometheusSpec.remoteWrite:
+  #
+  #   remoteWrite:
+  #     - url: "https://aps-workspaces.<AWS_REGION>.amazonaws.com/workspaces/<AMP_WORKSPACE_ID>/api/v1/remote_write"
+  #       sigv4:
+  #         region: <AWS_REGION>
+  #       queueConfig:
+  #         maxSamplesPerSend: 1000
+  #         maxShards: 200
+  #         capacity: 2500
+
+  # Scrape configs for Confluent components (used by Prometheus or ADOT Collector)
+  prometheus-config: |
+    scrape_configs:
+      # Kafka brokers
+      - job_name: 'kafka-broker'
+        scrape_interval: 15s
+        static_configs:
+          - targets:
+            - kafka-0.kafka.confluent.svc.cluster.local:7778
+            - kafka-1.kafka.confluent.svc.cluster.local:7778
+            - kafka-2.kafka.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.kafka\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'dev-eks'
+
+      # KRaft controllers
+      - job_name: 'kafka-controller'
+        scrape_interval: 15s
+        static_configs:
+          - targets:
+            - kraftcontroller-0.kraftcontroller.confluent.svc.cluster.local:7778
+            - kraftcontroller-1.kraftcontroller.confluent.svc.cluster.local:7778
+            - kraftcontroller-2.kraftcontroller.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.kraftcontroller\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'dev-eks'
+
+      # Connect - using Kubernetes service discovery (auto-discovers all Connect pods)
+      - job_name: 'kafka-connect'
+        scrape_interval: 15s
+        scrape_timeout: 30s
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names:
+                - confluent
+        relabel_configs:
+          # Only scrape pods with app=connect label
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            regex: connect
+            action: keep
+          # Only scrape the prometheus port
+          - source_labels: [__meta_kubernetes_pod_container_port_name]
+            regex: prometheus
+            action: keep
+          # Set instance label to pod name
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: instance
+          - target_label: env
+            replacement: 'dev-eks'
+          - target_label: kafka_connect_cluster_id
+            replacement: 'connect-cluster'
+
+      # Schema Registry
+      - job_name: 'schemaregistry'
+        scrape_interval: 15s
+        static_configs:
+          - targets:
+            - schemaregistry-0.schemaregistry.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.schemaregistry\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'dev-eks'
+
+      # ksqlDB
+      - job_name: 'ksqldb'
+        scrape_interval: 15s
+        static_configs:
+          - targets:
+            - ksqldb-0.ksqldb.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.ksqldb\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'dev-eks'
+
+      # REST Proxy
+      - job_name: 'kafkarestproxy'
+        scrape_interval: 15s
+        static_configs:
+          - targets:
+            - kafkarestproxy-0.kafkarestproxy.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.kafkarestproxy\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'dev-eks'
+
+      # Control Center
+      - job_name: 'controlcenter'
+        scrape_interval: 15s
+        static_configs:
+          - targets:
+            - controlcenter-0.controlcenter.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.controlcenter\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'dev-eks'

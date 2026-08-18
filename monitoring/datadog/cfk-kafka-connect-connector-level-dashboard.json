@@ -1,0 +1,278 @@
+{
+  "id": "t3n-whd-jz3",
+  "title": "CFK Kafka Connect Connector Level",
+  "description": "Connector instance level monitoring for Kafka Connect on CFK.",
+  "layout_type": "ordered",
+  "url": "/dashboard/t3n-whd-jz3/cfk-kafka-connect-connector-level",
+  "template_variables": [],
+  "widgets": [
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "Running Connectors",
+        "requests": [
+          {
+            "q": "count_nonzero(sum:confluent.kafka.connect.worker.connector_running_task_count{kube_namespace:confluent,kube_container_name:connect} by {connector})"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "Failed Connectors",
+        "requests": [
+          {
+            "q": "count_nonzero(sum:confluent.kafka.connect.worker.connector_failed_task_count{kube_namespace:confluent,kube_container_name:connect} by {connector})"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "Paused Connectors",
+        "requests": [
+          {
+            "q": "count_nonzero(sum:confluent.kafka.connect.worker.connector_paused_task_count{kube_namespace:confluent,kube_container_name:connect} by {connector})"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Task Status by Connector",
+        "requests": [
+          {
+            "q": "sum:confluent.kafka.connect.worker.connector_running_task_count{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          },
+          {
+            "q": "sum:confluent.kafka.connect.worker.connector_failed_task_count{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          },
+          {
+            "q": "sum:confluent.kafka.connect.worker.connector_paused_task_count{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Total Tasks by Connector",
+        "requests": [
+          {
+            "q": "sum:confluent.kafka.connect.worker.connector_total_task_count{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Messages/sec by Connector",
+        "requests": [
+          {
+            "q": "avg:confluent.kafka.connect.source_task.source_record_write_rate{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Source Active Records by Connector",
+        "requests": [
+          {
+            "q": "avg:confluent.kafka.connect.source_task.source_record_active_count_avg{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Lag Proxy by Connector",
+        "requests": [
+          {
+            "q": "avg:confluent.kafka.connect.sink_task.sink_record_active_count_avg{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Put Batch Avg Latency by Connector",
+        "requests": [
+          {
+            "q": "avg:confluent.kafka.connect.sink_task.put_batch_avg_time_ms{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Put Batch Max Latency by Connector",
+        "requests": [
+          {
+            "q": "avg:confluent.kafka.connect.sink_task.put_batch_max_time_ms{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Error Rate by Connector",
+        "requests": [
+          {
+            "q": "avg:confluent.kafka.connect.task_error.total_record_errors{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Retry Rate by Connector",
+        "requests": [
+          {
+            "q": "avg:confluent.kafka.connect.task_error.total_retries{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "DLQ Requests by Connector",
+        "requests": [
+          {
+            "q": "avg:confluent.kafka.connect.task_error.deadletterqueue_produce_requests{kube_namespace:confluent,kube_container_name:connect} by {connector}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "CPU (Worker)",
+        "requests": [
+          {
+            "q": "avg:jvm.cpu_load.process{kube_namespace:confluent,kube_container_name:connect}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Heap Used (Worker)",
+        "requests": [
+          {
+            "q": "avg:jvm.heap_memory{kube_namespace:confluent,kube_container_name:connect}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "Non-Heap Used (Worker)",
+        "requests": [
+          {
+            "q": "avg:jvm.non_heap_memory{kube_namespace:confluent,kube_container_name:connect}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    }
+  ],
+  "notify_list": [],
+  "restricted_roles": []
+}

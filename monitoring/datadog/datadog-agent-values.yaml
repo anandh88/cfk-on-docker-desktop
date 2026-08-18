@@ -1,0 +1,83 @@
+# Datadog Agent Helm values for Docker Desktop Kubernetes + CFK JMX setup.
+# Used by scripts/deploy-monitoring.sh.
+# Reference: https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
+
+datadog:
+  # apiKey is injected at install time via --set; do NOT commit real keys here.
+  site: us5.datadoghq.com
+
+  # --- Feature toggles ---
+  logs:
+    enabled: true
+    containerCollectAll: false   # only pods with ad.datadoghq.com/*.logs annotations
+  apm:
+    enabled: true
+  processAgent:
+    enabled: false
+
+  # Scope collection to CFK workloads in the confluent namespace.
+  containerIncludeMetrics: "kube_namespace:confluent"
+  containerIncludeLogs: "kube_namespace:confluent"
+
+  # JMX collection via Jolokia autodiscovery annotations on CFK pods.
+  jmxfetch:
+    enabled: true
+
+  # Docker Desktop: kubelet uses a self-signed cert; disable TLS verification.
+  kubelet:
+    tlsVerify: false
+
+  # DogStatsD: accept metrics from other pods in the cluster.
+  dogstatsd:
+    nonLocalTraffic: true
+
+  # Collect Kubernetes events.
+  collectEvents: true
+
+  # Scrape Prometheus endpoints annotated with prometheus.io/scrape.
+  prometheusScrape:
+    enabled: true
+
+  # Pod/node labels as Datadog tags (enables kubernetes_pod_name etc).
+  podLabelsAsTags:
+    env: env
+    service: service
+    component: component
+    team: team
+
+  # Disable remote config and orchestrator explorer (not needed for local POC).
+  remoteConfiguration:
+    enabled: false
+  orchestratorExplorer:
+    enabled: false
+
+  # Autodiscovery: use pod annotations for check configuration.
+  # (ad.datadoghq.com/* on each CFK resource)
+
+# Cluster Agent not needed for single-node Docker Desktop.
+clusterAgent:
+  enabled: false
+
+agents:
+  image:
+    tagSuffix: jmx
+  # Pass node name as DD_HOSTNAME and host IP as DD_KUBERNETES_KUBELET_HOST
+  # (mirrors the reference DaemonSet spec).
+  containers:
+    agent:
+      env:
+        - name: DD_HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: DD_KUBERNETES_KUBELET_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          cpu: 500m
+          memory: 1Gi

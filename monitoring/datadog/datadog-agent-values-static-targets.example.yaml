@@ -1,0 +1,121 @@
+# Datadog Agent Helm values (EXAMPLE ONLY) for static OpenMetrics targets.
+# This file is intentionally NOT used by scripts/deploy-monitoring.sh.
+# Default install path remains: monitoring/datadog/datadog-agent-values.yaml
+#
+# Use manually if needed:
+# helm upgrade --install datadog datadog/datadog \
+#   --namespace datadog-agent \
+#   --values monitoring/datadog/datadog-agent-values-static-targets.example.yaml \
+#   --set datadog.apiKey="$DD_API_KEY" \
+#   --set datadog.site="$DD_SITE"
+
+datadog:
+  site: us5.datadoghq.com
+
+  logs:
+    enabled: false
+  apm:
+    enabled: false
+  processAgent:
+    enabled: false
+
+  # Limit collection scope to CFK namespace.
+  containerIncludeMetrics: "kube_namespace:confluent"
+  containerIncludeLogs: "kube_namespace:confluent"
+
+  # Static OpenMetrics target configuration.
+  # Keep in mind: static checks run in each node agent unless moved to cluster checks.
+  confd:
+    openmetrics.d/conf.yaml: |-
+      init_config:
+      instances:
+        - openmetrics_endpoint: http://localhost:7778/metrics
+          namespace: cfk
+          metrics:
+            - .*
+          tags:
+            - kube_namespace:confluent
+            - env:local-poc
+            - service:kafka-connect
+            - component:connect
+            - team:data-platform
+
+        - openmetrics_endpoint: http://localhost:7778/metrics
+          namespace: cfk
+          metrics:
+            - .*
+          tags:
+            - kube_namespace:confluent
+            - env:local-poc
+            - service:kafka-broker
+            - component:kafka
+            - team:data-platform
+
+        - openmetrics_endpoint: http://localhost:7778/metrics
+          namespace: cfk
+          metrics:
+            - .*
+          tags:
+            - kube_namespace:confluent
+            - env:local-poc
+            - service:schema-registry
+            - component:schemaregistry
+            - team:data-platform
+
+        - openmetrics_endpoint: http://localhost:7778/metrics
+          namespace: cfk
+          metrics:
+            - .*
+          tags:
+            - kube_namespace:confluent
+            - env:local-poc
+            - service:ksqldb
+            - component:ksqldb
+            - team:data-platform
+
+        - openmetrics_endpoint: http://localhost:7778/metrics
+          namespace: cfk
+          metrics:
+            - .*
+          tags:
+            - kube_namespace:confluent
+            - env:local-poc
+            - service:kafka-restproxy
+            - component:kafkarestproxy
+            - team:data-platform
+
+        - openmetrics_endpoint: http://localhost:7778/metrics
+          namespace: cfk
+          metrics:
+            - .*
+          tags:
+            - kube_namespace:confluent
+            - env:local-poc
+            - service:control-center
+            - component:controlcenter
+            - team:data-platform
+
+        - openmetrics_endpoint: http://localhost:7778/metrics
+          namespace: cfk
+          metrics:
+            - .*
+          tags:
+            - kube_namespace:confluent
+            - env:local-poc
+            - service:kafka-controller
+            - component:kraftcontroller
+            - team:data-platform
+
+clusterAgent:
+  enabled: false
+
+agents:
+  containers:
+    agent:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi

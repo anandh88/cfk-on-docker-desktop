@@ -1,0 +1,58 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Claude Code
+.claude/
+
+# Kubernetes secrets and sensitive files
+*-secret.yaml
+*-secrets.yaml
+*.key
+*.pem
+*.crt
+*.jks
+*.p12
+*.pfx
+credentials.yaml
+secrets.yaml
+
+# Terraform (if used)
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Build artifacts
+*.tar.gz
+*.zip
+
+# Helm
+charts/*.tgz
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# kubeconfig files (may contain sensitive data)
+kubeconfig*

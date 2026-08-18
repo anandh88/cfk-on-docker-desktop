@@ -1,0 +1,224 @@
+# Azure Managed Prometheus Alert Rules for Confluent Platform
+#
+# These rules are deployed via the Azure CLI or Terraform as
+# Prometheus rule groups in the Azure Monitor workspace.
+#
+# Deploy with:
+#   az monitor account prometheus-rule-group create \
+#     --resource-group <RESOURCE_GROUP> \
+#     --cluster-name <AKS_CLUSTER_NAME> \
+#     --rule-group-name confluent-platform-alerts \
+#     --scopes <AZURE_MONITOR_WORKSPACE_RESOURCE_ID> \
+#     --rules @alertrules.yaml
+#
+# Alternatively, use the Azure Portal:
+#   Azure Monitor workspace > Prometheus rule groups > Create
+
+groups:
+  - name: kafka-brokers
+    interval: PT1M
+    rules:
+      - alert: ActiveControllerCountNotOne
+        expression: sum by (env) (kafka_controller_kafkacontroller_activecontrollercount) != 1
+        for: PT10S
+        severity: 0
+        labels:
+          severity: page
+        annotations:
+          summary: "Active controller count for env {{ $labels.env }}"
+          description: "Active controller count for env {{ $labels.env }} is {{ $value }}."
+
+      - alert: OfflinePartitionCount
+        expression: sum by(env) (kafka_controller_kafkacontroller_offlinepartitionscount) > 0
+        for: PT10S
+        severity: 0
+        labels:
+          severity: page
+        annotations:
+          summary: "Offline partitions for env {{ $labels.env }}"
+          description: "Offline partitions count for env {{ $labels.env }} is {{ $value }}."
+
+      - alert: UncleanLeaderElections
+        expression: sum by(env) (kafka_controller_controllerstats_uncleanleaderelectionspersec_count) > 0
+        for: PT1M
+        severity: 0
+        labels:
+          severity: page
+        annotations:
+          summary: "UncleanLeaderElections for env {{ $labels.env }}"
+          description: "UncleanLeaderElections count for env {{ $labels.env }} is {{ $value }}."
+
+      - alert: UnderReplicatedPartitions
+        expression: sum by(env) (kafka_server_replicamanager_underreplicatedpartitions) > 0
+        for: PT1M
+        severity: 0
+        labels:
+          severity: page
+        annotations:
+          summary: "UnderReplicatedPartitions for env {{ $labels.env }}"
+          description: "UnderReplicatedPartitions for env {{ $labels.env }} is {{ $value }}."
+
+      - alert: UnderMinIsrPartitionCount
+        expression: sum by (env) (kafka_cluster_partition_underminisr) > 0
+        for: PT1M
+        severity: 0
+        labels:
+          severity: page
+        annotations:
+          summary: "UnderMinIsrPartitionCount for env {{ $labels.env }}"
+          description: "UnderMinIsrPartitionCount for env {{ $labels.env }} is {{ $value }}."
+
+      - alert: KafkaBrokerCountChanged
+        expression: count(up{job="kafka-broker"} == 1) < 3
+        for: PT1M
+        severity: 2
+        labels:
+          severity: warning
+        annotations:
+          summary: "Kafka broker count is below expected"
+          description: "Expected 3 brokers but only {{ $value }} are up."
+
+      - alert: KafkaBrokerDown
+        expression: up{job="kafka-broker"} == 0
+        for: PT30S
+        severity: 1
+        labels:
+          severity: critical
+        annotations:
+          summary: "Kafka broker {{ $labels.instance }} is down"
+          description: "Kafka broker {{ $labels.instance }} has been down for more than 30 seconds."
+
+      - alert: KafkaHighRequestLatency
+        expression: kafka_network_requestmetrics_totaltimems{quantile="0.99"} > 1000
+        for: PT5M
+        severity: 2
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Kafka request latency"
+          description: "99th percentile request latency is {{ $value }}ms for {{ $labels.request }} requests."
+
+      - alert: KafkaRequestHandlerIdleLow
+        expression: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_oneminuterate < 0.3
+        for: PT5M
+        severity: 2
+        labels:
+          severity: warning
+        annotations:
+          summary: "Kafka request handlers are overloaded"
+          description: "Request handler idle percent is {{ $value }}, indicating high broker load."
+
+  - name: kafka-consumers
+    interval: PT1M
+    rules:
+      - alert: KafkaConsumerLagHigh
+        expression: kafka_server_fetcherlagmetrics_consumerlag > 10000
+        for: PT5M
+        severity: 2
+        labels:
+          severity: warning
+        annotations:
+          summary: "High consumer lag detected"
+          description: "Consumer lag for {{ $labels.topic }}-{{ $labels.partition }} is {{ $value }} messages."
+
+      - alert: KafkaConsumerLagGrowing
+        expression: delta(kafka_server_fetcherlagmetrics_consumerlag[5m]) > 1000
+        for: PT10M
+        severity: 2
+        labels:
+          severity: warning
+        annotations:
+          summary: "Consumer lag is growing"
+          description: "Consumer lag for {{ $labels.topic }}-{{ $labels.partition }} has increased by {{ $value }} in the last 5 minutes."
+
+  - name: kafka-connect
+    interval: PT1M
+    rules:
+      - alert: KafkaConnectDown
+        expression: up{job="kafka-connect"} == 0
+        for: PT30S
+        severity: 1
+        labels:
+          severity: critical
+        annotations:
+          summary: "Kafka Connect worker is down"
+          description: "Kafka Connect worker {{ $labels.instance }} has been down for more than 30 seconds."
+
+      - alert: KafkaConnectTaskFailed
+        expression: kafka_connect_connector_task_status{status="failed"} > 0
+        for: PT1M
+        severity: 1
+        labels:
+          severity: critical
+        annotations:
+          summary: "Kafka Connect task failed"
+          description: "Connector {{ $labels.connector }} task {{ $labels.task }} has failed."
+
+      - alert: KafkaConnectorNotRunning
+        expression: kafka_connect_connector_status{status!="running"} > 0
+        for: PT2M
+        severity: 2
+        labels:
+          severity: warning
+        annotations:
+          summary: "Kafka connector is not running"
+          description: "Connector {{ $labels.connector }} is in {{ $labels.status }} state."
+
+      - alert: KafkaConnectNoConnectors
+        expression: kafka_connect_worker_connector_count == 0
+        for: PT10M
+        severity: 3
+        labels:
+          severity: info
+        annotations:
+          summary: "No connectors deployed"
+          description: "Kafka Connect has no connectors deployed for more than 10 minutes."
+
+  - name: jvm-health
+    interval: PT1M
+    rules:
+      - alert: JvmHeapUsageHigh
+        expression: (jvm_memory_bytes_used{area="heap"} / jvm_memory_bytes_max{area="heap"}) > 0.9
+        for: PT5M
+        severity: 2
+        labels:
+          severity: warning
+        annotations:
+          summary: "JVM heap usage is high"
+          description: "JVM heap usage for {{ $labels.kubernetes_pod_name }} is above 90%."
+
+      - alert: JvmGcFrequent
+        expression: rate(jvm_gc_collection_seconds_count[5m]) > 0.5
+        for: PT10M
+        severity: 2
+        labels:
+          severity: warning
+        annotations:
+          summary: "Frequent JVM garbage collection"
+          description: "{{ $labels.kubernetes_pod_name }} is experiencing frequent GC."
+
+  - name: schema-registry
+    interval: PT1M
+    rules:
+      - alert: SchemaRegistryDown
+        expression: up{job="schemaregistry"} == 0
+        for: PT30S
+        severity: 1
+        labels:
+          severity: critical
+        annotations:
+          summary: "Schema Registry is down"
+          description: "Schema Registry {{ $labels.instance }} has been down for more than 30 seconds."
+
+  - name: ksqldb
+    interval: PT1M
+    rules:
+      - alert: KsqlDBDown
+        expression: up{job="ksqldb"} == 0
+        for: PT30S
+        severity: 1
+        labels:
+          severity: critical
+        annotations:
+          summary: "ksqlDB is down"
+          description: "ksqlDB {{ $labels.instance }} has been down for more than 30 seconds."

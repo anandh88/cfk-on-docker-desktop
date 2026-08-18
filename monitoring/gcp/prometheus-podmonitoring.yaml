@@ -1,0 +1,153 @@
+apiVersion: monitoring.googleapis.com/v1
+kind: ClusterPodMonitoring
+metadata:
+  name: confluent-kafka-broker
+  labels:
+    app.kubernetes.io/part-of: confluent-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: kafka
+  endpoints:
+    - port: prometheus
+      interval: 15s
+      metricRelabeling:
+        - action: replace
+          targetLabel: env
+          replacement: dev-gke
+  targetLabels:
+    metadata:
+      - pod
+      - namespace
+---
+apiVersion: monitoring.googleapis.com/v1
+kind: ClusterPodMonitoring
+metadata:
+  name: confluent-kraft-controller
+  labels:
+    app.kubernetes.io/part-of: confluent-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: kraftcontroller
+  endpoints:
+    - port: prometheus
+      interval: 15s
+      metricRelabeling:
+        - action: replace
+          targetLabel: env
+          replacement: dev-gke
+  targetLabels:
+    metadata:
+      - pod
+      - namespace
+---
+apiVersion: monitoring.googleapis.com/v1
+kind: ClusterPodMonitoring
+metadata:
+  name: confluent-connect
+  labels:
+    app.kubernetes.io/part-of: confluent-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: connect
+  endpoints:
+    - port: prometheus
+      interval: 15s
+      metricRelabeling:
+        - action: replace
+          targetLabel: env
+          replacement: dev-gke
+  targetLabels:
+    metadata:
+      - pod
+      - namespace
+---
+apiVersion: monitoring.googleapis.com/v1
+kind: ClusterPodMonitoring
+metadata:
+  name: confluent-schemaregistry
+  labels:
+    app.kubernetes.io/part-of: confluent-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: schemaregistry
+  endpoints:
+    - port: prometheus
+      interval: 15s
+      metricRelabeling:
+        - action: replace
+          targetLabel: env
+          replacement: dev-gke
+  targetLabels:
+    metadata:
+      - pod
+      - namespace
+---
+apiVersion: monitoring.googleapis.com/v1
+kind: ClusterPodMonitoring
+metadata:
+  name: confluent-ksqldb
+  labels:
+    app.kubernetes.io/part-of: confluent-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: ksqldb
+  endpoints:
+    - port: prometheus
+      interval: 15s
+      metricRelabeling:
+        - action: replace
+          targetLabel: env
+          replacement: dev-gke
+  targetLabels:
+    metadata:
+      - pod
+      - namespace
+---
+apiVersion: monitoring.googleapis.com/v1
+kind: ClusterPodMonitoring
+metadata:
+  name: confluent-kafkarestproxy
+  labels:
+    app.kubernetes.io/part-of: confluent-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: kafkarestproxy
+  endpoints:
+    - port: prometheus
+      interval: 15s
+      metricRelabeling:
+        - action: replace
+          targetLabel: env
+          replacement: dev-gke
+  targetLabels:
+    metadata:
+      - pod
+      - namespace
+---
+apiVersion: monitoring.googleapis.com/v1
+kind: ClusterPodMonitoring
+metadata:
+  name: confluent-controlcenter
+  labels:
+    app.kubernetes.io/part-of: confluent-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: controlcenter
+  endpoints:
+    - port: prometheus
+      interval: 15s
+      metricRelabeling:
+        - action: replace
+          targetLabel: env
+          replacement: dev-gke
+  targetLabels:
+    metadata:
+      - pod
+      - namespace

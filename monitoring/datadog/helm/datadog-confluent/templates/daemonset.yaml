@@ -1,0 +1,184 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: datadog-agent
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "datadog-confluent.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: datadog-agent
+  template:
+    metadata:
+      labels:
+        app: datadog-agent
+    spec:
+      serviceAccountName: datadog-agent
+
+      # -----------------------------------------------------------------------
+      # Init container: installs the confluent_platform integration from the
+      # official GCR image so no custom image build or ACR push is required.
+      # -----------------------------------------------------------------------
+      initContainers:
+        - name: install-confluent-integration
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+              echo "Installing datadog-confluent-platform integration..."
+              /opt/datadog-agent/bin/agent/agent integration install -r -t datadog-confluent-platform
+              echo "Copying check file..."
+              cp /opt/datadog-agent/checks.d/confluent_platform.py /custom-checks/ 2>/dev/null || true
+              echo "Copying Python packages..."
+              mkdir -p /custom-packages/datadog_checks
+              cp -r /opt/datadog-agent/embedded/lib/python*/site-packages/datadog_checks/confluent_platform \
+                /custom-packages/datadog_checks/ 2>/dev/null || true
+              echo "Done."
+          volumeMounts:
+            - name: custom-checks
+              mountPath: /custom-checks
+            - name: custom-packages
+              mountPath: /custom-packages
+
+      containers:
+        - name: agent
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          env:
+            # --- Credentials ---
+            - name: DD_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.datadog.apiKeySecretName }}
+                  key: api-key
+
+            # --- Site ---
+            - name: DD_SITE
+              value: {{ .Values.datadog.site | quote }}
+
+            # --- Logs ---
+            - name: DD_LOGS_ENABLED
+              value: {{ .Values.datadog.logs.enabled | quote }}
+            - name: DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL
+              value: {{ .Values.datadog.logs.containerCollectAll | quote }}
+
+            # --- APM ---
+            - name: DD_APM_ENABLED
+              value: {{ .Values.datadog.apm.enabled | quote }}
+
+            # --- Process agent ---
+            - name: DD_PROCESS_AGENT_ENABLED
+              value: {{ .Values.datadog.processAgent.enabled | quote }}
+
+            # --- Namespace scoping ---
+            - name: DD_CONTAINER_INCLUDE_METRICS
+              value: {{ .Values.datadog.containerIncludeMetrics | quote }}
+            - name: DD_CONTAINER_INCLUDE_LOGS
+              value: {{ .Values.datadog.containerIncludeLogs | quote }}
+
+            # --- JMX ---
+            - name: DD_JMXFETCH_ENABLED
+              value: {{ .Values.datadog.jmxfetch.enabled | quote }}
+
+            # --- Kubelet TLS ---
+            - name: DD_KUBELET_TLS_VERIFY
+              value: {{ .Values.datadog.kubelet.tlsVerify | quote }}
+
+            # --- DogStatsD ---
+            - name: DD_DOGSTATSD_NON_LOCAL_TRAFFIC
+              value: {{ .Values.datadog.dogstatsd.nonLocalTraffic | quote }}
+
+            # --- Events ---
+            - name: DD_COLLECT_KUBERNETES_EVENTS
+              value: {{ .Values.datadog.collectEvents | quote }}
+
+            # --- Prometheus scrape ---
+            - name: DD_PROMETHEUS_SCRAPE_ENABLED
+              value: {{ .Values.datadog.prometheusScrape.enabled | quote }}
+
+            # --- Pod labels as Datadog tags ---
+            - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+              value: {{ .Values.datadog.podLabelsAsTags | toJson | quote }}
+
+            # --- Disable unused features ---
+            - name: DD_REMOTE_CONFIGURATION_ENABLED
+              value: {{ .Values.datadog.remoteConfiguration.enabled | quote }}
+            - name: DD_ORCHESTRATOR_EXPLORER_ENABLED
+              value: {{ .Values.datadog.orchestratorExplorer.enabled | quote }}
+
+            # --- Node identity ---
+            - name: DD_HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: DD_KUBERNETES_KUBELET_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+
+            # --- confluent_platform check location (from init container) ---
+            - name: DD_ADDITIONAL_CHECKSD
+              value: /custom-checks
+            - name: PYTHONPATH
+              value: /custom-packages
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+
+          volumeMounts:
+            # confluent_platform check + packages from init container
+            - name: custom-checks
+              mountPath: /custom-checks
+            - name: custom-packages
+              mountPath: /custom-packages
+            # Host paths required by the Datadog agent
+            - name: procdir
+              mountPath: /host/proc
+              readOnly: true
+            - name: cgroups
+              mountPath: /host/sys/fs/cgroup
+              readOnly: true
+            - name: pointerdir
+              mountPath: /opt/datadog-agent/run
+            - name: logpodpath
+              mountPath: /var/log/pods
+              readOnly: true
+            - name: logcontainerpath
+              mountPath: /var/lib/docker/containers
+              readOnly: true
+            - name: passwd
+              mountPath: /etc/passwd
+              readOnly: true
+
+      volumes:
+        # Shared between init container and agent container
+        - name: custom-checks
+          emptyDir: {}
+        - name: custom-packages
+          emptyDir: {}
+        # Host paths
+        - name: procdir
+          hostPath:
+            path: /proc
+        - name: cgroups
+          hostPath:
+            path: /sys/fs/cgroup
+        - name: pointerdir
+          hostPath:
+            path: /opt/datadog-agent/run
+            type: DirectoryOrCreate
+        - name: logpodpath
+          hostPath:
+            path: /var/log/pods
+        - name: logcontainerpath
+          hostPath:
+            path: /var/lib/docker/containers
+        - name: passwd
+          hostPath:
+            path: /etc/passwd

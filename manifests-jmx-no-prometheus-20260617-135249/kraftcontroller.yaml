@@ -1,0 +1,40 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: KRaftController
+metadata:
+  name: kraftcontroller
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server:7.9.0
+    init: confluentinc/confluent-init-container:2.10.0
+  dataVolumeCapacity: 1Gi
+  podTemplate:
+    labels:
+      env: local-poc
+      service: kafka-controller
+      component: kraftcontroller
+      team: data-platform
+    annotations:
+      ad.datadoghq.com/kraftcontroller.check_names: '["confluent_platform"]'
+      ad.datadoghq.com/kraftcontroller.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
+      ad.datadoghq.com/kraftcontroller.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"kraft_controller_instance","tags":["component:kraftcontroller","env:local-poc","service:kafka-controller","team:data-platform"]}]'
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+    envVars:
+      - name: MY_POD_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.podIP
+      - name: _JAVA_OPTIONS
+        value: "-Djava.rmi.server.hostname=$(MY_POD_IP)"
+  configOverrides:
+    jvm:
+      # Override CFK's default local-only JMX so the Datadog DaemonSet agent can connect.
+      - -Dcom.sun.management.jmxremote.local.only=false
+      - -Dcom.sun.management.jmxremote.host=0.0.0.0

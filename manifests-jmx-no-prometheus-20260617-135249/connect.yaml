@@ -1,0 +1,74 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: connect
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server-connect:7.9.0
+    init: confluentinc/confluent-init-container:2.10.0
+  build:
+    type: onDemand
+    onDemand:
+      plugins:
+        locationType: confluentHub
+        confluentHub:
+          - name: kafka-connect-datagen
+            owner: confluentinc
+            version: "0.6.5"
+        url:
+          # JDBC connector 10.9.2 with MySQL driver 8.3.0 included
+          - name: kafka-connect-jdbc
+            archivePath: https://raw.githubusercontent.com/aadmassu/kafka-connect-jdbc-10.9.2-mysql8/main/confluentinc-kafka-connect-jdbc-10.9.2-mysql8.zip
+            checksum: 1cf7c9bb829778bf80d12cda33e5d14abce5ce5f08ea5fa38b03405a7cf684108d531c1fc918f885efaafcdc06be46eb6254637231e145ea72762a49583b33f8
+
+  podTemplate:
+    labels:
+      env: local-poc
+      service: kafka-connect
+      component: connect
+      team: data-platform
+    annotations:
+      ad.datadoghq.com/connect.check_names: '["confluent_platform"]'
+      ad.datadoghq.com/connect.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
+      ad.datadoghq.com/connect.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"connect_instance","max_returned_metrics":1000,"tags":["component:connect","env:local-poc","service:kafka-connect","team:data-platform"]}]'
+      ad.datadoghq.com/connect.logs: '[{"source":"kafka-connect","service":"kafka-connect","tags":["component:connect","env:local-poc","team:data-platform"],"log_processing_rules":[{"type":"exclude_at_match","name":"exclude_kube_probes","pattern":"kube-probe"}]}]'
+    resources:
+      requests:
+        cpu: 500m
+        memory: 1Gi
+      limits:
+        cpu: 4000m
+        memory: 4Gi
+    envVars:
+      - name: MY_POD_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.podIP
+      - name: _JAVA_OPTIONS
+        value: "-Djava.rmi.server.hostname=$(MY_POD_IP)"
+  configOverrides:
+    jvm:
+      # Override CFK's default local-only JMX so the Datadog DaemonSet agent can connect.
+      - -Dcom.sun.management.jmxremote.local.only=false
+      - -Dcom.sun.management.jmxremote.host=0.0.0.0
+    server:
+      - config.storage.replication.factor=1
+      - offset.storage.replication.factor=1
+      - status.storage.replication.factor=1
+    log4j:
+      # Connector lifecycle: start/stop/restart/rebalance events
+      - log4j.logger.org.apache.kafka.connect.runtime.Worker=INFO
+      # Only failures on source/sink task record processing
+      - log4j.logger.org.apache.kafka.connect.runtime.WorkerSourceTask=WARN
+      - log4j.logger.org.apache.kafka.connect.runtime.WorkerSinkTask=WARN
+      # Silence Jetty HTTP access log — suppresses kube-probe and healthcheck request lines
+      - log4j.logger.org.eclipse.jetty=WARN
+      # Silence REST server request logging
+      - log4j.logger.io.confluent.rest=WARN
+  dependencies:
+    kafka:
+      bootstrapEndpoint: kafka.confluent.svc.cluster.local:9071
+    schemaRegistry:
+      url: http://schemaregistry.confluent.svc.cluster.local:8081

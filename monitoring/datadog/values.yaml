@@ -1,0 +1,135 @@
+# Datadog Helm chart values — official datadog/datadog chart v3.149.2
+# Used by kustomization.yaml helmCharts.valuesFile.
+# Reference: https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
+#
+# API key is read from the pre-existing secret 'datadog-secret'.
+# Create it before applying:
+#   kubectl create secret generic datadog-secret \
+#     --from-literal=api-key='<YOUR_DD_API_KEY>' -n datadog
+
+datadog:
+  apiKeyExistingSecret: datadog-secret
+  site: us5.datadoghq.com
+
+  # --- Feature toggles ---
+  logs:
+    enabled: true
+    containerCollectAll: false   # only pods with ad.datadoghq.com/*.logs annotations
+
+  apm:
+    enabled: true
+
+  processAgent:
+    enabled: false
+
+  # Scope collection to CFK workloads in the confluent namespace.
+  containerIncludeMetrics: "kube_namespace:confluent"
+  containerIncludeLogs: "kube_namespace:confluent"
+
+  # JMX collection via autodiscovery annotations on CFK pods.
+  jmxfetch:
+    enabled: true
+
+  # Set tlsVerify: true on AKS/EKS/GKE (valid certs).
+  # Set tlsVerify: false only for self-signed kubelet certs (Docker Desktop).
+  kubelet:
+    tlsVerify: true
+
+  dogstatsd:
+    nonLocalTraffic: true
+
+  collectEvents: true
+
+  prometheusScrape:
+    enabled: true
+
+  # Pod labels surfaced as Datadog tags.
+  podLabelsAsTags:
+    env: env
+    service: service
+    component: component
+    team: team
+
+  remoteConfiguration:
+    enabled: false
+
+  orchestratorExplorer:
+    enabled: false
+
+# Cluster Agent — enable for multi-node AKS; disable for single-node Docker Desktop.
+clusterAgent:
+  enabled: true
+  apiKeyExistingSecret: datadog-secret
+
+agents:
+  image:
+    repository: gcr.io/datadoghq/agent
+    tag: latest-jmx
+    tagSuffix: ""   # cleared — full tag is set explicitly above
+
+  # -------------------------------------------------------------------------
+  # Init container: installs the confluent_platform integration at pod startup
+  # from the official GCR base image — no custom image build or ACR push needed.
+  # -------------------------------------------------------------------------
+  initContainers:
+    - name: install-confluent-integration
+      image: gcr.io/datadoghq/agent:latest-jmx
+      imagePullPolicy: IfNotPresent
+      command:
+        - /bin/sh
+        - -c
+        - |
+          set -e
+          echo "Installing datadog-confluent-platform integration..."
+          /opt/datadog-agent/bin/agent/agent integration install -r -t datadog-confluent-platform
+          echo "Copying check file..."
+          cp /opt/datadog-agent/checks.d/confluent_platform.py /custom-checks/ 2>/dev/null || true
+          echo "Copying Python packages..."
+          mkdir -p /custom-packages/datadog_checks
+          cp -r /opt/datadog-agent/embedded/lib/python*/site-packages/datadog_checks/confluent_platform \
+            /custom-packages/datadog_checks/ 2>/dev/null || true
+          echo "Done."
+      volumeMounts:
+        - name: custom-checks
+          mountPath: /custom-checks
+        - name: custom-packages
+          mountPath: /custom-packages
+
+  # Additional volumes for confluent_platform check files.
+  volumes:
+    - name: custom-checks
+      emptyDir: {}
+    - name: custom-packages
+      emptyDir: {}
+
+  # Mount the volumes into the agent container.
+  volumeMounts:
+    - name: custom-checks
+      mountPath: /custom-checks
+    - name: custom-packages
+      mountPath: /custom-packages
+
+  containers:
+    agent:
+      env:
+        # Point agent to the confluent_platform check installed by init container.
+        - name: DD_ADDITIONAL_CHECKSD
+          value: /custom-checks
+        - name: PYTHONPATH
+          value: /custom-packages
+        # Node identity.
+        - name: DD_HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: DD_KUBERNETES_KUBELET_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          cpu: 500m
+          memory: 1Gi

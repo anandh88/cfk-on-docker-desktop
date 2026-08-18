@@ -1,0 +1,26 @@
+# Grafana Datasource Reference for Azure Managed Grafana
+#
+# This is a REFERENCE file, not a Kubernetes resource to apply with kubectl.
+# Azure Managed Grafana does not use a sidecar to watch for ConfigMaps.
+#
+# Use this as a guide when configuring the Prometheus datasource through one of:
+#   1. Azure Portal  - Link Azure Monitor workspace to Managed Grafana instance
+#   2. Grafana UI    - Configuration > Data Sources > Add data source > Prometheus
+#   3. Grafana API   - POST /api/datasources
+#   4. Terraform     - azurerm_dashboard_grafana_managed_private_endpoint or grafana_data_source
+#
+# IMPORTANT: The datasource UID must be set to "prometheus" so that all
+# dashboard JSON files in monitoring/dashboards/ work without modification.
+
+# Datasource settings:
+#   Name:         Prometheus
+#   Type:         prometheus
+#   UID:          prometheus    <-- must match dashboard references
+#   URL:          https://<AZURE_MONITOR_WORKSPACE_ID>.prometheus.monitor.azure.com
+#   Access:       Server (proxy)
+#   Default:      true
+#   Auth:         Azure Managed Identity (auto-configured when workspace is linked)
+#
+# Additional settings (under JSON Data / Misc):
+#   HTTP Method:      POST
+#   Scrape interval:  15s

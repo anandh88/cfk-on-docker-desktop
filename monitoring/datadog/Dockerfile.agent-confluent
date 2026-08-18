@@ -1,0 +1,7 @@
+ARG DD_AGENT_TAG=7.80.1
+FROM gcr.io/datadoghq/agent:${DD_AGENT_TAG}
+
+USER root
+RUN /opt/datadog-agent/bin/agent/agent integration install -r -t datadog-confluent-platform
+
+USER dd-agent

@@ -1,0 +1,86 @@
+# Default values for datadog-confluent.
+# Override per-environment using -f <env-values.yaml> or --set flags.
+
+# ---------------------------------------------------------------------------
+# Datadog agent image — official GCR image with JMX support.
+# confluent_platform integration is installed at pod startup via init container.
+# ---------------------------------------------------------------------------
+image:
+  repository: gcr.io/datadoghq/agent
+  tag: latest-jmx
+  pullPolicy: IfNotPresent
+
+# ---------------------------------------------------------------------------
+# Datadog credentials — api-key is read from the secret named below.
+# Create it before installing:
+#   kubectl create secret generic datadog-secret \
+#     --from-literal=api-key='<YOUR_DD_API_KEY>' -n <namespace>
+# ---------------------------------------------------------------------------
+datadog:
+  apiKeySecretName: datadog-secret
+  site: us5.datadoghq.com
+
+  logs:
+    enabled: true
+    containerCollectAll: false   # only pods with ad.datadoghq.com/*.logs annotations
+
+  apm:
+    enabled: true
+
+  processAgent:
+    enabled: false
+
+  # Scope metric/log collection to specific namespaces.
+  containerIncludeMetrics: "kube_namespace:confluent"
+  containerIncludeLogs: "kube_namespace:confluent"
+
+  jmxfetch:
+    enabled: true
+
+  # Set to false on AKS/EKS/GKE — set to true only for self-signed kubelet certs
+  # (e.g. Docker Desktop).
+  kubelet:
+    tlsVerify: false
+
+  dogstatsd:
+    nonLocalTraffic: true
+
+  collectEvents: true
+
+  prometheusScrape:
+    enabled: true
+
+  # Pod labels surfaced as Datadog tags.
+  podLabelsAsTags:
+    env: env
+    service: service
+    component: component
+    team: team
+
+  remoteConfiguration:
+    enabled: false
+
+  orchestratorExplorer:
+    enabled: false
+
+# ---------------------------------------------------------------------------
+# Resources for the agent container.
+# ---------------------------------------------------------------------------
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
+
+# ---------------------------------------------------------------------------
+# Namespace to deploy into.
+# ---------------------------------------------------------------------------
+namespace: datadog-agent
+
+# ---------------------------------------------------------------------------
+# RBAC — disable if your cluster manages RBAC externally.
+# ---------------------------------------------------------------------------
+rbac:
+  create: true

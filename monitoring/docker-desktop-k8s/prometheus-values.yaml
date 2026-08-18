@@ -1,0 +1,177 @@
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    additionalScrapeConfigs:
+      # Kafka brokers
+      - job_name: 'kafka-broker'
+        scrape_timeout: 30s
+        static_configs:
+          - targets:
+            - kafka-0.kafka.confluent.svc.cluster.local:7778
+            - kafka-1.kafka.confluent.svc.cluster.local:7778
+            - kafka-2.kafka.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.kafka\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'local-poc'
+          - target_label: namespace
+            replacement: 'confluent'
+          - target_label: cluster
+            replacement: 'docker-desktop'
+      # KRaft controllers
+      - job_name: 'kafka-controller'
+        scrape_timeout: 30s
+        static_configs:
+          - targets:
+            - kraftcontroller-0.kraftcontroller.confluent.svc.cluster.local:7778
+            - kraftcontroller-1.kraftcontroller.confluent.svc.cluster.local:7778
+            - kraftcontroller-2.kraftcontroller.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.kraftcontroller\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'local-poc'
+          - target_label: namespace
+            replacement: 'confluent'
+          - target_label: cluster
+            replacement: 'docker-desktop'
+      # Connect - using Kubernetes service discovery (auto-discovers all Connect pods)
+      - job_name: 'kafka-connect'
+        scrape_timeout: 30s
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names:
+                - confluent
+        relabel_configs:
+          # Only scrape pods with app=connect label
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            regex: connect
+            action: keep
+          # Only scrape the prometheus port
+          - source_labels: [__meta_kubernetes_pod_container_port_name]
+            regex: prometheus
+            action: keep
+          # Set instance label to pod name
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: instance
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+          - target_label: env
+            replacement: 'local-poc'
+          - target_label: cluster
+            replacement: 'docker-desktop'
+          - target_label: kafka_connect_cluster_id
+            replacement: 'connect-cluster'
+      # Schema Registry
+      - job_name: 'schemaregistry'
+        scrape_timeout: 30s
+        static_configs:
+          - targets:
+            - schemaregistry-0.schemaregistry.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.schemaregistry\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'local-poc'
+          - target_label: namespace
+            replacement: 'confluent'
+          - target_label: cluster
+            replacement: 'docker-desktop'
+      # REST Proxy
+      - job_name: 'kafkarestproxy'
+        scrape_timeout: 30s
+        static_configs:
+          - targets:
+            - kafkarestproxy-0.kafkarestproxy.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.kafkarestproxy\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'local-poc'
+          - target_label: namespace
+            replacement: 'confluent'
+          - target_label: cluster
+            replacement: 'docker-desktop'
+      # Control Center
+      - job_name: 'controlcenter'
+        scrape_timeout: 30s
+        static_configs:
+          - targets:
+            - controlcenter-0.controlcenter.confluent.svc.cluster.local:7778
+        relabel_configs:
+          - source_labels: [__address__]
+            regex: '(.+)\.controlcenter\.confluent\.svc\.cluster\.local:.+'
+            target_label: instance
+            replacement: '${1}'
+          - target_label: env
+            replacement: 'local-poc'
+          - target_label: namespace
+            replacement: 'confluent'
+          - target_label: cluster
+            replacement: 'docker-desktop'
+
+# Stamp env/cluster labels onto cAdvisor container metrics (used by the
+# *_Resources dashboards) so they can be filtered the same way as the JMX metrics.
+# namespace/pod are already native labels on these metrics.
+kubelet:
+  serviceMonitor:
+    cAdvisorRelabelings:
+      - action: replace
+        sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+      - action: replace
+        targetLabel: env
+        replacement: 'local-poc'
+      - action: replace
+        targetLabel: cluster
+        replacement: 'docker-desktop'
+
+# Stamp env/cluster labels onto kube-state-metrics (container resource limits, PVC
+# requests, etc.) used by the *_Resources dashboards.
+kube-state-metrics:
+  serviceMonitor:
+    relabelings:
+      - action: replace
+        targetLabel: env
+        replacement: 'local-poc'
+      - action: replace
+        targetLabel: cluster
+        replacement: 'docker-desktop'
+
+grafana:
+  enabled: true
+  adminPassword: admin
+  service:
+    type: ClusterIP
+  sidecar:
+    dashboards:
+      enabled: true
+      searchNamespace: ALL
+      label: grafana_dashboard
+      labelValue: "1"
+      folderAnnotation: grafana_folder
+      provider:
+        foldersFromFilesStructure: true
+    datasources:
+      enabled: true
+
+alertmanager:
+  enabled: true
+
+# Reduce resource usage for local POC
+nodeExporter:
+  enabled: false
+
+kubeStateMetrics:
+  enabled: true

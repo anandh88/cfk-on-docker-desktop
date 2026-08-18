@@ -1,0 +1,31 @@
+{
+  "name": "jdbc-sink-orders",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "topics": "Orders",
+    "connection.url": "jdbc:mysql://host.docker.internal:3306/Orders?useSSL=false&allowPublicKeyRetrieval=true",
+    "connection.user": "admin",
+    "connection.password": "admin",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter.schema.registry.url": "http://schemaregistry.confluent.svc.cluster.local:8081",
+    "auto.create": "false",
+    "auto.evolve": "false",
+    "insert.mode": "upsert",
+    "table.name.format": "orders",
+    "pk.mode": "record_value",
+    "pk.fields": "orderid",
+    "transforms": "flatten",
+    "transforms.flatten.type": "org.apache.kafka.connect.transforms.Flatten$Value",
+    "transforms.flatten.delimiter": "_",
+    "errors.tolerance": "all",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true",
+    "errors.deadletterqueue.topic.name": "dlq-jdbc-sink-orders",
+    "errors.deadletterqueue.topic.replication.factor": "1",
+    "errors.deadletterqueue.context.headers.enable": "true",
+    "errors.retry.timeout": "60000",
+    "errors.retry.delay.max.ms": "5000"
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "id": "3ve-vir-6zg",
+  "title": "CFK Kafka Connect Enriched",
+  "description": "Kafka Connect runtime dashboard aligned to container memory, CPU, and JVM panels.",
+  "layout_type": "ordered",
+  "url": "/dashboard/3ve-vir-6zg/cfk-kafka-connect-enriched",
+  "template_variables": [],
+  "widgets": [
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "JVM Heap Used vs Max",
+        "requests": [
+          {
+            "q": "avg:jvm.heap_memory{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          },
+          {
+            "q": "avg:jvm.heap_memory_max{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "JVM Heap Utilization %",
+        "requests": [
+          {
+            "q": "(avg:jvm.heap_memory{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}/avg:jvm.heap_memory_max{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect})*100"
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "JVM Heap Used (bytes)",
+        "requests": [
+          {
+            "q": "avg:jvm.heap_memory{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "JVM Heap Max (bytes)",
+        "requests": [
+          {
+            "q": "avg:jvm.heap_memory_max{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "CPU Load % (Process vs System)",
+        "requests": [
+          {
+            "q": "avg:jvm.cpu_load.process{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}*100"
+          },
+          {
+            "q": "avg:jvm.cpu_load.system{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}*100"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "CPU Load % (Process)",
+        "requests": [
+          {
+            "q": "avg:jvm.cpu_load.process{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}*100"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "CPU Load (Process)",
+        "requests": [
+          {
+            "q": "avg:jvm.cpu_load.process{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}*100"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "CPU Load % (System)",
+        "requests": [
+          {
+            "q": "avg:jvm.cpu_load.system{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}*100"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "JVM Heap Memory Usage vs Max",
+        "requests": [
+          {
+            "q": "avg:jvm.heap_memory{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          },
+          {
+            "q": "avg:jvm.heap_memory_max{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "title": "GC Time",
+        "requests": [
+          {
+            "q": "avg:jvm.gc.major_collection_time{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          },
+          {
+            "q": "avg:jvm.gc.minor_collection_time{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "JVM Heap Used",
+        "requests": [
+          {
+            "q": "avg:jvm.heap_memory{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "JVM Heap Max",
+        "requests": [
+          {
+            "q": "avg:jvm.heap_memory_max{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "JVM Heap %",
+        "requests": [
+          {
+            "q": "(avg:jvm.heap_memory{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}/avg:jvm.heap_memory_max{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect})*100"
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "title": "Thread Count",
+        "requests": [
+          {
+            "q": "avg:jvm.thread_count{kube_namespace:ibte-gitops-dev,kube_container_name:standard-connect}"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    }
+  ],
+  "notify_list": [],
+  "restricted_roles": []
+}

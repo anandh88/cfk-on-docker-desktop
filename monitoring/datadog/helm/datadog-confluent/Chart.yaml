@@ -1,0 +1,17 @@
+apiVersion: v2
+name: datadog-confluent
+description: >
+  Datadog Agent DaemonSet with confluent_platform integration pre-installed
+  via init container. Monitors CFK Kafka Connect (and other CFK components)
+  via JMX autodiscovery annotations.
+type: application
+version: 1.0.0
+appVersion: "latest-jmx"
+keywords:
+  - datadog
+  - confluent
+  - kafka-connect
+  - jmx
+  - monitoring
+maintainers:
+  - name: data-platform

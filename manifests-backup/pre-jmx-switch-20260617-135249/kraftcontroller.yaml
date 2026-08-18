@@ -1,0 +1,67 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: KRaftController
+metadata:
+  name: kraftcontroller
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server:7.9.0
+    init: confluentinc/confluent-init-container:2.10.0
+  dataVolumeCapacity: 1Gi
+  podTemplate:
+    labels:
+      env: local-poc
+      service: kafka-controller
+      component: kraftcontroller
+      team: data-platform
+    annotations:
+      ad.datadoghq.com/kraftcontroller.check_names: '["openmetrics"]'
+      ad.datadoghq.com/kraftcontroller.init_configs: '[{}]'
+      ad.datadoghq.com/kraftcontroller.instances: '[{"openmetrics_endpoint":"http://%%host%%:7778/metrics","namespace":"cfk","metrics":[".*"],"timeout":30}]'
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+  metrics:
+    prometheus:
+      rules:
+        # KafkaController metrics - extract name into metric name
+        - pattern: kafka.controller<type=KafkaController, name=(.+)><>Value
+          name: kafka_controller_kafkacontroller_$1
+          type: GAUGE
+          cache: true
+        # ControllerStats metrics
+        - pattern: kafka.controller<type=ControllerStats, name=(.+)><>(Count|Value)
+          name: kafka_controller_controllerstats_$1_$2
+          type: GAUGE
+          cache: true
+        - pattern: kafka.controller<type=ControllerStats, name=(.+)><>(\d+)thPercentile
+          name: kafka_controller_controllerstats_$1
+          type: GAUGE
+          cache: true
+          labels:
+            quantile: "0.$2"
+        # ControllerEventManager metrics
+        - pattern: kafka.controller<type=ControllerEventManager, name=(.+)><>(Count|Value)
+          name: kafka_controller_controllereventmanager_$1_$2
+          type: GAUGE
+          cache: true
+        - pattern: kafka.controller<type=ControllerEventManager, name=(.+)><>(\d+)thPercentile
+          name: kafka_controller_controllereventmanager_$1
+          type: GAUGE
+          cache: true
+          labels:
+            quantile: "0.$2"
+        # Generic kafka.controller pattern
+        - pattern: kafka.controller<type=(.+), name=(.+)><>(Count|Value)
+          name: kafka_controller_$1_$2
+          cache: true
+        # Raft metrics
+        - pattern: kafka.server<type=raft-metrics><>(.+):(.*)
+          name: kafka_server_raft_metrics_$1
+          type: GAUGE
+          cache: true
