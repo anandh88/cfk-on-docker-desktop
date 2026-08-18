@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-server:7.9.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-server:8.2.2
+    init: confluentinc/confluent-init-container:3.3.0
   dataVolumeCapacity: 1Gi
   podTemplate:
     labels:
@@ -16,9 +16,11 @@ spec:
       component: kraftcontroller
       team: data-platform
     annotations:
-      ad.datadoghq.com/kraftcontroller.check_names: '["openmetrics"]'
-      ad.datadoghq.com/kraftcontroller.init_configs: '[{}]'
-      ad.datadoghq.com/kraftcontroller.instances: '[{"openmetrics_endpoint":"http://%%host%%:7778/metrics","namespace":"cfk","metrics":[".*"],"timeout":30}]'
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # # ad.datadoghq.com/kraftcontroller.check_names: '["openmetrics"]'
+      # # ad.datadoghq.com/kraftcontroller.init_configs: '[{}]'
+      # # ad.datadoghq.com/kraftcontroller.instances: '[{"openmetrics_endpoint":"http://%%host%%:7778/metrics","namespace":"cfk","metrics":[".*"],"timeout":30}]'
     resources:
       requests:
         cpu: 100m

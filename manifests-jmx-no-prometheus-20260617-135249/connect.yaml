@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-server-connect:7.9.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-server-connect:8.2.2
+    init: confluentinc/confluent-init-container:3.3.0
   build:
     type: onDemand
     onDemand:
@@ -30,10 +30,11 @@ spec:
       component: connect
       team: data-platform
     annotations:
-      ad.datadoghq.com/connect.check_names: '["confluent_platform"]'
-      ad.datadoghq.com/connect.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
-      ad.datadoghq.com/connect.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"connect_instance","max_returned_metrics":1000,"tags":["component:connect","env:local-poc","service:kafka-connect","team:data-platform"]}]'
-      ad.datadoghq.com/connect.logs: '[{"source":"kafka-connect","service":"kafka-connect","tags":["component:connect","env:local-poc","team:data-platform"],"log_processing_rules":[{"type":"exclude_at_match","name":"exclude_kube_probes","pattern":"kube-probe"}]}]'
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # ad.datadoghq.com/connect.check_names: '["confluent_platform"]'
+      # ad.datadoghq.com/connect.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
+      # ad.datadoghq.com/connect.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"connect_instance","max_returned_metrics":1000,"tags":["component:connect","env:local-poc","service:kafka-connect","team:data-platform"]}]'
+      # ad.datadoghq.com/connect.logs: '[{"source":"kafka-connect","service":"kafka-connect","tags":["component:connect","env:local-poc","team:data-platform"],"log_processing_rules":[{"type":"exclude_at_match","name":"exclude_kube_probes","pattern":"kube-probe"}]}]'
     resources:
       requests:
         cpu: 500m

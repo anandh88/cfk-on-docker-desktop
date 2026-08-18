@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-enterprise-control-center:7.9.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-enterprise-control-center-next-gen:2.5.0
+    init: confluentinc/confluent-init-container:3.3.0
   dataVolumeCapacity: 2Gi
   podTemplate:
     labels:
@@ -16,9 +16,10 @@ spec:
       component: controlcenter
       team: data-platform
     annotations:
-      ad.datadoghq.com/controlcenter.check_names: '["confluent_platform"]'
-      ad.datadoghq.com/controlcenter.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
-      ad.datadoghq.com/controlcenter.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"controlcenter_instance","max_returned_metrics":1000,"tags":["component:controlcenter","env:local-poc","service:control-center","team:data-platform"]}]'
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # ad.datadoghq.com/controlcenter.check_names: '["confluent_platform"]'
+      # ad.datadoghq.com/controlcenter.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
+      # ad.datadoghq.com/controlcenter.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"controlcenter_instance","max_returned_metrics":1000,"tags":["component:controlcenter","env:local-poc","service:control-center","team:data-platform"]}]'
     resources:
       requests:
         cpu: 500m

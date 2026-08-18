@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-server:7.9.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-server:8.2.2
+    init: confluentinc/confluent-init-container:3.3.0
   dataVolumeCapacity: 2Gi
   podTemplate:
     labels:
@@ -16,9 +16,10 @@ spec:
       component: kafka
       team: data-platform
     annotations:
-      ad.datadoghq.com/kafka.check_names: '["confluent_platform"]'
-      ad.datadoghq.com/kafka.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
-      ad.datadoghq.com/kafka.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"broker_instance","max_returned_metrics":1000,"tags":["component:kafka","env:local-poc","service:kafka-broker","team:data-platform"]}]'
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # ad.datadoghq.com/kafka.check_names: '["confluent_platform"]'
+      # ad.datadoghq.com/kafka.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
+      # ad.datadoghq.com/kafka.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"broker_instance","max_returned_metrics":1000,"tags":["component:kafka","env:local-poc","service:kafka-broker","team:data-platform"]}]'
     resources:
       requests:
         cpu: 100m

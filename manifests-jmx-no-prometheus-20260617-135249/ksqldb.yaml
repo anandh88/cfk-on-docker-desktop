@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-ksqldb-server:7.9.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-ksqldb-server:8.2.2
+    init: confluentinc/confluent-init-container:3.3.0
   dataVolumeCapacity: 1Gi
   podTemplate:
     labels:
@@ -16,9 +16,10 @@ spec:
       component: ksqldb
       team: data-platform
     annotations:
-      ad.datadoghq.com/ksqldb.check_names: '["confluent_platform"]'
-      ad.datadoghq.com/ksqldb.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
-      ad.datadoghq.com/ksqldb.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"ksqldb_instance","tags":["component:ksqldb","env:local-poc","service:ksqldb","team:data-platform"]}]'
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # ad.datadoghq.com/ksqldb.check_names: '["confluent_platform"]'
+      # ad.datadoghq.com/ksqldb.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
+      # ad.datadoghq.com/ksqldb.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"ksqldb_instance","tags":["component:ksqldb","env:local-poc","service:ksqldb","team:data-platform"]}]'
     resources:
       requests:
         cpu: 100m

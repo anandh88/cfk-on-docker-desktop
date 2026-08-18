@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-server-connect:7.9.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-server-connect:8.2.2
+    init: confluentinc/confluent-init-container:3.3.0
   build:
     type: onDemand
     onDemand:
@@ -30,9 +30,11 @@ spec:
       component: connect
       team: data-platform
     annotations:
-      ad.datadoghq.com/connect.check_names: '["openmetrics"]'
-      ad.datadoghq.com/connect.init_configs: '[{}]'
-      ad.datadoghq.com/connect.instances: '[{"openmetrics_endpoint":"http://%%host%%:7778/metrics","namespace":"cfk","metrics":[{"kafka_connect_connect_worker_metrics_connector_(total|running|paused|failed|unassigned|destroyed)_task_count":{"type":"gauge"}},{"kafka_connect_connect_worker_metrics_task_startup_success_percentage":{"type":"gauge"}},{"kafka_connect_connect_metrics_request_rate":{"type":"gauge"}},{"kafka_connect_connect_metrics_outgoing_byte_rate":{"type":"gauge"}},{"kafka_connect_connect_coordinator_metrics_assigned_connectors":{"type":"gauge"}},{"kafka_connect_source_task_metrics_source_record_active_count_avg":{"type":"gauge"}},{"kafka_connect_source_task_metrics_source_record_write_rate":{"type":"gauge"}},{"kafka_connect_sink_task_metrics_put_batch_max_time_ms":{"type":"gauge"}},{"kafka_connect_sink_task_metrics_put_batch_avg_time_ms":{"type":"gauge"}},{"kafka_connect_sink_task_metrics_sink_record_active_count_avg":{"type":"gauge"}},{"kafka_connect_task_error_metrics_deadletterqueue_produce_requests":{"type":"gauge"}},{"kafka_connect_task_error_metrics_total_record_errors":{"type":"gauge"}},{"kafka_connect_task_error_metrics_total_retries":{"type":"gauge"}},{"java_lang_operatingsystem_processcpuload":{"type":"gauge"}},{"java_lang_operatingsystem_totalmemorysize":{"type":"gauge"}},{"java_lang_operatingsystem_freememorysize":{"type":"gauge"}},{"java_lang_operatingsystem_availableprocessors":{"type":"gauge"}},{"java_lang_memory_heapmemoryusage_used":{"type":"gauge"}},{"java_lang_memory_heapmemoryusage_max":{"type":"gauge"}},{"java_lang_memory_nonheapmemoryusage_used":{"type":"gauge"}},{"java_lang_threading_threadcount":{"type":"gauge"}},{"java_lang_g1_old_generation_collectiontime":{"type":"gauge"}},{"java_lang_g1_young_generation_collectiontime":{"type":"gauge"}},{"jvm_gc_collection_seconds_count":{"type":"gauge"}},{"jvm_gc_collection_seconds_sum":{"type":"gauge"}},{"jmx_scrape_duration_seconds":{"type":"gauge"}},{"jmx_scrape_error":{"type":"gauge"}}],"timeout":120,"max_returned_metrics":10000}]'
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # # ad.datadoghq.com/connect.check_names: '["openmetrics"]'
+      # # ad.datadoghq.com/connect.init_configs: '[{}]'
+      # # ad.datadoghq.com/connect.instances: '[{"openmetrics_endpoint":"http://%%host%%:7778/metrics","namespace":"cfk","metrics":[{"kafka_connect_connect_worker_metrics_connector_(total|running|paused|failed|unassigned|destroyed)_task_count":{"type":"gauge"}},{"kafka_connect_connect_worker_metrics_task_startup_success_percentage":{"type":"gauge"}},{"kafka_connect_connect_metrics_request_rate":{"type":"gauge"}},{"kafka_connect_connect_metrics_outgoing_byte_rate":{"type":"gauge"}},{"kafka_connect_connect_coordinator_metrics_assigned_connectors":{"type":"gauge"}},{"kafka_connect_source_task_metrics_source_record_active_count_avg":{"type":"gauge"}},{"kafka_connect_source_task_metrics_source_record_write_rate":{"type":"gauge"}},{"kafka_connect_sink_task_metrics_put_batch_max_time_ms":{"type":"gauge"}},{"kafka_connect_sink_task_metrics_put_batch_avg_time_ms":{"type":"gauge"}},{"kafka_connect_sink_task_metrics_sink_record_active_count_avg":{"type":"gauge"}},{"kafka_connect_task_error_metrics_deadletterqueue_produce_requests":{"type":"gauge"}},{"kafka_connect_task_error_metrics_total_record_errors":{"type":"gauge"}},{"kafka_connect_task_error_metrics_total_retries":{"type":"gauge"}},{"java_lang_operatingsystem_processcpuload":{"type":"gauge"}},{"java_lang_operatingsystem_totalmemorysize":{"type":"gauge"}},{"java_lang_operatingsystem_freememorysize":{"type":"gauge"}},{"java_lang_operatingsystem_availableprocessors":{"type":"gauge"}},{"java_lang_memory_heapmemoryusage_used":{"type":"gauge"}},{"java_lang_memory_heapmemoryusage_max":{"type":"gauge"}},{"java_lang_memory_nonheapmemoryusage_used":{"type":"gauge"}},{"java_lang_threading_threadcount":{"type":"gauge"}},{"java_lang_g1_old_generation_collectiontime":{"type":"gauge"}},{"java_lang_g1_young_generation_collectiontime":{"type":"gauge"}},{"jvm_gc_collection_seconds_count":{"type":"gauge"}},{"jvm_gc_collection_seconds_sum":{"type":"gauge"}},{"jmx_scrape_duration_seconds":{"type":"gauge"}},{"jmx_scrape_error":{"type":"gauge"}}],"timeout":120,"max_returned_metrics":10000}]'
     resources:
       requests:
         cpu: 500m

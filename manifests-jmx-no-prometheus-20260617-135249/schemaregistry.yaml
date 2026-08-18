@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   image:
-    application: confluentinc/cp-schema-registry:7.9.0
-    init: confluentinc/confluent-init-container:2.10.0
+    application: confluentinc/cp-schema-registry:8.2.2
+    init: confluentinc/confluent-init-container:3.3.0
   podTemplate:
     labels:
       env: local-poc
@@ -15,9 +15,10 @@ spec:
       component: schemaregistry
       team: data-platform
     annotations:
-      ad.datadoghq.com/schemaregistry.check_names: '["confluent_platform"]'
-      ad.datadoghq.com/schemaregistry.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
-      ad.datadoghq.com/schemaregistry.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"schema_registry_instance","tags":["component:schemaregistry","env:local-poc","service:schema-registry","team:data-platform"]}]'
+      # Datadog-specific annotations: keep commented unless the Datadog integration is enabled.
+      # ad.datadoghq.com/schemaregistry.check_names: '["confluent_platform"]'
+      # ad.datadoghq.com/schemaregistry.init_configs: '[{"is_jmx": true, "collect_default_metrics": true, "service_check_prefix": "confluent", "new_gc_metrics": true, "collect_default_jvm_metrics": true}]'
+      # ad.datadoghq.com/schemaregistry.instances: '[{"jmx_url":"service:jmx:rmi://%%host%%:7203/jndi/rmi://%%host%%:7203/jmxrmi","name":"schema_registry_instance","tags":["component:schemaregistry","env:local-poc","service:schema-registry","team:data-platform"]}]'
     resources:
       requests:
         cpu: 50m
