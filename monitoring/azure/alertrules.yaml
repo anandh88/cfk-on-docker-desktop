@@ -19,7 +19,7 @@ groups:
     interval: PT1M
     rules:
       - alert: ActiveControllerCountNotOne
-        expression: sum by (env) (kafka_controller_kafkacontroller_activecontrollercount) != 1
+        expression: sum by (env) (kafka_controller_kafkacontroller_value{name="ActiveControllerCount"}) != 1
         for: PT10S
         severity: 0
         labels:
@@ -29,7 +29,7 @@ groups:
           description: "Active controller count for env {{ $labels.env }} is {{ $value }}."
 
       - alert: OfflinePartitionCount
-        expression: sum by(env) (kafka_controller_kafkacontroller_offlinepartitionscount) > 0
+        expression: sum by(env) (kafka_controller_kafkacontroller_value{name="OfflinePartitionsCount"}) > 0
         for: PT10S
         severity: 0
         labels:
@@ -39,7 +39,7 @@ groups:
           description: "Offline partitions count for env {{ $labels.env }} is {{ $value }}."
 
       - alert: UncleanLeaderElections
-        expression: sum by(env) (kafka_controller_controllerstats_uncleanleaderelectionspersec_count) > 0
+        expression: sum by(env) (kafka_controller_controllerstats_oneminuterate{name="UncleanLeaderElectionsPerSec"}) > 0
         for: PT1M
         severity: 0
         labels:
@@ -49,7 +49,7 @@ groups:
           description: "UncleanLeaderElections count for env {{ $labels.env }} is {{ $value }}."
 
       - alert: UnderReplicatedPartitions
-        expression: sum by(env) (kafka_server_replicamanager_underreplicatedpartitions) > 0
+        expression: sum by(env) (kafka_server_replicamanager_value{name="UnderReplicatedPartitions"}) > 0
         for: PT1M
         severity: 0
         labels:
@@ -59,7 +59,7 @@ groups:
           description: "UnderReplicatedPartitions for env {{ $labels.env }} is {{ $value }}."
 
       - alert: UnderMinIsrPartitionCount
-        expression: sum by (env) (kafka_cluster_partition_underminisr) > 0
+        expression: sum by (env) (kafka_server_replicamanager_value{name="UnderMinIsrPartitionCount"}) > 0
         for: PT1M
         severity: 0
         labels:
@@ -89,7 +89,7 @@ groups:
           description: "Kafka broker {{ $labels.instance }} has been down for more than 30 seconds."
 
       - alert: KafkaHighRequestLatency
-        expression: kafka_network_requestmetrics_totaltimems{quantile="0.99"} > 1000
+        expression: kafka_network_requestmetrics_99thpercentile{name="TotalTimeMs"} > 1000
         for: PT5M
         severity: 2
         labels:
@@ -99,7 +99,7 @@ groups:
           description: "99th percentile request latency is {{ $value }}ms for {{ $labels.request }} requests."
 
       - alert: KafkaRequestHandlerIdleLow
-        expression: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_oneminuterate < 0.3
+        expression: kafka_server_kafkarequesthandlerpool_oneminuterate{name="RequestHandlerAvgIdlePercent"} < 0.3
         for: PT5M
         severity: 2
         labels:

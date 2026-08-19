@@ -84,12 +84,12 @@ Alertmanager handles alerts fired by Prometheus. It:
 - Routes alerts to the right team or channel (Slack, PagerDuty, email)
 - Supports silencing (temporarily suppressing known alerts during maintenance)
 
-### What is the JMX Exporter?
+### What is the CFK Prometheus endpoint?
 
-Kafka and other Confluent components are Java applications. Java exposes internal metrics via **JMX** (Java Management Extensions), but Prometheus doesn't understand JMX. The JMX Exporter is a Java agent that:
+Kafka and other Confluent components are Java applications. Java exposes internal metrics via **JMX** (Java Management Extensions), while CFK provides the JMX-to-Prometheus mapping and endpoint:
 
 1. Reads JMX MBeans from inside the JVM
-2. Converts them into Prometheus text format
+2. Converts them into Prometheus text format using CFK's default mapping
 3. Serves them on an HTTP endpoint (port `7778`)
 
 **Example conversion:**
@@ -97,25 +97,15 @@ Kafka and other Confluent components are Java applications. Java exposes interna
 JMX MBean:
   kafka.server:type=BrokerTopicMetrics,name=MessagesInPerSec
 
-         ↓ JMX Exporter (pattern matching rules) ↓
+         ↓ CFK-managed default mapping ↓
 
 Prometheus metric:
-  kafka_server_brokertopicmetrics_messagesinpersec_count 1523.4
+  kafka_server_brokertopicmetrics_count{name="MessagesInPerSec"} 1523.4
 ```
 
-The conversion rules are defined in each component's YAML under `metrics.prometheus.rules`. For example, in `connect.yaml`:
-
-```yaml
-metrics:
-  prometheus:
-    rules:
-      - pattern: "kafka.connect<type=connect-worker-metrics, connector=(.+)><>([a-zA-Z-]+)"
-        name: "kafka_connect_connect_worker_metrics_$2"
-        labels:
-          connector: "$1"
-```
-
-These rules are **essential**. Without them, port 7778 exposes nothing useful, and Prometheus has nothing to scrape.
+The active CRDs intentionally do not declare `metrics.prometheus.rules`. Prometheus discovers
+the endpoint through ServiceMonitors under `monitoring/docker-desktop-k8s/`, which select
+CFK-generated Services by their stable `type` label and scrape the named `prometheus` port.
 
 ---
 

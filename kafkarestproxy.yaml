@@ -27,41 +27,6 @@ spec:
       limits:
         cpu: 500m
         memory: 512Mi
-  metrics:
-    prometheus:
-      rules:
-        # REST Proxy application metrics
-        - pattern: "kafka.rest<type=(.+), (.+)=(.+), (.+)=(.+)><>(.+):"
-          name: kafka_rest_$1_$6
-          labels:
-            $2: "$3"
-            $4: "$5"
-        - pattern: "kafka.rest<type=(.+), (.+)=(.+)><>(.+):"
-          name: kafka_rest_$1_$4
-          labels:
-            $2: "$3"
-        - pattern: "kafka.rest<type=(.+)><>(.+):"
-          name: kafka_rest_$1_$2
-        # JVM metrics
-        - pattern: "java.lang<type=Memory><HeapMemoryUsage>(.+)"
-          name: jvm_memory_heap_$1
-          type: GAUGE
-        - pattern: "java.lang<type=Memory><NonHeapMemoryUsage>(.+)"
-          name: jvm_memory_nonheap_$1
-          type: GAUGE
-        - pattern: "java.lang<type=GarbageCollector, name=(.+)><>CollectionCount"
-          name: jvm_gc_collection_count
-          labels:
-            gc: "$1"
-          type: COUNTER
-        - pattern: "java.lang<type=GarbageCollector, name=(.+)><>CollectionTime"
-          name: jvm_gc_collection_time_ms
-          labels:
-            gc: "$1"
-          type: COUNTER
-        - pattern: "java.lang<type=Threading><>ThreadCount"
-          name: jvm_threads_current
-          type: GAUGE
   dependencies:
     kafka:
       bootstrapEndpoint: kafka.confluent.svc.cluster.local:9071

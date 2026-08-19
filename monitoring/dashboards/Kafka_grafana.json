@@ -170,7 +170,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "kafka_controller_kafkacontroller_activecontrollercount{job=\"kafka-controller\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"} > 0",
+          "expr": "kafka_controller_kafkacontroller_value{name=\"ActiveControllerCount\", job=\"kafka-controller\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"} > 0",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -257,7 +257,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "count(kafka_server_replicamanager_leadercount{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
+          "expr": "count(kafka_server_replicamanager_value{name=\"LeaderCount\", job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -343,7 +343,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(kafka_server_replicamanager_partitioncount{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
+          "expr": "sum(kafka_server_replicamanager_value{name=\"PartitionCount\", job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -429,7 +429,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_controller_kafkacontroller_preferredreplicaimbalancecount{job=\"kafka-controller\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_value{name=\"PreferredReplicaImbalanceCount\",job=\"kafka-controller\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -515,7 +515,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_controller_controllerstats_uncleanleaderelectionspersec_count{job=\"kafka-controller\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"})",
+          "expr": "sum(kafka_controller_controllerstats_oneminuterate{name=\"UncleanLeaderElectionsPerSec\",job=\"kafka-controller\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -601,7 +601,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
+          "expr": "sum(kafka_server_replicamanager_value{name=\"UnderReplicatedPartitions\", job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -689,7 +689,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_cluster_partition_underminisr{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"})",
+          "expr": "sum(kafka_server_replicamanager_value{name=\"UnderMinIsrPartitionCount\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"})",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -776,7 +776,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount{job=\"kafka-controller\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_value{name=\"OfflinePartitionsCount\", job=\"kafka-controller\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -863,7 +863,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_server_replicamanager_straypartitionscount{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
+              "expr": "sum(kafka_server_replicamanager_value{name=\"StrayPartitionsCount\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -951,7 +951,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_server_replicamanager_straypartitionsmisclassifiedcount{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
+              "expr": "sum(kafka_server_replicamanager_value{name=\"StrayPartitionsMisclassifiedCount\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
           "hide": false,
           "instant": true,
@@ -1056,7 +1056,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(rate(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_count{name=\"BytesInPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1070,7 +1070,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_count{name=\"BytesOutPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -1179,7 +1179,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "kafka_server_replicamanager_leadercount{ job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\" }",
+          "expr": "kafka_server_replicamanager_value{name=\"LeaderCount\", job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\" }",
           "format": "time_series",
           "interval": "",
           "legendFormat": "{{instance}} ",
@@ -1279,7 +1279,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "kafka_server_replicamanager_straypartitionstotalsize{ job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\" }",
+              "expr": "kafka_server_replicamanager_value{name=\"StrayPartitionsTotalSize\", job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\" }",
           "format": "time_series",
           "interval": "",
           "legendFormat": "{{instance}} ",
@@ -1367,7 +1367,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}[5m]))",
+              "expr": "sum(rate(kafka_network_requestmetrics_count{name=\"RequestsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}[5m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -1439,7 +1439,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}[5m]))",
+              "expr": "sum(rate(kafka_network_requestmetrics_count{name=\"RequestsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}[5m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -1511,7 +1511,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"FetchConsumer\"}[5m]))",
+              "expr": "sum(rate(kafka_network_requestmetrics_count{name=\"RequestsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"FetchConsumer\"}[5m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -1609,7 +1609,7 @@
                 "uid": "prometheus"
               },
               "exemplar": true,
-              "expr": "rate(kafka_network_requestmetrics_errorspersec{error!=\"NONE\"}[5m])",
+              "expr": "rate(kafka_network_requestmetrics_count{name=\"ErrorsPerSec\",error!=\"NONE\"}[5m])",
               "interval": "",
               "legendFormat": "{{error}} @ {{hostname}}",
               "refId": "A"
@@ -1681,7 +1681,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Fetch\"}[5m]))",
+              "expr": "sum(rate(kafka_network_requestmetrics_count{name=\"RequestsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Fetch\"}[5m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -1753,7 +1753,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"OffsetCommit\"}[5m]))",
+              "expr": "sum(rate(kafka_network_requestmetrics_count{name=\"RequestsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"OffsetCommit\"}[5m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -1826,7 +1826,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Metadata\"}[5m]))",
+              "expr": "sum(rate(kafka_network_requestmetrics_count{name=\"RequestsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Metadata\"}[5m]))",
               "interval": "",
               "legendFormat": "",
               "range": true,
@@ -2341,7 +2341,7 @@
                 "uid": "prometheus"
               },
               "exemplar": true,
-              "expr": "kafka_server_kafkaserver_linux_disk_read_bytes{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}",
+              "expr": "kafka_server_kafkaserver_value{name=\"linux-disk-read-bytes\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{instance}}",
               "refId": "B"
@@ -2459,7 +2459,7 @@
                 "uid": "prometheus"
               },
               "exemplar": true,
-              "expr": "rate(kafka_server_kafkaserver_linux_disk_write_bytes{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}[5m])",
+              "expr": "rate(kafka_server_kafkaserver_value{name=\"linux-disk-write-bytes\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}[5m])",
               "hide": false,
               "interval": "",
               "legendFormat": "{{instance}}",
@@ -2585,7 +2585,7 @@
                 "uid": "prometheus"
               },
               "exemplar": true,
-              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_messagesinpersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",topic=~\"$topic\", topic!=\"\"}[5m]))",
+              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_count{name=\"MessagesInPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",topic=~\"$topic\", topic!=\"\"}[5m]))",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "bytes/sec",
@@ -2690,7 +2690,7 @@
                 "uid": "prometheus"
               },
               "exemplar": true,
-              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",topic=~\"$topic\", topic!=\"\"}[5m]))",
+              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_count{name=\"BytesInPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",topic=~\"$topic\", topic!=\"\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -2796,7 +2796,7 @@
                 "uid": "prometheus"
               },
               "exemplar": true,
-              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",topic=~\"$topic\", topic!=\"\"}[5m]))",
+              "expr": "sum without(instance,topic)(rate(kafka_server_brokertopicmetrics_count{name=\"BytesOutPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",topic=~\"$topic\", topic!=\"\"}[5m]))",
               "interval": "",
               "intervalFactor": 2,
               "legendFormat": "bytes/sec",
@@ -2899,7 +2899,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_messagesinpersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
+              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_count{name=\"MessagesInPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -3003,7 +3003,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_messagesinpersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
+              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_count{name=\"MessagesInPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -3108,7 +3108,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_bytesoutpersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
+              "expr": "sum without(topic)(rate(kafka_server_brokertopicmetrics_count{name=\"BytesOutPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",topic=~\"$topic\", topic!=\"\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -3208,7 +3208,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "kafka_network_requestchannel_requestqueuesize{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}",
+              "expr": "kafka_network_requestchannel_value{name=\"RequestQueueSize\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -3311,7 +3311,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "max by(instance) (kafka_network_requestchannel_responsequeuesize{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
+              "expr": "max by(instance) (kafka_network_requestchannel_value{name=\"ResponseQueueSize\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -3667,7 +3667,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "rate(kafka_server_replicamanager_isrshrinkspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}[5m])",
+              "expr": "kafka_server_replicamanager_oneminuterate{name=\"IsrShrinksPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}",
               "interval": "",
               "legendFormat": "{{instance}}",
               "refId": "A"
@@ -3763,7 +3763,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "rate(kafka_server_replicamanager_isrexpandspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}[5m])",
+              "expr": "kafka_server_replicamanager_oneminuterate{name=\"IsrExpandsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "{{instance}}",
@@ -4110,7 +4110,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_requestqueuetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Produce\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"RequestQueueTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -4210,7 +4210,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_localtimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Produce\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"LocalTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -4310,7 +4310,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_remotetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Produce\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"RemoteTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -4410,7 +4410,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_responsequeuetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Produce\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"ResponseQueueTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -4511,7 +4511,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_responsesendtimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Produce\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"ResponseSendTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -4634,7 +4634,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_requestqueuetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Fetch\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"RequestQueueTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=~\"Fetch.*\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -4729,7 +4729,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_localtimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Fetch\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"LocalTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=~\"Fetch.*\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -4824,7 +4824,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_remotetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Fetch\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"RemoteTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=~\"Fetch.*\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -4920,7 +4920,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_responsequeuetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Fetch\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"ResponseQueueTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=~\"Fetch.*\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -5016,7 +5016,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_responsesendtimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Fetch\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"ResponseSendTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=~\"Fetch.*\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -5247,7 +5247,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_requestqueuetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"FetchFollower\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"RequestQueueTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"FetchFollower\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -5348,7 +5348,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_localtimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"FetchFollower\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"LocalTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"FetchFollower\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -5448,7 +5448,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_remotetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"FetchFollower\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"RemoteTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"FetchFollower\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -5548,7 +5548,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_responsequeuetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"FetchFollower\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"ResponseQueueTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"FetchFollower\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -5649,7 +5649,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "kafka_network_requestmetrics_responsesendtimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"FetchFollower\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"ResponseSendTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"FetchFollower\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "refId": "A"
@@ -5994,7 +5994,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "kafka_network_requestmetrics_requestqueuetimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Metadata\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"RequestQueueTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Metadata\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "range": true,
@@ -6097,7 +6097,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "kafka_network_requestmetrics_totaltimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Metadata\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"TotalTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Metadata\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "range": true,
@@ -6170,7 +6170,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(rate(kafka_network_requestmetrics_requestspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Metadata\"}[5m]))",
+              "expr": "sum(rate(kafka_network_requestmetrics_count{name=\"RequestsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Metadata\"}[5m]))",
               "interval": "",
               "legendFormat": "",
               "range": true,
@@ -7575,7 +7575,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(kafka_server_brokertopicmetrics_producemessageconversionspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
+              "expr": "sum(kafka_server_brokertopicmetrics_count{name=\"ProduceMessageConversionsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{topic}}",
@@ -7672,7 +7672,7 @@
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(kafka_server_brokertopicmetrics_fetchmessageconversionspersec{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
+              "expr": "sum(kafka_server_brokertopicmetrics_count{name=\"FetchMessageConversionsPerSec\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "{{topic}}",
@@ -7867,7 +7867,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "kafka_network_requestmetrics_totaltimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Produce\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"TotalTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"Produce\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "range": true,
@@ -7970,7 +7970,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "kafka_network_requestmetrics_totaltimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"Fetch\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"TotalTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=~\"Fetch.*\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "range": true,
@@ -8073,7 +8073,7 @@
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "kafka_network_requestmetrics_totaltimems{job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",quantile=~\"$percentile\",request=\"FetchFollower\"}",
+              "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"TotalTimeMs\",job=\"kafka-broker\", namespace=~\"$namespace\", cluster=~\"$cluster\",env=\"$env\",instance=~\"$instance\",request=\"FetchFollower\"}",
               "hide": false,
               "legendFormat": "{{instance}} - {{quantile}}",
               "range": true,
@@ -8131,7 +8131,7 @@
           "uid": "prometheus"
         },
         "query": {
-          "query": "label_values(kafka_server_kafkaserver_brokerstate{env=~\"$env\"}, namespace)",
+          "query": "label_values(up{job=~\"kafka-broker|kafka-controller\",env=~\"$env\"}, namespace)",
           "refId": "Prometheus-namespace-Variable-Query"
         },
         "refresh": 1,
@@ -8152,7 +8152,7 @@
           "uid": "prometheus"
         },
         "query": {
-          "query": "label_values(kafka_server_kafkaserver_brokerstate{env=~\"$env\", namespace=~\"$namespace\"}, cluster)",
+          "query": "label_values(up{job=~\"kafka-broker|kafka-controller\",env=~\"$env\", namespace=~\"$namespace\"}, cluster)",
           "refId": "Prometheus-cluster-Variable-Query"
         },
         "refresh": 1,
@@ -8171,7 +8171,7 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "definition": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+        "definition": "label_values(up{job=\"kafka-broker\",env=\"${env}\"}, instance)",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -8179,7 +8179,7 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(kafka_server_kafkaserver_brokerstate{env=\"${env}\"}, instance)",
+          "query": "label_values(up{job=\"kafka-broker\",env=\"${env}\"}, instance)",
           "refId": "Prometheus-instance-Variable-Query"
         },
         "refresh": 1,
@@ -8199,7 +8199,7 @@
           "uid": "prometheus"
         },
         "query": {
-          "query": "label_values(kafka_server_brokertopicmetrics_bytesinpersec{job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$instance\", topic\\!=\"\"}, topic)",
+          "query": "label_values(kafka_server_brokertopicmetrics_count{name=\"BytesInPerSec\",job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$instance\", topic\\!=\"\"}, topic)",
           "refId": "Prometheus-topic-Variable-Query"
         },
         "refresh": 1,

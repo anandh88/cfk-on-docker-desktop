@@ -27,7 +27,7 @@
           "uid": "prometheus"
         },
         "query": {
-          "query": "label_values(kafka_server_kafkaserver_brokerstate, namespace)",
+          "query": "label_values(up{job=~\"kafka-broker|kafka-controller\"}, namespace)",
           "refId": "namespace-var"
         },
         "refresh": 1,
@@ -48,7 +48,7 @@
           "uid": "prometheus"
         },
         "query": {
-          "query": "label_values(kafka_server_kafkaserver_brokerstate{namespace=~\"$namespace\"}, cluster)",
+          "query": "label_values(up{job=~\"kafka-broker|kafka-controller\",namespace=~\"$namespace\"}, cluster)",
           "refId": "cluster-var"
         },
         "refresh": 1,
@@ -69,7 +69,7 @@
           "uid": "prometheus"
         },
         "query": {
-          "query": "label_values(kafka_server_kafkaserver_brokerstate{namespace=~\"$namespace\", cluster=~\"$cluster\"}, env)",
+          "query": "label_values(up{job=~\"kafka-broker|kafka-controller\",namespace=~\"$namespace\",cluster=~\"$cluster\"}, env)",
           "refId": "env-var"
         },
         "refresh": 1,
@@ -97,6 +97,78 @@
       "panels": [],
       "title": "Tier 1 \u2014 Infrastructure (Node / Pod / JVM Resource Health)",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Tier 1: aggregate CPU utilization for Kafka brokers, color-coded by resource pressure.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "id": 1001,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "100 * sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"kafka-.*\"}[5m])) / sum(kube_pod_container_resource_limits{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"kafka-.*\", resource=\"cpu\", container=\"kafka\"})",
+          "hide": false,
+          "legendFormat": "Kafka Brokers",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Kafka Broker CPU %",
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -158,8 +230,8 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
-        "x": 0,
+        "w": 18,
+        "x": 6,
         "y": 1
       },
       "id": 3,
@@ -196,6 +268,366 @@
       ],
       "title": "CPU Usage by Component (cores)",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Tier 1: aggregate CPU utilization for Kafka Connect workers, color-coded by resource pressure.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 9
+      },
+      "id": 1002,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "100 * sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"connect-.*\"}[5m])) / sum(kube_pod_container_resource_limits{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"connect-.*\", resource=\"cpu\", container=\"connect\"})",
+          "hide": false,
+          "legendFormat": "Kafka Connect",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Kafka Connect CPU %",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Tier 1: aggregate CPU utilization for Schema Registry, color-coded by resource pressure.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 4,
+        "y": 9
+      },
+      "id": 1003,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "100 * sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"schemaregistry-.*\"}[5m])) / sum(kube_pod_container_resource_limits{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"schemaregistry-.*\", resource=\"cpu\", container=\"schemaregistry\"})",
+          "hide": false,
+          "legendFormat": "Schema Registry",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Schema Registry CPU %",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Tier 1: aggregate CPU utilization for Kafka REST Proxy, color-coded by resource pressure.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 8,
+        "y": 9
+      },
+      "id": 1004,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "100 * sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"kafkarestproxy-.*\"}[5m])) / sum(kube_pod_container_resource_limits{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"kafkarestproxy-.*\", resource=\"cpu\", container=\"kafkarestproxy\"})",
+          "hide": false,
+          "legendFormat": "REST Proxy",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "REST Proxy CPU %",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Tier 1: aggregate CPU utilization for Control Center, color-coded by resource pressure.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 12,
+        "y": 9
+      },
+      "id": 1005,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "100 * sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"controlcenter-.*\"}[5m])) / sum(kube_pod_container_resource_limits{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"controlcenter-.*\", resource=\"cpu\", container=\"controlcenter\"})",
+          "hide": false,
+          "legendFormat": "Control Center",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Control Center CPU %",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Tier 1: aggregate CPU utilization for KRaft controllers, color-coded by resource pressure.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 16,
+        "y": 9
+      },
+      "id": 1006,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "8.1.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "100 * sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"kraftcontroller-.*\"}[5m])) / sum(kube_pod_container_resource_limits{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", pod=~\"kraftcontroller-.*\", resource=\"cpu\", container=\"kraftcontroller\"})",
+          "hide": false,
+          "legendFormat": "KRaft Controller",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "KRaft Controller CPU %",
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -259,7 +691,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 15
       },
       "id": 4,
       "options": {
@@ -358,7 +790,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 23
       },
       "id": 5,
       "options": {
@@ -457,7 +889,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 31
       },
       "id": 6,
       "options": {
@@ -564,7 +996,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_controller_kafkacontroller_activecontrollercount{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_value{name=\"ActiveControllerCount\",namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"})",
           "hide": false,
           "legendFormat": "{{instance}}",
           "range": true,
@@ -627,7 +1059,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"})",
+          "expr": "sum(kafka_controller_kafkacontroller_value{name=\"OfflinePartitionsCount\",namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"})",
           "hide": false,
           "legendFormat": "{{instance}}",
           "range": true,
@@ -690,7 +1122,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"})",
+          "expr": "sum(kafka_server_replicamanager_value{name=\"UnderReplicatedPartitions\",namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"})",
           "hide": false,
           "legendFormat": "{{instance}}",
           "range": true,
@@ -753,7 +1185,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(kafka_cluster_partition_underminisr{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"})",
+          "expr": "sum(kafka_server_replicamanager_value{name=\"UnderMinIsrPartitionCount\",namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"})",
           "hide": false,
           "legendFormat": "{{instance}}",
           "range": true,
@@ -852,7 +1284,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_oneminuterate{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"}",
+          "expr": "kafka_server_kafkarequesthandlerpool_oneminuterate{name=\"RequestHandlerAvgIdlePercent\",namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"}",
           "hide": false,
           "legendFormat": "{{instance}}",
           "range": true,
@@ -951,7 +1383,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "kafka_network_requestmetrics_totaltimems{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", quantile=\"0.99\"}",
+          "expr": "{__name__=~\"kafka_network_requestmetrics_.*thpercentile\",name=\"TotalTimeMs\",namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\"}",
           "hide": false,
           "legendFormat": "{{instance}} - {{request}}",
           "range": true,
@@ -1348,7 +1780,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum by (topic) (rate(kafka_server_brokertopicmetrics_messagesinpersec{namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", topic!=\"\"}[5m]))",
+          "expr": "sum by (topic) (rate(kafka_server_brokertopicmetrics_count{name=\"MessagesInPerSec\",namespace=~\"$namespace\", cluster=~\"$cluster\", env=~\"$env\", topic!=\"\"}[5m]))",
           "hide": false,
           "legendFormat": "{{topic}}",
           "range": true,

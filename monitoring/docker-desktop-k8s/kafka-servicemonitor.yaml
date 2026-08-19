@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kafka-broker
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames:
+      - confluent
+  selector:
+    matchLabels:
+      type: kafka
+  endpoints:
+    - port: prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 15s
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_service_name]
+          regex: '.*-[0-9]+-internal'
+          action: drop
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: instance
+        - targetLabel: job
+          replacement: kafka-broker
+        - targetLabel: env
+          replacement: local-poc
+        - targetLabel: namespace
+          replacement: confluent
+        - targetLabel: cluster
+          replacement: docker-desktop

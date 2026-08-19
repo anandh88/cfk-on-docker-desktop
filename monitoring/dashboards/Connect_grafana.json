@@ -6794,7 +6794,7 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "definition": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", namespace=~\"$namespace\"},env)",
+        "definition": "label_values(up{job=\"kafka-connect\", namespace=~\"$namespace\"},env)",
         "hide": 0,
         "includeAll": false,
         "label": "Environment",
@@ -6802,7 +6802,7 @@
         "name": "env",
         "options": [],
         "query": {
-          "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\"},env)",
+          "query": "label_values(up{job=\"kafka-connect\"},env)",
           "refId": "Prometheus-env-Variable-Query"
         },
         "refresh": 1,
@@ -6822,7 +6822,7 @@
           "uid": "prometheus"
         },
         "query": {
-          "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", env=\"$env\"}, namespace)",
+          "query": "label_values(up{job=\"kafka-connect\", env=\"$env\"}, namespace)",
           "refId": "Prometheus-namespace-Variable-Query"
         },
         "refresh": 1,
@@ -6842,7 +6842,7 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "definition": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", namespace=~\"$namespace\"},kafka_connect_cluster_id)",
+        "definition": "label_values(up{job=\"kafka-connect\", namespace=~\"$namespace\"},kafka_connect_cluster_id)",
         "hide": 0,
         "includeAll": true,
         "label": "Cluster ID",
@@ -6850,7 +6850,7 @@
         "name": "kafka_connect_cluster_id",
         "options": [],
         "query": {
-          "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", namespace=~\"$namespace\"},kafka_connect_cluster_id)",
+          "query": "label_values(up{job=\"kafka-connect\", namespace=~\"$namespace\"},kafka_connect_cluster_id)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -6868,7 +6868,7 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "definition": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", namespace=~\"$namespace\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
+        "definition": "label_values(up{job=\"kafka-connect\", namespace=~\"$namespace\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
@@ -6876,7 +6876,7 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(kafka_connect_connect_worker_metrics_connector_total_task_count{job=\"kafka-connect\", namespace=~\"$namespace\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
+          "query": "label_values(up{job=\"kafka-connect\", namespace=~\"$namespace\", env=\"$env\",kafka_connect_cluster_id=~\"$kafka_connect_cluster_id\"},instance)",
           "refId": "Prometheus-instance-Variable-Query"
         },
         "refresh": 1,

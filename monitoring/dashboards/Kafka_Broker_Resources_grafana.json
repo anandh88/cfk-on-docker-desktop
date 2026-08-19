@@ -500,12 +500,12 @@
       },
       "targets": [
         {
-          "expr": "kafka_server_kafkaserver_linux_disk_read_bytes{job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
+          "expr": "kafka_server_kafkaserver_value{name=\"linux-disk-read-bytes\",job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
           "legendFormat": "{{instance}} - Read",
           "refId": "A"
         },
         {
-          "expr": "kafka_server_kafkaserver_linux_disk_write_bytes{job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
+          "expr": "kafka_server_kafkaserver_value{name=\"linux-disk-write-bytes\",job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
           "legendFormat": "{{instance}} - Write",
           "refId": "B"
         }
@@ -570,7 +570,7 @@
       },
       "targets": [
         {
-          "expr": "kafka_server_kafkaserver_linux_disk_read_bytes{job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
+          "expr": "kafka_server_kafkaserver_value{name=\"linux-disk-read-bytes\",job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
@@ -602,7 +602,7 @@
       },
       "targets": [
         {
-          "expr": "kafka_server_kafkaserver_linux_disk_write_bytes{job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
+          "expr": "kafka_server_kafkaserver_value{name=\"linux-disk-write-bytes\",job=\"kafka-broker\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }

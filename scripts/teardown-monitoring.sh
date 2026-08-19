@@ -50,6 +50,10 @@ kubectl delete configmap grafana-dashboard-enterprise-tiered -n monitoring --ign
 log_info "Deleting alert rules..."
 kubectl delete -f docker-desktop-k8s/alertrules.yaml --ignore-not-found
 
+log_info "Deleting Confluent ServiceMonitors..."
+kubectl delete -f docker-desktop-k8s/kafka-servicemonitor.yaml --ignore-not-found
+kubectl delete -f docker-desktop-k8s/kraftcontroller-servicemonitor.yaml --ignore-not-found
+
 log_info "Uninstalling Prometheus & Grafana (kube-prometheus-stack)..."
 helm uninstall prometheus -n monitoring 2>/dev/null || true
 

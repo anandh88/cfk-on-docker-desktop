@@ -924,7 +924,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "kafka_controller_kafkacontroller_metadataerrorcount{job=\"kafka-controller\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
+          "expr": "kafka_controller_kafkacontroller_value{name=\"MetadataErrorCount\",job=\"kafka-controller\", env=~\"$env\", namespace=~\"$namespace\", cluster=~\"$cluster\", instance=~\"$pod\"}",
           "hide": false,
           "legendFormat": "{{instance}}",
           "range": true,

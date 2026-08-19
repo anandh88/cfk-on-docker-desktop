@@ -22,7 +22,7 @@ spec:
       rules:
         # Page when ActiveControllerCount != 1 for more than 10s
         - alert: ActiveControllerCountNotOne
-          expr: sum by (env) (kafka_controller_kafkacontroller_activecontrollercount) != 1
+          expr: sum by (env) (kafka_controller_kafkacontroller_value{name="ActiveControllerCount"}) != 1
           for: 10s
           labels:
             severity: page
@@ -32,7 +32,7 @@ spec:
 
         # Page when OfflinePartitionsCount > 0
         - alert: OfflinePartitionCount
-          expr: sum by(env) (kafka_controller_kafkacontroller_offlinepartitionscount) > 0
+          expr: sum by(env) (kafka_controller_kafkacontroller_value{name="OfflinePartitionsCount"}) > 0
           for: 10s
           labels:
             severity: page
@@ -42,7 +42,7 @@ spec:
 
         # Page when UncleanLeaderElectionsPerSec > 0 for more than 1m
         - alert: UncleanLeaderElections
-          expr: sum by(env) (kafka_controller_controllerstats_uncleanleaderelectionspersec_count) > 0
+          expr: sum by(env) (kafka_controller_controllerstats_oneminuterate{name="UncleanLeaderElectionsPerSec"}) > 0
           for: 1m
           labels:
             severity: page
@@ -52,7 +52,7 @@ spec:
 
         # Page when UnderReplicatedPartitions > 0 for more than 1m
         - alert: UnderReplicatedPartitions
-          expr: sum by(env) (kafka_server_replicamanager_underreplicatedpartitions) > 0
+          expr: sum by(env) (kafka_server_replicamanager_value{name="UnderReplicatedPartitions"}) > 0
           for: 1m
           labels:
             severity: page
@@ -62,7 +62,7 @@ spec:
 
         # Page when UnderMinIsrPartitionCount > 0 for more than 1m
         - alert: UnderMinIsrPartitionCount
-          expr: sum by (env) (kafka_cluster_partition_underminisr) > 0
+          expr: sum by (env) (kafka_server_replicamanager_value{name="UnderMinIsrPartitionCount"}) > 0
           for: 1m
           labels:
             severity: page
@@ -92,7 +92,7 @@ spec:
 
         # Alert on high request latency (99th percentile > 1 second)
         - alert: KafkaHighRequestLatency
-          expr: kafka_network_requestmetrics_totaltimems{quantile="0.99"} > 1000
+          expr: kafka_network_requestmetrics_99thpercentile{name="TotalTimeMs"} > 1000
           for: 5m
           labels:
             severity: warning
@@ -102,7 +102,7 @@ spec:
 
         # Alert when request handler idle is too low (brokers overloaded)
         - alert: KafkaRequestHandlerIdleLow
-          expr: kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_oneminuterate < 0.3
+          expr: kafka_server_kafkarequesthandlerpool_oneminuterate{name="RequestHandlerAvgIdlePercent"} < 0.3
           for: 5m
           labels:
             severity: warning

@@ -49,6 +49,10 @@ helm upgrade --install prometheus prometheus-community/kube-prometheus-stack \
   --values docker-desktop-k8s/prometheus-values.yaml \
   --wait
 
+echo "=== Applying Confluent ServiceMonitors ==="
+kubectl apply -f docker-desktop-k8s/kafka-servicemonitor.yaml
+kubectl apply -f docker-desktop-k8s/kraftcontroller-servicemonitor.yaml
+
 echo "=== Creating Grafana dashboard ConfigMaps ==="
 
 # Kafka dashboard

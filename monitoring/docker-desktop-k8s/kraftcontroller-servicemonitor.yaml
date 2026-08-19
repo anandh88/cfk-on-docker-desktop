@@ -1,0 +1,199 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kraftcontroller
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames: [confluent]
+  selector:
+    matchLabels:
+      type: kraftcontroller
+  endpoints:
+    - port: prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 15s
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_service_name]
+          regex: '.*-[0-9]+-internal'
+          action: drop
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: instance
+        - targetLabel: job
+          replacement: kafka-controller
+        - targetLabel: env
+          replacement: local-poc
+        - targetLabel: namespace
+          replacement: confluent
+        - targetLabel: cluster
+          replacement: docker-desktop
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: connect
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames: [confluent]
+  selector:
+    matchLabels:
+      type: connect
+  endpoints:
+    - port: prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 15s
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_service_name]
+          regex: '.*-[0-9]+-internal'
+          action: drop
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: instance
+        - targetLabel: job
+          replacement: kafka-connect
+        - targetLabel: env
+          replacement: local-poc
+        - targetLabel: namespace
+          replacement: confluent
+        - targetLabel: cluster
+          replacement: docker-desktop
+        - targetLabel: kafka_connect_cluster_id
+          replacement: connect-cluster
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: schemaregistry
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames: [confluent]
+  selector:
+    matchLabels:
+      type: schemaregistry
+  endpoints:
+    - port: prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 15s
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_service_name]
+          regex: '.*-[0-9]+-internal'
+          action: drop
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: instance
+        - targetLabel: job
+          replacement: schemaregistry
+        - targetLabel: env
+          replacement: local-poc
+        - targetLabel: namespace
+          replacement: confluent
+        - targetLabel: cluster
+          replacement: docker-desktop
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ksqldb
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames: [confluent]
+  selector:
+    matchLabels:
+      type: ksqldb
+  endpoints:
+    - port: prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 15s
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_service_name]
+          regex: '.*-[0-9]+-internal'
+          action: drop
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: instance
+        - targetLabel: job
+          replacement: ksqldb
+        - targetLabel: env
+          replacement: local-poc
+        - targetLabel: namespace
+          replacement: confluent
+        - targetLabel: cluster
+          replacement: docker-desktop
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kafkarestproxy
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames: [confluent]
+  selector:
+    matchLabels:
+      type: kafkarestproxy
+  endpoints:
+    - port: prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 15s
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_service_name]
+          regex: '.*-[0-9]+-internal'
+          action: drop
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: instance
+        - targetLabel: job
+          replacement: kafkarestproxy
+        - targetLabel: env
+          replacement: local-poc
+        - targetLabel: namespace
+          replacement: confluent
+        - targetLabel: cluster
+          replacement: docker-desktop
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: controlcenter
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames: [confluent]
+  selector:
+    matchLabels:
+      type: controlcenter
+  endpoints:
+    - port: prometheus
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 15s
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_service_name]
+          regex: '.*-[0-9]+-internal'
+          action: drop
+        - sourceLabels: [__meta_kubernetes_pod_name]
+          targetLabel: instance
+        - targetLabel: job
+          replacement: controlcenter
+        - targetLabel: env
+          replacement: local-poc
+        - targetLabel: namespace
+          replacement: confluent
+        - targetLabel: cluster
+          replacement: docker-desktop

@@ -203,22 +203,14 @@ spec:
 
 **Metrics Configuration Explained:**
 
-The `metrics.prometheus.rules` section defines how JMX metrics are exposed to Prometheus:
-
-```yaml
-- pattern: kafka.controller<type=KafkaController, name=(.+)><>Value
-  name: kafka_controller_kafkacontroller_$1
-  type: GAUGE
-  cache: true
-```
-
-- `pattern`: JMX MBean pattern to match (regex with capture groups)
-- `name`: Prometheus metric name (uses `$1`, `$2` for captured groups)
-- `type`: Prometheus metric type (`GAUGE`, `COUNTER`)
-- `cache`: Whether to cache the metric value for performance
+CFK exposes the component Prometheus endpoint on port `7778` using its built-in JMX-to-Prometheus
+mapping. The active manifests do not override that mapping with `metrics.prometheus.rules`.
+Prometheus discovers the endpoint through the ServiceMonitors under
+`monitoring/docker-desktop-k8s/`, which select CFK-generated Services by their `type` label
+and scrape the named `prometheus` port.
 
 **Key Metrics Exposed:**
-- `kafka_controller_kafkacontroller_activecontrollercount` - Should be 1 across the cluster
+- `kafka_controller_kafkacontroller_value{name="ActiveControllerCount"}` - Should be 1 across the cluster
 - `kafka_controller_controllerstats_*` - Controller operation statistics
 - `kafka_server_raft_metrics_*` - Raft consensus metrics
 
