@@ -310,11 +310,17 @@
     },
     "viz_p24": {
       "type": "splunk.line",
-      "title": "Log Directory Usage vs PVC Requested Capacity (GB)",
+      "title": "Log Directory Usage (% of PVC Requested Capacity)",
       "dataSources": {
         "primary": "ds_p24"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "off",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "%",
+        "yAxisTitleVisibility": "show"
+      }
     }
   },
   "dataSources": {
@@ -530,7 +536,7 @@
     "ds_p24": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_log_log_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"Size\" service.instance.id=\"$pod$\" BY service.instance.id span=1m\n| eval value=value/1024/1024/1024\n| eval series=\"log_size\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kube_persistentvolumeclaim_resource_requests_storage_bytes\" namespace=\"confluent\" persistentvolumeclaim=\"data0-$pod$\"\n| eval value=value/1024/1024/1024\n| eval service.instance.id=\"$pod$\", series=\"pvc_requested_capacity\"\n]\n| eval combined=series.\"-\".'service.instance.id'\n| timechart span=1m avg(value) by combined",
+        "query": "| mstats avg(_value) as log_size WHERE index=cfk_metrics metric_name=\"kafka_log_log_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"Size\" service.instance.id=\"$pod$\" BY service.instance.id span=15m\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_persistentvolumeclaim_resource_requests_storage_bytes\" namespace=\"confluent\" persistentvolumeclaim=\"data0-$pod$\" BY persistentvolumeclaim span=15m\n| eval service.instance.id=replace(persistentvolumeclaim, \"^data0-\", \"\")\n]\n| stats values(log_size) as log_size values(capacity) as capacity by _time service.instance.id\n| eventstats max(capacity) as capacity by service.instance.id\n| where isnotnull(log_size)\n| eval pct=round(log_size/capacity*100,2)\n| timechart span=15m avg(pct) by service.instance.id",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
