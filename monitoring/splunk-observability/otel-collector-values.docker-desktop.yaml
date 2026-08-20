@@ -1,0 +1,78 @@
+# Splunk OTel Collector Helm values for Docker Desktop Kubernetes — Splunk Observability
+# Cloud target (SignalFx-lineage product), NOT Splunk Cloud Platform. See
+# ../splunk/README-enterprise.md and this directory's README.md for why these are
+# different products and what does/doesn't carry over between them.
+#
+# Installed as its OWN Helm release (splunk-otel-collector-o11y), in its OWN namespace
+# (splunk-o11y-otel) — deliberately separate from the existing Splunk Cloud collector
+# (release "splunk-otel-collector", namespace "splunk-otel") so the two run side by
+# side without colliding, for comparison during this POC.
+#
+# Deploy:
+#   helm upgrade --install splunk-otel-collector-o11y \
+#     --namespace splunk-o11y-otel --create-namespace \
+#     --values monitoring/splunk-observability/otel-collector-values.docker-desktop.yaml \
+#     --set splunkObservability.accessToken=<YOUR_TOKEN> \
+#     splunk-otel-collector-chart/splunk-otel-collector
+#
+# The access token is deliberately NOT set here and NOT committed anywhere — same
+# practice as the HEC token on the Splunk Cloud side. Passed via --set at deploy time
+# for now; migrating to the secret-based pattern (secret.create: false / secret.name,
+# mirroring the Splunk Cloud collector's splunk-hec secret) is a reasonable next step
+# once this moves past initial validation, but the exact secret key name for
+# splunkObservability's token hasn't been verified yet, so not doing that blind.
+
+clusterName: "docker-desktop"
+environment: "local-poc"
+
+splunkObservability:
+  realm: "us1"
+  # accessToken: set via --set at deploy time, see above.
+  # Traces disabled - this POC covers metrics only (and logs, separately, via the
+  # existing Splunk Cloud pipeline + Log Observer Connect if that path is taken).
+  # Confirmed: this chart bakes in Jaeger/Zipkin hostPort bindings whenever traces
+  # are enabled, regardless of whether anything sends traces - those ports collided
+  # with the existing Splunk Cloud collector on this single-node cluster the moment
+  # they were bound, well before any trace data was ever a factor.
+  tracesEnabled: false
+
+gateway:
+  enabled: false
+
+agent:
+  # Off - not needed (no local app sending OTLP/Jaeger/Zipkin directly to a node
+  # IP; that would only matter for zero-code app instrumentation, which is
+  # explicitly disabled for this integration). Also: turning this off alone did
+  # NOT resolve the port collision below - hostPort bindings on this chart are
+  # independent of hostNetwork, see agent.ports.
+  hostNetwork: false
+
+  # otlp/otlp-http hostPort bindings (4317/4318) are baked into this chart's agent
+  # DaemonSet template unconditionally, independent of hostNetwork above. The
+  # existing Splunk Cloud collector's agent DaemonSet already binds those same
+  # host ports on this single-node cluster, so the second collector's agent pod
+  # sat Pending ("didn't have free ports for the requested pod ports") until these
+  # were disabled outright. Confirmed via the chart's own values.yaml comment:
+  # "to disable a port set `agent.ports.<name>: null`".
+  ports:
+    otlp: null
+    otlp-http: null
+
+  config:
+    receivers:
+      # Docker Desktop's kubelet presents a self-signed cert with no IP SANs for
+      # its own node IP (same class of issue as the Splunk Cloud HEC endpoint's
+      # internal CA, just on the receiving side here instead of the exporting
+      # side) - without this, kubelet_stats fails every scrape with
+      # "x509: cannot validate certificate for <node-ip> because it doesn't
+      # contain any IP SANs", meaning no pod/container CPU or memory metrics at
+      # all would reach the built-in Kubernetes navigator.
+      kubelet_stats:
+        insecure_skip_verify: true
+
+# Not fixed and not expected to be, on Docker Desktop: kube-scheduler (:10259),
+# kube-proxy (:10249), and kube-controller-manager (:10257) all refuse the
+# receiver_creator's scrape attempts - Docker Desktop's single-node control plane
+# doesn't expose these the way a real multi-node cluster's would. Matches the same
+# call already made on the Splunk Cloud/Grafana side (control-plane metrics
+# disabled there too) - not a CFK or Observability Cloud concern either way.

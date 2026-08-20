@@ -1,0 +1,108 @@
+# Confluent for Kubernetes → Splunk Observability Cloud
+
+Deliverables for the Splunk Observability Cloud integration — the counterpart to
+[`../splunk/`](../splunk/), which covers Splunk Cloud Platform (indexes, SPL,
+Dashboard Studio). These are different Splunk products with almost nothing shared at
+the ingestion/dashboarding layer; see `../splunk/README-enterprise.md` for the
+architecture-level explanation of why, and the notes below for what's been verified
+so far in this specific environment.
+
+## Org details (this trial)
+
+- Realm: `us1`
+- Org: Psyncopate Technologies (trial)
+- Login: https://app.us1.observability.splunkcloud.com
+
+## Deployment
+
+Installed as its own Helm release, separate from the existing Splunk Cloud collector,
+so both run side by side on this single-node cluster without colliding:
+
+- Release: `splunk-otel-collector-o11y`
+- Namespace: `splunk-o11y-otel`
+- Chart: `splunk-otel-collector-chart/splunk-otel-collector` (same chart as the
+  Splunk Cloud side — `github.com/signalfx/splunk-otel-collector-chart` is the
+  shared distribution for both products; only the destination config differs)
+
+```bash
+kubectl create namespace splunk-o11y-otel
+
+helm repo add splunk-otel-collector-chart https://signalfx.github.io/splunk-otel-collector-chart
+helm repo update
+
+helm upgrade --install splunk-otel-collector-o11y \
+  --namespace splunk-o11y-otel \
+  --values otel-collector-values.docker-desktop.yaml \
+  --set splunkObservability.accessToken=<YOUR_TOKEN> \
+  splunk-otel-collector-chart/splunk-otel-collector
+```
+
+The access token isn't stored in the values file or anywhere in this repo — same
+practice as the Splunk Cloud side's HEC token. Pass it via `--set` at deploy time.
+
+## What's actually running right now
+
+Deliberately **no CFK-specific configuration yet** — this first pass only validates
+the collector's default Kubernetes infrastructure receivers (`kubelet_stats`,
+`k8s_cluster`, etc.) against this cluster, confirming the built-in Kubernetes
+navigator in Splunk Observability Cloud populates, before layering in a CFK metrics
+pipeline on top. That's the deliberate next step, not yet done.
+
+## Real issues found and fixed getting here (not obvious from the docs)
+
+1. **The wizard-generated `helm install` command collides with the existing Splunk
+   Cloud collector if run as-is.** It has no `--namespace` flag and uses the release
+   name `splunk-otel-collector` — identical to the existing Splunk Cloud release.
+   Some of what this chart creates is cluster-scoped (`ClusterRole`,
+   `ClusterRoleBinding`), which can collide across namespaces since those aren't
+   namespaced objects; the release name has to differ, not just the namespace, to
+   guarantee no collision. Fixed by installing as `splunk-otel-collector-o11y`.
+
+2. **Agent DaemonSet pod stuck `Pending`: "didn't have free ports for the requested
+   pod ports."** Both collectors' agent DaemonSets bind `hostPort` 4317/4318 (OTLP)
+   unconditionally — this is baked into the chart template and is **independent of
+   `agent.hostNetwork`** (turning that off did not fix it; a common assumption that
+   turned out wrong). With traces enabled by default, it also binds Jaeger
+   (14250/14268) and Zipkin (9411) hostPorts, none of which we need since this
+   integration doesn't do local app instrumentation. Fixed by setting
+   `splunkObservability.tracesEnabled: false` (drops the Jaeger/Zipkin ports) and
+   explicitly nulling the OTLP ports (`agent.ports.otlp: null`,
+   `agent.ports.otlp-http: null` — the chart's own values.yaml documents this exact
+   pattern: "to disable a port set `agent.ports.<name>: null`").
+
+3. **`kubelet_stats` receiver failing every scrape**:
+   `x509: cannot validate certificate for <node-ip> because it doesn't contain any
+   IP SANs`. Same root cause class as the Splunk Cloud HEC endpoint's internal CA
+   issue, just on the receiving side this time — Docker Desktop's kubelet presents a
+   self-signed cert with no IP SANs for its own node IP. Without fixing this, no
+   pod/container CPU or memory metrics would reach the built-in Kubernetes
+   navigator at all. Fixed via `agent.config.receivers.kubelet_stats.insecure_skip_verify: true`.
+
+4. **Benign, left as-is**: `kube-scheduler` (`:10259`), `kube-proxy` (`:10249`), and
+   `kube-controller-manager` (`:10257`) all refuse the receiver_creator's scrape
+   attempts. Docker Desktop's single-node control plane doesn't expose these the
+   way a real multi-node cluster would — matches the same call already made on the
+   Grafana/Prometheus side of this repo (control-plane metrics disabled there too).
+   Not a CFK or Observability Cloud-specific concern.
+
+Verified working: the `signalfx` exporter is synchronizing host metadata with zero
+errors, confirming the token/realm/export path is genuinely functional end to end.
+
+## Open questions, not yet resolved
+
+- **Logs**: Splunk Observability Cloud has no native log storage of its own — every
+  path (Log Observer Connect, or the newer native OTLP log ingestion) terminates in
+  a real Splunk Enterprise/Cloud Platform deployment. If logs need to be visible
+  here, that's the existing Splunk Cloud pipeline plus a Log Observer Connect setup
+  on top, not a replacement for it. Still waiting on confirmation of whether that's
+  actually in scope for this demo.
+- **Dashboards**: Splunk's own docs confirm metrics ingested via a Prometheus
+  receiver (which is how the eventual CFK metrics will arrive here — same federate
+  pattern as the Splunk Cloud side) are "custom metrics, not supported by built-in
+  content." The CFK-specific dashboards (broker throughput, ISR health, Connect
+  task status, Schema Registry domain metrics) will need genuine custom
+  chart/dashboard authoring — likely via `terraform-provider-signalfx` and
+  SignalFlow, not anything that transfers from the Dashboard Studio/SPL work on the
+  Splunk Cloud side. Generic Kubernetes-level resource visibility (CPU/memory by
+  pod), by contrast, likely comes from the built-in Kubernetes navigator once it's
+  confirmed populated — not yet checked live.
