@@ -1,0 +1,902 @@
+{
+  "visualizations": {
+    "viz_p2": {
+      "type": "splunk.singlevalue",
+      "title": "Active Controllers",
+      "dataSources": {
+        "primary": "ds_p2"
+      },
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.999,
+            "value": "#d03b3b"
+          },
+          {
+            "from": 0.999,
+            "to": 1.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 1.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p3": {
+      "type": "splunk.singlevalue",
+      "title": "Brokers Online",
+      "dataSources": {
+        "primary": "ds_p3"
+      },
+      "options": {
+        "numberPrecision": 0
+      }
+    },
+    "viz_p6": {
+      "type": "splunk.singlevalue",
+      "title": "Unclean Leader Election Rate",
+      "dataSources": {
+        "primary": "ds_p6"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 0.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p7": {
+      "type": "splunk.singlevalue",
+      "title": "Under Replicated Partitions",
+      "dataSources": {
+        "primary": "ds_p7"
+      },
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 0.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p8": {
+      "type": "splunk.singlevalue",
+      "title": "Under Min ISR Partitions",
+      "dataSources": {
+        "primary": "ds_p8"
+      },
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 0.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p9": {
+      "type": "splunk.singlevalue",
+      "title": "Offline Partitions Count",
+      "dataSources": {
+        "primary": "ds_p9"
+      },
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 0.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p12": {
+      "type": "splunk.line",
+      "title": "Broker Network Throughput",
+      "dataSources": {
+        "primary": "ds_p12"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Bytes/sec",
+        "yAxisTitleVisibility": "show",
+        "seriesColorsByField": {
+          "bytes_in": "#3987e5",
+          "bytes_out": "#d95926"
+        }
+      }
+    },
+    "viz_p22": {
+      "type": "splunk.line",
+      "title": "Errors",
+      "dataSources": {
+        "primary": "ds_p22"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "right",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Errors/sec",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5",
+          "#d95926",
+          "#199e70",
+          "#c98500",
+          "#d55181",
+          "#008300",
+          "#9085e9",
+          "#e66767"
+        ]
+      }
+    },
+    "viz_p24": {
+      "type": "splunk.line",
+      "title": "CPU Usage %",
+      "dataSources": {
+        "primary": "ds_p24"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "%",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5",
+          "#d95926",
+          "#199e70",
+          "#c98500",
+          "#d55181",
+          "#008300",
+          "#9085e9",
+          "#e66767"
+        ]
+      }
+    },
+    "viz_p25": {
+      "type": "splunk.line",
+      "title": "JVM Memory Used",
+      "dataSources": {
+        "primary": "ds_p25"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Bytes",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5",
+          "#d95926",
+          "#199e70",
+          "#c98500",
+          "#d55181",
+          "#008300",
+          "#9085e9",
+          "#e66767"
+        ]
+      }
+    },
+    "viz_p26": {
+      "type": "splunk.line",
+      "title": "Time Spent in GC",
+      "dataSources": {
+        "primary": "ds_p26"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Seconds/sec",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5",
+          "#d95926",
+          "#199e70",
+          "#c98500",
+          "#d55181",
+          "#008300",
+          "#9085e9",
+          "#e66767"
+        ]
+      }
+    },
+    "viz_p28": {
+      "type": "splunk.line",
+      "title": "Linux Disk Write Bytes",
+      "dataSources": {
+        "primary": "ds_p28"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Bytes",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5",
+          "#d95926",
+          "#199e70",
+          "#c98500",
+          "#d55181",
+          "#008300",
+          "#9085e9",
+          "#e66767"
+        ]
+      }
+    },
+    "viz_p30": {
+      "type": "splunk.line",
+      "title": "Messages In (cluster total)",
+      "dataSources": {
+        "primary": "ds_p30"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "off",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Messages/sec",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5"
+        ]
+      }
+    },
+    "viz_p58": {
+      "type": "splunk.line",
+      "title": "Consumer Group Lag (records, max)",
+      "dataSources": {
+        "primary": "ds_p58"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "right",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Records",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5",
+          "#d95926",
+          "#199e70",
+          "#c98500",
+          "#d55181",
+          "#008300",
+          "#9085e9",
+          "#e66767"
+        ]
+      }
+    },
+    "viz_p91": {
+      "type": "splunk.line",
+      "title": "Produce - Total Time Ms (all percentiles)",
+      "dataSources": {
+        "primary": "ds_p91"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "right",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Milliseconds",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5",
+          "#d95926",
+          "#199e70",
+          "#c98500",
+          "#d55181",
+          "#008300",
+          "#9085e9",
+          "#e66767"
+        ]
+      }
+    },
+    "viz_p92": {
+      "type": "splunk.line",
+      "title": "Consumer Fetch - Total Time Ms (all percentiles)",
+      "dataSources": {
+        "primary": "ds_p92"
+      },
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "right",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Milliseconds",
+        "yAxisTitleVisibility": "show",
+        "seriesColors": [
+          "#3987e5",
+          "#d95926",
+          "#199e70",
+          "#c98500",
+          "#d55181",
+          "#008300",
+          "#9085e9",
+          "#e66767"
+        ]
+      }
+    },
+    "viz_header_health": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## \ud83d\udc93 Cluster Health\n\n---"
+      }
+    },
+    "viz_header_throughput": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## \ud83d\udcca Throughput\n\n---"
+      }
+    },
+    "viz_header_latency": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## \u23f1\ufe0f Latency (Tail, P50\u2013P999)\n\n---"
+      }
+    },
+    "viz_header_resources": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## \u2699\ufe0f Resource Usage\n\n---"
+      }
+    },
+    "viz_header_errors": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## \ud83d\udea8 Errors & Consumer Health\n\n---"
+      }
+    }
+  },
+  "dataSources": {
+    "ds_p2": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_controller_kafkacontroller_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"ActiveControllerCount\" service.name=\"kafka-controller\"",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p3": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_replicamanager_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"LeaderCount\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" BY service.instance.id\n| stats dc(service.instance.id) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p6": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_controller_controllerstats_oneminuterate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"UncleanLeaderElectionsPerSec\" service.name=\"kafka-controller\" span=1m\n| stats latest(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p7": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_replicamanager_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"UnderReplicatedPartitions\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" BY service.instance.id\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p8": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_replicamanager_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"UnderMinIsrPartitionCount\" service.name=\"kafka-broker\" BY service.instance.id\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p9": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_controller_kafkacontroller_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"OfflinePartitionsCount\" service.name=\"kafka-controller\" BY service.instance.id\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p12": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_brokertopicmetrics_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"BytesInPerSec\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" topic!=\"\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval value=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| eval series=\"bytes_in\"\n| append [\n| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_brokertopicmetrics_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"BytesOutPerSec\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" topic!=\"\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval value=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| eval series=\"bytes_out\"\n]\n| timechart span=1m avg(value) by series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p22": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_network_requestmetrics_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"ErrorsPerSec\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" error!=\"NONE\"  BY error span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by error\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by error",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p24": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"process_cpu_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" BY service.instance.id span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by service.instance.id\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time)*100, null())\n| timechart span=1m avg(rate) by service.instance.id",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p25": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_used\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\"  BY service.instance.id span=1m\n| eval series=\"used\".\"-\".'service.instance.id'\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" area=\"heap\"  BY service.instance.id span=1m\n| eval series=\"max_heap\".\"-\".'service.instance.id'\n]\n| timechart span=1m avg(value) by series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p26": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_gc_collection_seconds_sum\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\"  BY service.instance.id span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by service.instance.id\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by service.instance.id",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p28": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_kafkaserver_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"linux-disk-write-bytes\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\"  BY service.instance.id span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by service.instance.id\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by service.instance.id",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p30": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_brokertopicmetrics_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"MessagesInPerSec\" service.name=\"kafka-broker\" topic!=\"\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate)",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p58": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats max(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_consumer_consumer_fetch_manager_metrics_records_lag_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" topic=\"$topic$\" BY client_id,topic,partition span=1m\n| eval series=client_id.\"-\".topic.\"-\".partition\n| timechart span=1m max(value) by series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p91": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_network_requestmetrics_*thpercentile\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"TotalTimeMs\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" request=\"Produce\" BY metric_name,service.instance.id span=1m\n| eval series=metric_name.\"-\".'service.instance.id'\n| timechart span=1m avg(value) by series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p92": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_network_requestmetrics_*thpercentile\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"TotalTimeMs\" service.name=\"kafka-broker\" service.instance.id=\"$instance$\" request=\"FetchConsumer\" BY metric_name,service.instance.id span=1m\n| eval series=metric_name.\"-\".'service.instance.id'\n| timechart span=1m avg(value) by series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    }
+  },
+  "defaults": {
+    "dataSources": {
+      "ds.search": {
+        "options": {
+          "queryParameters": {
+            "earliest": "-60m@m",
+            "latest": "now"
+          }
+        }
+      }
+    }
+  },
+  "inputs": {
+    "input_global_trp": {
+      "type": "input.timerange",
+      "title": "Time Range",
+      "options": {
+        "defaultValue": "-60m@m,now",
+        "token": "global_time"
+      }
+    },
+    "input_namespace": {
+      "type": "input.dropdown",
+      "title": "Namespace",
+      "options": {
+        "items": [
+          {
+            "label": "confluent",
+            "value": "confluent"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "confluent",
+        "token": "namespace"
+      }
+    },
+    "input_env": {
+      "type": "input.dropdown",
+      "title": "Environment",
+      "options": {
+        "items": [
+          {
+            "label": "local-poc",
+            "value": "local-poc"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "local-poc",
+        "token": "env"
+      }
+    },
+    "input_cluster": {
+      "type": "input.dropdown",
+      "title": "Cluster",
+      "options": {
+        "items": [
+          {
+            "label": "docker-desktop",
+            "value": "docker-desktop"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "docker-desktop",
+        "token": "cluster"
+      }
+    },
+    "input_instance": {
+      "type": "input.text",
+      "title": "Broker Instance (glob)",
+      "options": {
+        "defaultValue": "*",
+        "token": "instance"
+      }
+    },
+    "input_topic": {
+      "type": "input.text",
+      "title": "Topic (glob)",
+      "options": {
+        "defaultValue": "*",
+        "token": "topic"
+      }
+    }
+  },
+  "layout": {
+    "globalInputs": [
+      "input_global_trp",
+      "input_namespace",
+      "input_env",
+      "input_cluster",
+      "input_instance",
+      "input_topic"
+    ],
+    "layoutDefinitions": {
+      "layout_1": {
+        "type": "absolute",
+        "options": {
+          "width": 1440,
+          "height": 1610
+        },
+        "structure": [
+          {
+            "item": "viz_header_health",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p2",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p3",
+            "type": "block",
+            "position": {
+              "x": 240,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p7",
+            "type": "block",
+            "position": {
+              "x": 480,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p8",
+            "type": "block",
+            "position": {
+              "x": 720,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p9",
+            "type": "block",
+            "position": {
+              "x": 960,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p6",
+            "type": "block",
+            "position": {
+              "x": 1200,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_header_throughput",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 210,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p12",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 260,
+              "w": 710,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p30",
+            "type": "block",
+            "position": {
+              "x": 730,
+              "y": 260,
+              "w": 710,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header_latency",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 560,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p91",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 610,
+              "w": 710,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p92",
+            "type": "block",
+            "position": {
+              "x": 730,
+              "y": 610,
+              "w": 710,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header_resources",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 910,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p24",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 960,
+              "w": 350,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p25",
+            "type": "block",
+            "position": {
+              "x": 360,
+              "y": 960,
+              "w": 350,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p26",
+            "type": "block",
+            "position": {
+              "x": 720,
+              "y": 960,
+              "w": 350,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p28",
+            "type": "block",
+            "position": {
+              "x": 1080,
+              "y": 960,
+              "w": 350,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header_errors",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1260,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p22",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1310,
+              "w": 710,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p58",
+            "type": "block",
+            "position": {
+              "x": 730,
+              "y": 1310,
+              "w": 710,
+              "h": 280
+            }
+          }
+        ]
+      }
+    },
+    "tabs": {
+      "items": [
+        {
+          "label": "Overview",
+          "layoutId": "layout_1"
+        }
+      ]
+    }
+  },
+  "title": "Confluent Kafka Cluster",
+  "description": "Curated Kafka observability: cluster health (active controllers, offline/under-replicated/under-min-ISR partitions, unclean leader elections), broker throughput, tail request latency (P50-P999), JVM/CPU/disk resource usage, and error/consumer-lag health for the Kafka broker and KRaft controller in the confluent namespace."
+}

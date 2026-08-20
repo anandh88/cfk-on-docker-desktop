@@ -1,0 +1,906 @@
+{
+  "visualizations": {
+    "viz_header0": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Container Memory"
+      }
+    },
+    "viz_p2": {
+      "type": "splunk.line",
+      "title": "Container Memory Usage vs Limit (GB)",
+      "dataSources": {
+        "primary": "ds_p2"
+      },
+      "options": {}
+    },
+    "viz_p3": {
+      "type": "splunk.singlevalueradial",
+      "title": "Memory %",
+      "dataSources": {
+        "primary": "ds_p3"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p4": {
+      "type": "splunk.singlevalue",
+      "title": "Memory Usage (GB)",
+      "dataSources": {
+        "primary": "ds_p4"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_p5": {
+      "type": "splunk.singlevalue",
+      "title": "Memory Limit (GB)",
+      "dataSources": {
+        "primary": "ds_p5"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_header5": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## CPU"
+      }
+    },
+    "viz_p7": {
+      "type": "splunk.line",
+      "title": "CPU Usage vs Limit (cores)",
+      "dataSources": {
+        "primary": "ds_p7"
+      },
+      "options": {}
+    },
+    "viz_p8": {
+      "type": "splunk.singlevalueradial",
+      "title": "CPU %",
+      "dataSources": {
+        "primary": "ds_p8"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p9": {
+      "type": "splunk.singlevalue",
+      "title": "CPU Usage (cores)",
+      "dataSources": {
+        "primary": "ds_p9"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_p10": {
+      "type": "splunk.singlevalue",
+      "title": "CPU Limit (cores)",
+      "dataSources": {
+        "primary": "ds_p10"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_header10": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## JVM"
+      }
+    },
+    "viz_p12": {
+      "type": "splunk.line",
+      "title": "JVM Heap Memory Usage vs Max (GB)",
+      "dataSources": {
+        "primary": "ds_p12"
+      },
+      "options": {}
+    },
+    "viz_p13": {
+      "type": "splunk.singlevalueradial",
+      "title": "JVM Heap %",
+      "dataSources": {
+        "primary": "ds_p13"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p14": {
+      "type": "splunk.singlevalue",
+      "title": "JVM Heap Used (GB)",
+      "dataSources": {
+        "primary": "ds_p14"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_p15": {
+      "type": "splunk.singlevalue",
+      "title": "JVM Heap Max (GB)",
+      "dataSources": {
+        "primary": "ds_p15"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_p16": {
+      "type": "splunk.line",
+      "title": "GC Time (% of wall-clock)",
+      "dataSources": {
+        "primary": "ds_p16"
+      },
+      "options": {}
+    },
+    "viz_p17": {
+      "type": "splunk.singlevalue",
+      "title": "Thread Count",
+      "dataSources": {
+        "primary": "ds_p17"
+      },
+      "options": {
+        "numberPrecision": 0,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_header17": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Disk"
+      }
+    },
+    "viz_p19": {
+      "type": "splunk.line",
+      "title": "Disk I/O (Read/Write, MB)",
+      "dataSources": {
+        "primary": "ds_p19"
+      },
+      "options": {}
+    },
+    "viz_diskgauge": {
+      "type": "splunk.singlevalueradial",
+      "title": "Disk Usage %",
+      "dataSources": {
+        "primary": "ds_diskgauge"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_p20": {
+      "type": "splunk.singlevalue",
+      "title": "PVC Capacity (GB)",
+      "dataSources": {
+        "primary": "ds_p20"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_p21": {
+      "type": "splunk.singlevalue",
+      "title": "Disk Read (MB)",
+      "dataSources": {
+        "primary": "ds_p21"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_p22": {
+      "type": "splunk.singlevalue",
+      "title": "Disk Write (MB)",
+      "dataSources": {
+        "primary": "ds_p22"
+      },
+      "options": {
+        "numberPrecision": 2,
+        "shouldAbbreviateMajorValue": false
+      }
+    },
+    "viz_header22": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Capacity Forecasting"
+      }
+    },
+    "viz_p24": {
+      "type": "splunk.line",
+      "title": "Log Directory Usage vs PVC Requested Capacity (GB)",
+      "dataSources": {
+        "primary": "ds_p24"
+      },
+      "options": {}
+    }
+  },
+  "dataSources": {
+    "ds_p2": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"$pod$\"  BY pod span=1m\n| eval value=value/1024/1024/1024\n| eval series=\"Usage\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"$pod$\" resource=\"memory\" container=\"kafka\"  BY pod span=1m\n| eval value=value/1024/1024/1024\n| eval series=\"Limit\"\n]\n| eval pod_series=series.\"-\".pod\n| timechart span=1m avg(value) by pod_series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p3": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as used WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"$pod$\"  BY pod span=1m\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"$pod$\" resource=\"memory\" container=\"kafka\"  BY pod span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity by pod\n| eval value=round(used/capacity*100,2)\n| fields - used capacity pod",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p4": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"$pod$\"\n| eval value=value/1024/1024/1024",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p5": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"$pod$\" resource=\"memory\" container=\"kafka\"\n| eval value=value/1024/1024/1024",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p7": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"$pod$\"  BY pod span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by pod\n| eval value=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| eval series=\"Usage\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"$pod$\" resource=\"cpu\" container=\"kafka\"  BY pod span=1m\n| eval series=\"Limit\"\n]\n| eval pod_series=series.\"-\".pod\n| timechart span=1m avg(value) by pod_series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p8": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"$pod$\"  BY pod span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by pod\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"$pod$\" resource=\"cpu\" container=\"kafka\"  BY pod span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity by pod\n| eval value=round(used/capacity*100,2)\n| fields - used capacity pod",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p9": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"$pod$\" span=1m\n| streamstats current=f window=1 last(value) as prev_value last(_time) as prev_time\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| stats latest(rate) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p10": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"$pod$\" resource=\"cpu\" container=\"kafka\"",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p12": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_used\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" area=\"heap\" service.instance.id=\"$pod$\"  BY service.instance.id span=1m\n| eval value=value/1024/1024/1024\n| eval series=\"Usage\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" area=\"heap\" service.instance.id=\"$pod$\"  BY service.instance.id span=1m\n| eval value=value/1024/1024/1024\n| eval series=\"Limit\"\n]\n| eval instance_series=series.\"-\".'service.instance.id'\n| timechart span=1m avg(value) by instance_series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p13": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as used WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_used\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" area=\"heap\" service.instance.id=\"$pod$\"  BY service.instance.id span=1m\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" area=\"heap\" service.instance.id=\"$pod$\"  BY service.instance.id span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity by service.instance.id\n| eval value=round(used/capacity*100,2)\n| fields - used capacity service.instance.id",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p14": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_used\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" area=\"heap\" service.instance.id=\"$pod$\"\n| eval value=value/1024/1024/1024",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p15": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" area=\"heap\" service.instance.id=\"$pod$\"\n| eval value=value/1024/1024/1024",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p16": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_gc_collection_seconds_sum\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" service.instance.id=\"$pod$\"  BY service.instance.id span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by service.instance.id\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time)*100, null())\n| timechart span=1m avg(rate) by service.instance.id",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p17": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_threads_current\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" service.instance.id=\"$pod$\"",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p19": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_kafkaserver_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"linux-disk-read-bytes\" service.instance.id=\"$pod$\"  BY service.instance.id span=1m\n| eval value=value/1024/1024\n| eval series=\"read\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_kafkaserver_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"linux-disk-write-bytes\" service.instance.id=\"$pod$\"  BY service.instance.id span=1m\n| eval value=value/1024/1024\n| eval series=\"write\"\n]\n| eval combined=series.\"-\".'service.instance.id'\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_diskgauge": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as used WHERE index=cfk_metrics metric_name=\"kafka_log_log_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"Size\" service.instance.id=\"$pod$\"\n| append [\n| mstats latest(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_persistentvolumeclaim_resource_requests_storage_bytes\" namespace=\"confluent\" persistentvolumeclaim=\"data0-$pod$\"\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p20": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kube_persistentvolumeclaim_resource_requests_storage_bytes\" namespace=\"confluent\" persistentvolumeclaim=\"data0-$pod$\"\n| eval value=value/1024/1024/1024",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p21": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_kafkaserver_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"linux-disk-read-bytes\" service.instance.id=\"$pod$\"\n| eval value=value/1024/1024",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p22": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_kafkaserver_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"linux-disk-write-bytes\" service.instance.id=\"$pod$\"\n| eval value=value/1024/1024",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p24": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_log_log_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"Size\" service.instance.id=\"$pod$\" BY service.instance.id span=1m\n| eval value=value/1024/1024/1024\n| eval series=\"log_size\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kube_persistentvolumeclaim_resource_requests_storage_bytes\" namespace=\"confluent\" persistentvolumeclaim=\"data0-$pod$\"\n| eval value=value/1024/1024/1024\n| eval service.instance.id=\"$pod$\", series=\"pvc_requested_capacity\"\n]\n| eval combined=series.\"-\".'service.instance.id'\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    }
+  },
+  "defaults": {
+    "dataSources": {
+      "ds.search": {
+        "options": {
+          "queryParameters": {
+            "earliest": "-60m@m",
+            "latest": "now"
+          }
+        }
+      }
+    }
+  },
+  "inputs": {
+    "input_global_trp": {
+      "type": "input.timerange",
+      "title": "Time Range",
+      "options": {
+        "defaultValue": "-60m@m,now",
+        "token": "global_time"
+      }
+    },
+    "input_namespace": {
+      "type": "input.dropdown",
+      "title": "Namespace",
+      "options": {
+        "items": [
+          {
+            "label": "confluent",
+            "value": "confluent"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "confluent",
+        "token": "namespace"
+      }
+    },
+    "input_env": {
+      "type": "input.dropdown",
+      "title": "Environment",
+      "options": {
+        "items": [
+          {
+            "label": "local-poc",
+            "value": "local-poc"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "local-poc",
+        "token": "env"
+      }
+    },
+    "input_cluster": {
+      "type": "input.dropdown",
+      "title": "Cluster",
+      "options": {
+        "items": [
+          {
+            "label": "docker-desktop",
+            "value": "docker-desktop"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "docker-desktop",
+        "token": "cluster"
+      }
+    },
+    "input_pod": {
+      "type": "input.text",
+      "title": "Pod (glob, e.g. kafka-*)",
+      "options": {
+        "defaultValue": "kafka-*",
+        "token": "pod"
+      }
+    }
+  },
+  "layout": {
+    "globalInputs": [
+      "input_global_trp",
+      "input_namespace",
+      "input_env",
+      "input_cluster",
+      "input_pod"
+    ],
+    "layoutDefinitions": {
+      "layout_1": {
+        "type": "absolute",
+        "options": {
+          "width": 1200,
+          "height": 2390
+        },
+        "structure": [
+          {
+            "item": "viz_header0",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "w": 1200,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p2",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 50,
+              "w": 900,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p3",
+            "type": "block",
+            "position": {
+              "x": 920,
+              "y": 50,
+              "w": 280,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p4",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 340,
+              "w": 585,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_p5",
+            "type": "block",
+            "position": {
+              "x": 615,
+              "y": 340,
+              "w": 585,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_header5",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 450,
+              "w": 1200,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p7",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 500,
+              "w": 900,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p8",
+            "type": "block",
+            "position": {
+              "x": 920,
+              "y": 500,
+              "w": 280,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p9",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 790,
+              "w": 585,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_p10",
+            "type": "block",
+            "position": {
+              "x": 615,
+              "y": 790,
+              "w": 585,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_header10",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 900,
+              "w": 1200,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p12",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 950,
+              "w": 900,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p13",
+            "type": "block",
+            "position": {
+              "x": 920,
+              "y": 950,
+              "w": 280,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p14",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1240,
+              "w": 585,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_p15",
+            "type": "block",
+            "position": {
+              "x": 615,
+              "y": 1240,
+              "w": 585,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_p16",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1330,
+              "w": 900,
+              "h": 220
+            }
+          },
+          {
+            "item": "viz_p17",
+            "type": "block",
+            "position": {
+              "x": 920,
+              "y": 1330,
+              "w": 280,
+              "h": 220
+            }
+          },
+          {
+            "item": "viz_header17",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1570,
+              "w": 1200,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p19",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1620,
+              "w": 900,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_diskgauge",
+            "type": "block",
+            "position": {
+              "x": 920,
+              "y": 1620,
+              "w": 280,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p20",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1910,
+              "w": 380,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_p21",
+            "type": "block",
+            "position": {
+              "x": 400,
+              "y": 1910,
+              "w": 380,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_p22",
+            "type": "block",
+            "position": {
+              "x": 800,
+              "y": 1910,
+              "w": 380,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_header22",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 2020,
+              "w": 1200,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p24",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 2070,
+              "w": 1200,
+              "h": 300
+            }
+          }
+        ]
+      }
+    },
+    "tabs": {
+      "items": [
+        {
+          "label": "Overview",
+          "layoutId": "layout_1"
+        }
+      ]
+    }
+  },
+  "title": "Confluent Kafka Broker Resources (Memory, CPU, Disk, JVM)",
+  "description": "Per-pod container resource usage (memory/CPU vs Kubernetes limits, as gauges + GB/core-scaled values), disk I/O (MB) and PVC capacity/usage gauge, and JVM heap/GC/thread metrics for Kafka broker pods (defaults to pod=kafka-*) in the confluent namespace."
+}

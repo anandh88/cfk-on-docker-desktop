@@ -1,0 +1,148 @@
+# Splunk OTel Collector Helm values for Docker Desktop Kubernetes
+# Helm chart: splunk-otel-collector
+# Repository: https://signalfx.github.io/splunk-otel-collector-chart
+#
+# This deploys a DaemonSet agent that:
+#  - tails container logs from /var/log/pods and forwards them to Splunk Cloud via HEC (events)
+#  - federates CFK's metrics off kube-prometheus-stack's Prometheus and forwards them to
+#    Splunk Cloud via HEC (metrics) - see the `agent.config` block below
+
+clusterName: "docker-desktop"
+distribution: ""
+
+splunkPlatform:
+  # Verified 2026-08-19 against the live stack (curl .../services/collector/health -> "HEC is healthy").
+  # NOTE: the stack id is "1qc41" (single c) - the previously deployed value "1qcc41" (double c)
+  # doesn't resolve in DNS at all, which is why exports were silently failing.
+  endpoint: "https://prd-p-1qc41.splunkcloud.com:8088/services/collector/event"
+  # Token: pass via --set splunkPlatform.token=<YOUR_TOKEN> at deployment time
+  token: ""
+  index: "main"
+  sourcetype: "stash_hec"
+  # This Splunk Cloud stack presents its own internal CA (issuer "SplunkCommonCA") directly on
+  # :8088, not a publicly-trusted cert, so Go's default trust store rejects it unless we skip
+  # verification. Confirmed via `openssl s_client -connect prd-p-1qc41.splunkcloud.com:8088`.
+  insecureSkipVerify: true
+  maxConnections: 200
+  timeout: 10s
+
+agent:
+  enabled: true
+  tokenPassthrough: false
+  
+  # Disable K8s control plane metrics (CFK metrics arrive separately via the
+  # federated prometheus/cfk receiver below; no need to duplicate cluster control-plane scrape)
+  controlPlaneMetrics:
+    scrapeInterval: 10s
+    apiserver:
+      enabled: false
+    controllerManager:
+      enabled: false
+    coredns:
+      enabled: false
+    etcd:
+      enabled: false
+    proxy:
+      enabled: false
+    scheduler:
+      enabled: false
+  
+  # Resource limits (Docker Desktop VM is memory-constrained).
+  # Bumped from 512Mi -> 1Gi 2026-08-19: the federated `{namespace="confluent"}` match pulls
+  # every series across 6 CFK components (percentile families, per-topic/per-instance breakouts,
+  # cAdvisor/kube-state-metrics) - cardinality grows as CFK runs longer (more topics, partitions),
+  # and 512Mi started OOMKilling the agent (observed CrashLoopBackOff, exitCode 137) once the
+  # cluster had been up ~90+ minutes. Revisit if this keeps growing - the real fix at that point
+  # is narrowing the federate match[] rather than keep raising the memory ceiling.
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
+  
+  # Pod security context
+  podSecurityContext:
+    fsGroup: 999
+  
+  # Container security context
+  securityContext:
+    runAsUser: 0
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+  
+  # DaemonSet update strategy
+  updateStrategy: RollingUpdate
+  maxUnavailable: 1
+  
+  # Host networking and init containers
+  hostNetwork: true
+  skipInitContainers: false
+  
+  # Pod annotations and labels for identification
+  annotations: {}
+  podAnnotations:
+    prometheus.io/scrape: "false"
+  
+  # Volumes for log collection
+#   extraVolumes:
+#     - name: log-pods
+#       hostPath:
+#         path: /var/log/pods
+#         type: Directory
+#     - name: varlog
+#       hostPath:
+#         path: /var/log
+#         type: Directory
+
+#   extraVolumeMounts:
+#     - name: log-pods
+#       mountPath: /var/log/pods
+#       readOnly: true
+#     - name: varlog
+#       mountPath: /var/log
+#       readOnly: true
+
+  # Everything below is deep-merged on top of the chart's generated config (verified via
+  # `helm template`: the existing `logs` pipeline is untouched, this just adds a sibling
+  # `metrics/cfk` pipeline). It reuses the metrics Prometheus/kube-prometheus-stack already
+  # scrapes for Grafana - one federated pull, scoped to the confluent namespace, so CFK's
+  # JMX metrics (Kafka/Connect/SR/ksqlDB/REST Proxy/Control Center) and the Kubernetes
+  # resource metrics (cAdvisor/kube-state-metrics, used by the *_Resources dashboards) both
+  # ride along, without re-deriving 7 separate scrape/relabel configs in OTel syntax.
+  #
+  # Prerequisite: create a *metrics-type* index in Splunk Cloud (Settings > Indexes > New
+  # Index > Index Data Type: Metrics), e.g. "cfk_metrics" - none of the trial's default
+  # indexes (history/lastchanceindex/main/summary) are metrics indexes, and HEC metrics
+  # ingestion requires one. Then add that index to the HEC token's allowed indexes list.
+  config:
+    receivers:
+      prometheus/cfk:
+        config:
+          scrape_configs:
+            - job_name: cfk-metrics
+              honor_labels: true
+              scrape_interval: 30s
+              metrics_path: /federate
+              params:
+                'match[]': ['{namespace="confluent"}']
+              static_configs:
+                # kube-prometheus-stack's Prometheus service, as installed by
+                # scripts/deploy-monitoring.sh into the `monitoring` namespace.
+                - targets: ['prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090']
+    exporters:
+      splunk_hec/cfk_metrics:
+        endpoint: "https://prd-p-1qc41.splunkcloud.com:8088/services/collector/event"
+        token: "${SPLUNK_PLATFORM_HEC_TOKEN}"
+        index: cfk_metrics
+        source: kubernetes
+        sourcetype: cfk_metrics
+        tls:
+          insecure_skip_verify: true
+    service:
+      pipelines:
+        metrics/cfk:
+          receivers: [prometheus/cfk]
+          processors: [memory_limiter, batch, resource_detection, resource]
+          exporters: [splunk_hec/cfk_metrics]

@@ -1,0 +1,1790 @@
+{
+  "visualizations": {
+    "viz_header0": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## General"
+      }
+    },
+    "viz_p2": {
+      "type": "splunk.singlevalue",
+      "title": "Tasks Total",
+      "dataSources": {
+        "primary": "ds_p2"
+      },
+      "options": {}
+    },
+    "viz_p3": {
+      "type": "splunk.singlevalue",
+      "title": "Tasks Running",
+      "dataSources": {
+        "primary": "ds_p3"
+      },
+      "options": {}
+    },
+    "viz_p4": {
+      "type": "splunk.singlevalue",
+      "title": "Tasks Paused",
+      "dataSources": {
+        "primary": "ds_p4"
+      },
+      "options": {}
+    },
+    "viz_p5": {
+      "type": "splunk.singlevalue",
+      "title": "Tasks Failed",
+      "dataSources": {
+        "primary": "ds_p5"
+      },
+      "options": {}
+    },
+    "viz_p6": {
+      "type": "splunk.singlevalue",
+      "title": "Tasks Unassigned",
+      "dataSources": {
+        "primary": "ds_p6"
+      },
+      "options": {}
+    },
+    "viz_p7": {
+      "type": "splunk.singlevalue",
+      "title": "Tasks Destroyed",
+      "dataSources": {
+        "primary": "ds_p7"
+      },
+      "options": {}
+    },
+    "viz_p8": {
+      "type": "splunk.pie",
+      "title": "Task Repartition per Status",
+      "dataSources": {
+        "primary": "ds_p8"
+      },
+      "options": {}
+    },
+    "viz_p9": {
+      "type": "splunk.line",
+      "title": "Status of Tasks Over Time",
+      "dataSources": {
+        "primary": "ds_p9"
+      },
+      "options": {}
+    },
+    "viz_header9": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## System"
+      }
+    },
+    "viz_p11": {
+      "type": "splunk.line",
+      "title": "CPU Usage",
+      "dataSources": {
+        "primary": "ds_p11"
+      },
+      "options": {}
+    },
+    "viz_p12": {
+      "type": "splunk.line",
+      "title": "JVM Memory Used",
+      "dataSources": {
+        "primary": "ds_p12"
+      },
+      "options": {}
+    },
+    "viz_p13": {
+      "type": "splunk.line",
+      "title": "JVM GC Time",
+      "dataSources": {
+        "primary": "ds_p13"
+      },
+      "options": {}
+    },
+    "viz_header13": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Connector Details"
+      }
+    },
+    "viz_p15": {
+      "type": "splunk.table",
+      "title": "Connectors (by status, by connector)",
+      "dataSources": {
+        "primary": "ds_p15"
+      },
+      "options": {}
+    },
+    "viz_header15": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Connect Worker"
+      }
+    },
+    "viz_p17": {
+      "type": "splunk.table",
+      "title": "Connect Worker Metrics (by instance)",
+      "dataSources": {
+        "primary": "ds_p17"
+      },
+      "options": {}
+    },
+    "viz_p18": {
+      "type": "splunk.line",
+      "title": "Network IO Rate",
+      "dataSources": {
+        "primary": "ds_p18"
+      },
+      "options": {}
+    },
+    "viz_p19": {
+      "type": "splunk.line",
+      "title": "Incoming Byte Rate",
+      "dataSources": {
+        "primary": "ds_p19"
+      },
+      "options": {}
+    },
+    "viz_p20": {
+      "type": "splunk.line",
+      "title": "Outgoing Byte Rate",
+      "dataSources": {
+        "primary": "ds_p20"
+      },
+      "options": {}
+    },
+    "viz_p21": {
+      "type": "splunk.line",
+      "title": "Current Active Connections",
+      "dataSources": {
+        "primary": "ds_p21"
+      },
+      "options": {}
+    },
+    "viz_p22": {
+      "type": "splunk.line",
+      "title": "Failed Authentication Connections",
+      "dataSources": {
+        "primary": "ds_p22"
+      },
+      "options": {}
+    },
+    "viz_p23": {
+      "type": "splunk.line",
+      "title": "Successful Authentication Rate",
+      "dataSources": {
+        "primary": "ds_p23"
+      },
+      "options": {}
+    },
+    "viz_p24": {
+      "type": "splunk.line",
+      "title": "IO Ratio",
+      "dataSources": {
+        "primary": "ds_p24"
+      },
+      "options": {}
+    },
+    "viz_p25": {
+      "type": "splunk.line",
+      "title": "Responses Received and Sent",
+      "dataSources": {
+        "primary": "ds_p25"
+      },
+      "options": {}
+    },
+    "viz_p26": {
+      "type": "splunk.line",
+      "title": "Average Number of Requests",
+      "dataSources": {
+        "primary": "ds_p26"
+      },
+      "options": {}
+    },
+    "viz_header26": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Worker Rebalances"
+      }
+    },
+    "viz_p28": {
+      "type": "splunk.singlevalue",
+      "title": "Total Number of Rebalances",
+      "dataSources": {
+        "primary": "ds_p28"
+      },
+      "options": {}
+    },
+    "viz_p29": {
+      "type": "splunk.singlevalue",
+      "title": "Time Since Last Rebalance (ms)",
+      "dataSources": {
+        "primary": "ds_p29"
+      },
+      "options": {}
+    },
+    "viz_p30": {
+      "type": "splunk.line",
+      "title": "Rebalance Average Time (ms)",
+      "dataSources": {
+        "primary": "ds_p30"
+      },
+      "options": {}
+    },
+    "viz_header30": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Task Metrics"
+      }
+    },
+    "viz_p32": {
+      "type": "splunk.line",
+      "title": "Batch Size Average",
+      "dataSources": {
+        "primary": "ds_p32"
+      },
+      "options": {}
+    },
+    "viz_p33": {
+      "type": "splunk.line",
+      "title": "Batch Size Max",
+      "dataSources": {
+        "primary": "ds_p33"
+      },
+      "options": {}
+    },
+    "viz_p34": {
+      "type": "splunk.line",
+      "title": "Offset Commit Success Percentage",
+      "dataSources": {
+        "primary": "ds_p34"
+      },
+      "options": {}
+    },
+    "viz_p35": {
+      "type": "splunk.line",
+      "title": "Offset Commit Average Time (ms)",
+      "dataSources": {
+        "primary": "ds_p35"
+      },
+      "options": {}
+    },
+    "viz_p36": {
+      "type": "splunk.line",
+      "title": "Running Ratio",
+      "dataSources": {
+        "primary": "ds_p36"
+      },
+      "options": {}
+    },
+    "viz_header36": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Task Errors Metrics"
+      }
+    },
+    "viz_p38": {
+      "type": "splunk.line",
+      "title": "Total Record Failures",
+      "dataSources": {
+        "primary": "ds_p38"
+      },
+      "options": {}
+    },
+    "viz_p39": {
+      "type": "splunk.line",
+      "title": "Total Record Errors",
+      "dataSources": {
+        "primary": "ds_p39"
+      },
+      "options": {}
+    },
+    "viz_p40": {
+      "type": "splunk.line",
+      "title": "Total Records Skipped",
+      "dataSources": {
+        "primary": "ds_p40"
+      },
+      "options": {}
+    },
+    "viz_p41": {
+      "type": "splunk.line",
+      "title": "Total Errors Logged",
+      "dataSources": {
+        "primary": "ds_p41"
+      },
+      "options": {}
+    },
+    "viz_p42": {
+      "type": "splunk.line",
+      "title": "Total Retries",
+      "dataSources": {
+        "primary": "ds_p42"
+      },
+      "options": {}
+    },
+    "viz_p43": {
+      "type": "splunk.line",
+      "title": "Dead Letter Queue Produce Requests",
+      "dataSources": {
+        "primary": "ds_p43"
+      },
+      "options": {}
+    },
+    "viz_p44": {
+      "type": "splunk.line",
+      "title": "Dead Letter Queue Produce Failures",
+      "dataSources": {
+        "primary": "ds_p44"
+      },
+      "options": {}
+    },
+    "viz_header44": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Source Task Metrics"
+      }
+    },
+    "viz_p46": {
+      "type": "splunk.line",
+      "title": "Source Record Write Rate",
+      "dataSources": {
+        "primary": "ds_p46"
+      },
+      "options": {}
+    },
+    "viz_p47": {
+      "type": "splunk.line",
+      "title": "Source Record Poll Rate",
+      "dataSources": {
+        "primary": "ds_p47"
+      },
+      "options": {}
+    },
+    "viz_p48": {
+      "type": "splunk.line",
+      "title": "Source Record Active Count Average",
+      "dataSources": {
+        "primary": "ds_p48"
+      },
+      "options": {}
+    },
+    "viz_p49": {
+      "type": "splunk.line",
+      "title": "Source Record Active Count Max",
+      "dataSources": {
+        "primary": "ds_p49"
+      },
+      "options": {}
+    },
+    "viz_p50": {
+      "type": "splunk.line",
+      "title": "Poll Batch Average Time (ms)",
+      "dataSources": {
+        "primary": "ds_p50"
+      },
+      "options": {}
+    },
+    "viz_p51": {
+      "type": "splunk.line",
+      "title": "Poll Batch Max Time (ms)",
+      "dataSources": {
+        "primary": "ds_p51"
+      },
+      "options": {}
+    },
+    "viz_header51": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Sink Task Metrics"
+      }
+    },
+    "viz_p53": {
+      "type": "splunk.line",
+      "title": "Sink Record Read Rate",
+      "dataSources": {
+        "primary": "ds_p53"
+      },
+      "options": {}
+    },
+    "viz_p54": {
+      "type": "splunk.line",
+      "title": "Sink Record Send Rate",
+      "dataSources": {
+        "primary": "ds_p54"
+      },
+      "options": {}
+    },
+    "viz_p55": {
+      "type": "splunk.line",
+      "title": "Sink Record Active Count Average",
+      "dataSources": {
+        "primary": "ds_p55"
+      },
+      "options": {}
+    },
+    "viz_p56": {
+      "type": "splunk.line",
+      "title": "Sink Record Active Count Max",
+      "dataSources": {
+        "primary": "ds_p56"
+      },
+      "options": {}
+    },
+    "viz_p57": {
+      "type": "splunk.line",
+      "title": "Offset Commit Completion Rate",
+      "dataSources": {
+        "primary": "ds_p57"
+      },
+      "options": {}
+    },
+    "viz_p58": {
+      "type": "splunk.line",
+      "title": "Offset Commit Skip Rate",
+      "dataSources": {
+        "primary": "ds_p58"
+      },
+      "options": {}
+    },
+    "viz_p59": {
+      "type": "splunk.line",
+      "title": "Put Batch Average Time (ms)",
+      "dataSources": {
+        "primary": "ds_p59"
+      },
+      "options": {}
+    },
+    "viz_p60": {
+      "type": "splunk.line",
+      "title": "Put Batch Max Time (ms)",
+      "dataSources": {
+        "primary": "ds_p60"
+      },
+      "options": {}
+    },
+    "viz_p61": {
+      "type": "splunk.line",
+      "title": "Partition Count",
+      "dataSources": {
+        "primary": "ds_p61"
+      },
+      "options": {}
+    }
+  },
+  "dataSources": {
+    "ds_p2": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_total_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p3": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_running_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p4": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_paused_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p5": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_failed_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p6": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_unassigned_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p7": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_destroyed_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p8": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_running_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value | eval series=\"running\"\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_failed_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value | eval series=\"failed\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_paused_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value | eval series=\"paused\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_unassigned_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value | eval series=\"unassigned\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_destroyed_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| stats sum(value) as value | eval series=\"destroyed\"\n]\n| stats sum(value) as value by series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p9": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_running_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  span=1m\n| eval series=\"running\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_failed_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  span=1m\n| eval series=\"failed\"\n]\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_paused_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  span=1m\n| eval series=\"paused\"\n]\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_destroyed_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  span=1m\n| eval series=\"destroyed\"\n]\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_unassigned_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  span=1m\n| eval series=\"unassigned\"\n]\n| timechart span=1m avg(value) by series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p11": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"process_cpu_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\"  BY service.instance.id span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by service.instance.id\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by service.instance.id",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p12": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_used\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\"  BY service.instance.id span=1m\n| eval series=\"used\".\"-\".'service.instance.id'\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_memory_bytes_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" area=\"heap\"  BY service.instance.id span=1m\n| eval series=\"max_heap\".\"-\".'service.instance.id'\n]\n| timechart span=1m avg(value) by series",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p13": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_gc_collection_seconds_sum\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\"  BY service.instance.id span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by service.instance.id\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by service.instance.id",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p15": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_total_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| eval metric=\"total\"\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_running_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| eval metric=\"running\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_failed_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| eval metric=\"failed\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_paused_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| eval metric=\"paused\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_destroyed_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| eval metric=\"destroyed\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_unassigned_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" BY connector\n| eval metric=\"unassigned\"\n]\n| stats latest(value) as value by connector metric\n| xyseries connector metric value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p17": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" BY service.instance.id\n| eval metric=\"connector_count\"\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_startup_success_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" BY service.instance.id\n| eval metric=\"connector_startup_success_total\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_connector_startup_failure_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" BY service.instance.id\n| eval metric=\"connector_startup_failure_total\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_task_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" BY service.instance.id\n| eval metric=\"task_count\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_task_startup_success_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" BY service.instance.id\n| eval metric=\"task_startup_success_total\"\n]\n| append [\n| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_metrics_task_startup_failure_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" BY service.instance.id\n| eval metric=\"task_startup_failure_total\"\n]\n| stats latest(value) as value by service.instance.id metric\n| xyseries service.instance.id metric value",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p18": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_network_io_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p19": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_incoming_byte_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p20": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_outgoing_byte_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p21": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_connection_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p22": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_failed_authentication_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p23": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_successful_authentication_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p24": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_io_ratio\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p25": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_response_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p26": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_metrics_request_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" client_id!=\"\"  BY service.instance.id,client_id span=1m\n| eval combined='service.instance.id'.\"-\".client_id\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p28": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_rebalance_metrics_completed_rebalances_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\"",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p29": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats latest(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\"",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p30": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\"  BY service.instance.id span=1m\n| timechart span=1m avg(value) by service.instance.id",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p32": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connector_task_metrics_batch_size_avg\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p33": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connector_task_metrics_batch_size_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p34": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connector_task_metrics_offset_commit_success_percentage\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p35": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connector_task_metrics_offset_commit_avg_time_ms\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p36": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_connector_task_metrics_running_ratio\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p38": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_record_failures\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p39": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_record_errors\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p40": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_records_skipped\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p41": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_errors_logged\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p42": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_retries\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p43": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_deadletterqueue_produce_requests\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p44": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_deadletterqueue_produce_failures\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p46": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_source_task_metrics_source_record_write_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p47": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_source_task_metrics_source_record_poll_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p48": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_source_task_metrics_source_record_active_count_avg\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p49": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_source_task_metrics_source_record_active_count_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p50": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_source_task_metrics_poll_batch_avg_time_ms\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p51": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_source_task_metrics_poll_batch_max_time_ms\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p53": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_sink_record_read_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p54": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_sink_record_send_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p55": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_sink_record_active_count_avg\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p56": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_sink_record_active_count_max\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p57": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_offset_commit_completion_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p58": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_offset_commit_skip_rate\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p59": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_put_batch_avg_time_ms\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p60": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_put_batch_max_time_ms\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_p61": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_sink_task_metrics_partition_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-connect\" kafka_connect_cluster_id=\"$kafka_connect_cluster_id$\" service.instance.id=\"$instance$\" connector=\"$connector$\" task!=\"\"  BY connector,task span=1m\n| eval combined=connector.\"-\".task\n| timechart span=1m avg(value) by combined",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    }
+  },
+  "defaults": {
+    "dataSources": {
+      "ds.search": {
+        "options": {
+          "queryParameters": {
+            "earliest": "-60m@m",
+            "latest": "now"
+          }
+        }
+      }
+    }
+  },
+  "inputs": {
+    "input_global_trp": {
+      "type": "input.timerange",
+      "title": "Time Range",
+      "options": {
+        "defaultValue": "-60m@m,now",
+        "token": "global_time"
+      }
+    },
+    "input_namespace": {
+      "type": "input.dropdown",
+      "title": "Namespace",
+      "options": {
+        "items": [
+          {
+            "label": "confluent",
+            "value": "confluent"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "confluent",
+        "token": "namespace"
+      }
+    },
+    "input_env": {
+      "type": "input.dropdown",
+      "title": "Environment",
+      "options": {
+        "items": [
+          {
+            "label": "local-poc",
+            "value": "local-poc"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "local-poc",
+        "token": "env"
+      }
+    },
+    "input_cluster": {
+      "type": "input.dropdown",
+      "title": "Cluster",
+      "options": {
+        "items": [
+          {
+            "label": "docker-desktop",
+            "value": "docker-desktop"
+          },
+          {
+            "label": "All",
+            "value": "*"
+          }
+        ],
+        "defaultValue": "docker-desktop",
+        "token": "cluster"
+      }
+    },
+    "input_instance": {
+      "type": "input.text",
+      "title": "Worker Instance (glob)",
+      "options": {
+        "defaultValue": "*",
+        "token": "instance"
+      }
+    },
+    "input_connector": {
+      "type": "input.text",
+      "title": "Connector (glob)",
+      "options": {
+        "defaultValue": "*",
+        "token": "connector"
+      }
+    },
+    "input_cluster_id": {
+      "type": "input.text",
+      "title": "Connect Cluster ID (glob)",
+      "options": {
+        "defaultValue": "*",
+        "token": "kafka_connect_cluster_id"
+      }
+    }
+  },
+  "layout": {
+    "globalInputs": [
+      "input_global_trp",
+      "input_namespace",
+      "input_env",
+      "input_cluster",
+      "input_instance",
+      "input_connector",
+      "input_cluster_id"
+    ],
+    "layoutDefinitions": {
+      "layout_1": {
+        "type": "absolute",
+        "options": {
+          "width": 1440,
+          "height": 5900
+        },
+        "structure": [
+          {
+            "item": "viz_header0",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p2",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p3",
+            "type": "block",
+            "position": {
+              "x": 240,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p4",
+            "type": "block",
+            "position": {
+              "x": 480,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p5",
+            "type": "block",
+            "position": {
+              "x": 720,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p6",
+            "type": "block",
+            "position": {
+              "x": 960,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p7",
+            "type": "block",
+            "position": {
+              "x": 1200,
+              "y": 50,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p8",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 200,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p9",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 200,
+              "w": 930,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header9",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 490,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p11",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 540,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p12",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 540,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p13",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 540,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header13",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 830,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p15",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 880,
+              "w": 1440,
+              "h": 320
+            }
+          },
+          {
+            "item": "viz_header15",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1210,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p17",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1260,
+              "w": 1440,
+              "h": 320
+            }
+          },
+          {
+            "item": "viz_p18",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1590,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p19",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 1590,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p20",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 1590,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p21",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 1880,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p22",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 1880,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p23",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 1880,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p24",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 2170,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p25",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 2170,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p26",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 2170,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header26",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 2460,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p28",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 2510,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p29",
+            "type": "block",
+            "position": {
+              "x": 240,
+              "y": 2510,
+              "w": 230,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_p30",
+            "type": "block",
+            "position": {
+              "x": 480,
+              "y": 2510,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header30",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 2800,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p32",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 2850,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p33",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 2850,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p34",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 2850,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p35",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 3140,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p36",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 3140,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header36",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 3430,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p38",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 3480,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p39",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 3480,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p40",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 3480,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p41",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 3770,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p42",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 3770,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p43",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 3770,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p44",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 4060,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header44",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 4350,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p46",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 4400,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p47",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 4400,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p48",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 4400,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p49",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 4690,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p50",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 4690,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p51",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 4690,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_header51",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 4980,
+              "w": 1440,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_p53",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 5030,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p54",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 5030,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p55",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 5030,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p56",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 5320,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p57",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 5320,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p58",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 5320,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p59",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 5610,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p60",
+            "type": "block",
+            "position": {
+              "x": 470,
+              "y": 5610,
+              "w": 460,
+              "h": 280
+            }
+          },
+          {
+            "item": "viz_p61",
+            "type": "block",
+            "position": {
+              "x": 940,
+              "y": 5610,
+              "w": 460,
+              "h": 280
+            }
+          }
+        ]
+      }
+    },
+    "tabs": {
+      "items": [
+        {
+          "label": "Overview",
+          "layoutId": "layout_1"
+        }
+      ]
+    }
+  },
+  "title": "Confluent Kafka Connect Cluster",
+  "description": "Kafka Connect worker cluster overview: connector/task counts and status, worker system resources (CPU/JVM/GC), per-connector task table, worker network/auth/IO metrics, rebalance activity, and per-connector-task batch/offset/error/source/sink metrics in the confluent namespace."
+}
