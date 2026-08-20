@@ -121,9 +121,22 @@ See `otel-collector-values.docker-desktop.yaml` for:
 4. **Metrics in Splunk**: Query `| mstats count(_value) WHERE index=cfk_metrics span=1m` — should show a steady 30s-interval count once CFK + Prometheus are running
 5. **Grafana unchanged**: Verify metrics still flowing in existing Grafana dashboards
 
-## Component Identification in Splunk
+## Querying CFK Logs in Splunk
 
-Use these fields to filter logs by CFK component:
+**The query to fetch all CFK logs:**
+
+```spl
+index=main sourcetype=stash_hec k8s.namespace.name="confluent"
+```
+
+`index=main` and `sourcetype=stash_hec` come straight from the HEC token's settings
+(see Prerequisites above) — every event this pipeline sends lands there, so both are
+required, not optional filters. `k8s.namespace.name="confluent"` narrows it to CFK specifically
+(this pipeline also carries Flink logs, under `k8s.namespace.name="flink-jobs"`, if deployed).
+
+### Scoping to one component
+
+Use `k8s.pod.labels.app` to filter to a single CFK component:
 
 | Component | `k8s.pod.labels.app` | `k8s.namespace.name` |
 |---|---|---|
@@ -135,20 +148,23 @@ Use these fields to filter logs by CFK component:
 | REST Proxy | `kafkarestproxy` | `confluent` |
 | Flink (JobManager/TaskManager) | `<job-name>` | `flink-jobs` |
 
-Example Splunk searches:
-```
-# All CFK logs
-index=main k8s.namespace.name="confluent"
-
-# Kafka broker logs
-index=main k8s.namespace.name="confluent" k8s.pod.labels.app="kafka"
+```spl
+# Kafka broker logs only
+index=main sourcetype=stash_hec k8s.namespace.name="confluent" k8s.pod.labels.app="kafka"
 
 # Flink TaskManager logs
-index=main k8s.namespace.name="flink-jobs" k8s.pod.labels.component="taskmanager"
+index=main sourcetype=stash_hec k8s.namespace.name="flink-jobs" k8s.pod.labels.component="taskmanager"
 
-# Errors across all components
-index=main k8s.namespace.name="confluent" OR k8s.namespace.name="flink-jobs" ERROR OR WARN | head 20
+# Errors/warnings across all of CFK
+index=main sourcetype=stash_hec k8s.namespace.name="confluent" (ERROR OR WARN) | head 20
 ```
+
+> **Logs vs. metrics dimension naming differs.** These log queries filter on the raw
+> Kubernetes pod label `k8s.pod.labels.app` (`kafka`, `connect`, etc.). The metrics
+> dashboards (`dashboards/`) filter on `service.name` instead (`kafka-broker`,
+> `kafka-connect`, etc.) — a byproduct of the OTel Prometheus receiver renaming the
+> Prometheus `job` label on ingest. Don't reuse one convention for the other; see
+> `dashboards/METRICS_REFERENCE.md` for the metrics side.
 
 ## Troubleshooting
 
@@ -159,7 +175,8 @@ kubectl logs -n splunk-otel -l app=splunk-otel-collector-agent
 ```
 
 Common issues:
-- Secret `splunk-hec` not found or wrong key name (must be `token`)
+- Secret `splunk-hec` not found in the `splunk-otel` namespace, or wrong key name
+  (must be exactly `splunk_platform_hec_token` — see Deployment above)
 - HEC endpoint unreachable (network/firewall)
 - Invalid HEC token (expired or disabled in Splunk)
 
