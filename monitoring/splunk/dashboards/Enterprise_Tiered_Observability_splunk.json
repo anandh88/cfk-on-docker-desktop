@@ -6,17 +6,19 @@
         "markdown": "## Tier 1 \u2014 Infrastructure (Node / Pod / JVM Resource Health)"
       }
     },
-    "viz_p2": {
-      "type": "splunk.singlevalue",
+    "viz_cpu_kafka": {
+      "type": "splunk.singlevalueradial",
       "title": "Kafka Broker CPU %",
       "dataSources": {
-        "primary": "ds_p2"
+        "primary": "ds_cpu_kafka"
       },
       "options": {
         "numberPrecision": 1,
         "unit": "%",
         "unitPosition": "after",
-        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
       },
       "context": {
         "majorColorEditorConfig": [
@@ -36,17 +38,51 @@
         ]
       }
     },
-    "viz_p3": {
-      "type": "splunk.singlevalue",
+    "viz_mem_kafka": {
+      "type": "splunk.singlevalueradial",
+      "title": "Kafka Broker Memory %",
+      "dataSources": {
+        "primary": "ds_mem_kafka"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_cpu_connect": {
+      "type": "splunk.singlevalueradial",
       "title": "Kafka Connect CPU %",
       "dataSources": {
-        "primary": "ds_p3"
+        "primary": "ds_cpu_connect"
       },
       "options": {
         "numberPrecision": 1,
         "unit": "%",
         "unitPosition": "after",
-        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
       },
       "context": {
         "majorColorEditorConfig": [
@@ -66,17 +102,51 @@
         ]
       }
     },
-    "viz_p4": {
-      "type": "splunk.singlevalue",
+    "viz_mem_connect": {
+      "type": "splunk.singlevalueradial",
+      "title": "Kafka Connect Memory %",
+      "dataSources": {
+        "primary": "ds_mem_connect"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_cpu_schemaregistry": {
+      "type": "splunk.singlevalueradial",
       "title": "Schema Registry CPU %",
       "dataSources": {
-        "primary": "ds_p4"
+        "primary": "ds_cpu_schemaregistry"
       },
       "options": {
         "numberPrecision": 1,
         "unit": "%",
         "unitPosition": "after",
-        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
       },
       "context": {
         "majorColorEditorConfig": [
@@ -96,17 +166,51 @@
         ]
       }
     },
-    "viz_p5": {
-      "type": "splunk.singlevalue",
+    "viz_mem_schemaregistry": {
+      "type": "splunk.singlevalueradial",
+      "title": "Schema Registry Memory %",
+      "dataSources": {
+        "primary": "ds_mem_schemaregistry"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_cpu_controlcenter": {
+      "type": "splunk.singlevalueradial",
       "title": "Control Center CPU %",
       "dataSources": {
-        "primary": "ds_p5"
+        "primary": "ds_cpu_controlcenter"
       },
       "options": {
         "numberPrecision": 1,
         "unit": "%",
         "unitPosition": "after",
-        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
       },
       "context": {
         "majorColorEditorConfig": [
@@ -126,17 +230,83 @@
         ]
       }
     },
-    "viz_p6": {
-      "type": "splunk.singlevalue",
-      "title": "KRaft Controller CPU %",
+    "viz_mem_controlcenter": {
+      "type": "splunk.singlevalueradial",
+      "title": "Control Center Memory %",
       "dataSources": {
-        "primary": "ds_p6"
+        "primary": "ds_mem_controlcenter"
       },
       "options": {
         "numberPrecision": 1,
         "unit": "%",
         "unitPosition": "after",
-        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_cpu_kraftcontroller": {
+      "type": "splunk.singlevalueradial",
+      "title": "KRaft Controller CPU %",
+      "dataSources": {
+        "primary": "ds_cpu_kraftcontroller"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 79.999,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 79.999,
+            "to": 89.999,
+            "value": "#fab219"
+          },
+          {
+            "from": 89.999,
+            "value": "#d03b3b"
+          }
+        ]
+      }
+    },
+    "viz_mem_kraftcontroller": {
+      "type": "splunk.singlevalueradial",
+      "title": "KRaft Controller Memory %",
+      "dataSources": {
+        "primary": "ds_mem_kraftcontroller"
+      },
+      "options": {
+        "numberPrecision": 1,
+        "unit": "%",
+        "unitPosition": "after",
+        "maxValue": 100,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)",
+        "majorValueField": "value"
       },
       "context": {
         "majorColorEditorConfig": [
@@ -162,15 +332,27 @@
       "dataSources": {
         "primary": "ds_p7"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Cores",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p8": {
       "type": "splunk.line",
-      "title": "Memory Usage by Component (bytes)",
+      "title": "Memory Usage by Component (GB)",
       "dataSources": {
         "primary": "ds_p8"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "GB",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p9": {
       "type": "splunk.line",
@@ -178,15 +360,27 @@
       "dataSources": {
         "primary": "ds_p9"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "%",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p10": {
       "type": "splunk.line",
-      "title": "GC Time by Component (s/s)",
+      "title": "GC Time by Component (% of wall-clock)",
       "dataSources": {
         "primary": "ds_p10"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "%",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_header10": {
       "type": "splunk.markdown",
@@ -200,7 +394,27 @@
       "dataSources": {
         "primary": "ds_p12"
       },
-      "options": {}
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.999,
+            "value": "#d03b3b"
+          },
+          {
+            "from": 0.999,
+            "to": 1.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 1.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
     },
     "viz_p13": {
       "type": "splunk.singlevalue",
@@ -208,7 +422,22 @@
       "dataSources": {
         "primary": "ds_p13"
       },
-      "options": {}
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 0.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
     },
     "viz_p14": {
       "type": "splunk.singlevalue",
@@ -216,7 +445,22 @@
       "dataSources": {
         "primary": "ds_p14"
       },
-      "options": {}
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 0.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
     },
     "viz_p15": {
       "type": "splunk.singlevalue",
@@ -224,7 +468,22 @@
       "dataSources": {
         "primary": "ds_p15"
       },
-      "options": {}
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 0.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
     },
     "viz_p16": {
       "type": "splunk.line",
@@ -232,7 +491,13 @@
       "dataSources": {
         "primary": "ds_p16"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "%",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p17": {
       "type": "splunk.line",
@@ -240,15 +505,27 @@
       "dataSources": {
         "primary": "ds_p17"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Milliseconds",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p18": {
       "type": "splunk.line",
-      "title": "KRaft Quorum Health",
+      "title": "KRaft Quorum: Current Leader / Epoch",
       "dataSources": {
         "primary": "ds_p18"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "ID / Epoch #",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p19": {
       "type": "splunk.line",
@@ -256,7 +533,13 @@
       "dataSources": {
         "primary": "ds_p19"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Task Count",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p20": {
       "type": "splunk.singlevalue",
@@ -264,7 +547,27 @@
       "dataSources": {
         "primary": "ds_p20"
       },
-      "options": {}
+      "options": {
+        "numberPrecision": 0,
+        "majorColor": "> majorValue | rangeValue(majorColorEditorConfig)"
+      },
+      "context": {
+        "majorColorEditorConfig": [
+          {
+            "to": 0.999,
+            "value": "#d03b3b"
+          },
+          {
+            "from": 0.999,
+            "to": 1.001,
+            "value": "#0ca30c"
+          },
+          {
+            "from": 1.001,
+            "value": "#d03b3b"
+          }
+        ]
+      }
     },
     "viz_header20": {
       "type": "splunk.markdown",
@@ -278,7 +581,13 @@
       "dataSources": {
         "primary": "ds_p22"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Messages/sec",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p23": {
       "type": "splunk.line",
@@ -286,15 +595,27 @@
       "dataSources": {
         "primary": "ds_p23"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Records",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p24": {
       "type": "splunk.line",
-      "title": "Connector Data Quality (errors / retries / DLQ)",
+      "title": "Connector Data Quality (errors / retries / DLQ per sec)",
       "dataSources": {
         "primary": "ds_p24"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Events/sec",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p25": {
       "type": "splunk.line",
@@ -302,7 +623,13 @@
       "dataSources": {
         "primary": "ds_p25"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Milliseconds",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p26": {
       "type": "splunk.line",
@@ -310,22 +637,34 @@
       "dataSources": {
         "primary": "ds_p26"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "Records/sec",
+        "yAxisTitleVisibility": "show"
+      }
     },
     "viz_p27": {
       "type": "splunk.line",
-      "title": "Topic Data Volume (log size, bytes)",
+      "title": "Topic Data Volume (log size, GB)",
       "dataSources": {
         "primary": "ds_p27"
       },
-      "options": {}
+      "options": {
+        "lineWidth": 2,
+        "legendDisplay": "bottom",
+        "xAxisTitleVisibility": "hide",
+        "yAxisTitleText": "GB",
+        "yAxisTitleVisibility": "show"
+      }
     }
   },
   "dataSources": {
-    "ds_p2": {
+    "ds_cpu_kafka": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"kafka-*\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats sum(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"kafka-*\" resource=\"cpu\" container=\"kafka\"  span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"kafka-*\" span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"kafka-*\" resource=\"cpu\" container=\"kafka\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -333,10 +672,10 @@
       },
       "name": "search"
     },
-    "ds_p3": {
+    "ds_mem_kafka": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"connect-*\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats sum(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"connect-*\" resource=\"cpu\" container=\"connect\"  span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)",
+        "query": "| mstats avg(_value) as used WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"kafka-*\" span=1m\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"kafka-*\" resource=\"memory\" container=\"kafka\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -344,10 +683,10 @@
       },
       "name": "search"
     },
-    "ds_p4": {
+    "ds_cpu_connect": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"schemaregistry-*\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats sum(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"schemaregistry-*\" resource=\"cpu\" container=\"schemaregistry\"  span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"connect-*\" span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"connect-*\" resource=\"cpu\" container=\"connect\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -355,10 +694,10 @@
       },
       "name": "search"
     },
-    "ds_p5": {
+    "ds_mem_connect": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"controlcenter-*\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats sum(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"controlcenter-*\" resource=\"cpu\" container=\"controlcenter\"  span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)",
+        "query": "| mstats avg(_value) as used WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"connect-*\" span=1m\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"connect-*\" resource=\"memory\" container=\"connect\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -366,10 +705,65 @@
       },
       "name": "search"
     },
-    "ds_p6": {
+    "ds_cpu_schemaregistry": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"kraftcontroller-*\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats sum(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"kraftcontroller-*\" resource=\"cpu\" container=\"kraftcontroller\"  span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"schemaregistry-*\" span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"schemaregistry-*\" resource=\"cpu\" container=\"schemaregistry\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_mem_schemaregistry": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as used WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"schemaregistry-*\" span=1m\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"schemaregistry-*\" resource=\"memory\" container=\"schemaregistry\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_cpu_controlcenter": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"controlcenter-*\" span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"controlcenter-*\" resource=\"cpu\" container=\"controlcenter\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_mem_controlcenter": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as used WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"controlcenter-*\" span=1m\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"controlcenter-*\" resource=\"memory\" container=\"controlcenter\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_cpu_kraftcontroller": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"kraftcontroller-*\" span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval used=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"kraftcontroller-*\" resource=\"cpu\" container=\"kraftcontroller\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
+        "queryParameters": {
+          "earliest": "$global_time.earliest$",
+          "latest": "$global_time.latest$"
+        }
+      },
+      "name": "search"
+    },
+    "ds_mem_kraftcontroller": {
+      "type": "ds.search",
+      "options": {
+        "query": "| mstats avg(_value) as used WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" pod=\"kraftcontroller-*\" span=1m\n| append [\n| mstats avg(_value) as capacity WHERE index=cfk_metrics metric_name=\"kube_pod_container_resource_limits\" namespace=\"confluent\" pod=\"kraftcontroller-*\" resource=\"memory\" container=\"kraftcontroller\" span=1m\n]\n| stats latest(used) as used latest(capacity) as capacity\n| eval value=round(used/capacity*100,2)\n| fields - used capacity",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -380,7 +774,7 @@
     "ds_p7": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  BY pod span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by pod\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by pod",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_cpu_usage_seconds_total\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" (pod=\"kafka-*\" OR pod=\"connect-*\" OR pod=\"schemaregistry-*\" OR pod=\"controlcenter-*\" OR pod=\"kraftcontroller-*\")  BY pod span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by pod\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by pod",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -391,7 +785,7 @@
     "ds_p8": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  BY pod span=1m\n| timechart span=1m sum(value) by pod",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"container_memory_working_set_bytes\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" (pod=\"kafka-*\" OR pod=\"connect-*\" OR pod=\"schemaregistry-*\" OR pod=\"controlcenter-*\" OR pod=\"kraftcontroller-*\")  BY pod span=1m\n| eval value=value/1024/1024/1024\n| timechart span=1m avg(value) by pod",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -413,7 +807,7 @@
     "ds_p10": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_gc_collection_seconds_sum\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  BY service.name span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by service.name\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by service.name",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"jvm_gc_collection_seconds_sum\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  BY service.name span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by service.name\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time)*100, null())\n| timechart span=1m avg(rate) by service.name",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -523,7 +917,7 @@
     "ds_p22": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_brokertopicmetrics_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"MessagesInPerSec\" topic!=\"\"  BY topic span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by topic\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by topic",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_server_brokertopicmetrics_count\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" name=\"MessagesInPerSec\" topic!=\"\"  BY topic span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time by topic\n| eval rate=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| timechart span=1m avg(rate) by topic",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -545,7 +939,7 @@
     "ds_p24": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_record_errors\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  span=1m\n| eval series=\"record_errors\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_retries\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  span=1m\n| eval series=\"retries\"\n]\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_deadletterqueue_produce_requests\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  span=1m\n| eval series=\"dlq_produce_requests\"\n]\n| timechart span=1m avg(value) by series",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_record_errors\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval value=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| eval series=\"record_errors\"\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_total_retries\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval value=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| eval series=\"retries\"\n]\n| append [\n| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_connect_task_error_metrics_deadletterqueue_produce_requests\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\"  span=1m\n| streamstats current=f window=1 global=f last(value) as prev_value last(_time) as prev_time\n| eval value=if(isnotnull(prev_value) AND (_time-prev_time)>0 AND value>=prev_value, (value-prev_value)/(_time-prev_time), null())\n| eval series=\"dlq_produce_requests\"\n]\n| timechart span=1m avg(value) by series",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -578,7 +972,7 @@
     "ds_p27": {
       "type": "ds.search",
       "options": {
-        "query": "| mstats sum(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_log_log_size\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\"  BY topic span=1m\n| timechart span=1m sum(value) by topic",
+        "query": "| mstats avg(_value) as value WHERE index=cfk_metrics metric_name=\"kafka_log_log_value\" namespace=\"confluent\" env=\"$env$\" cluster=\"$cluster$\" service.name=\"kafka-broker\" name=\"Size\"  BY topic span=1m\n| eval value=value/1024/1024/1024\n| timechart span=1m sum(value) by topic",
         "queryParameters": {
           "earliest": "$global_time.earliest$",
           "latest": "$global_time.latest$"
@@ -675,7 +1069,7 @@
         "type": "absolute",
         "options": {
           "width": 1440,
-          "height": 4560
+          "height": 5290
         },
         "structure": [
           {
@@ -689,53 +1083,103 @@
             }
           },
           {
-            "item": "viz_p2",
+            "item": "viz_cpu_kafka",
             "type": "block",
             "position": {
               "x": 0,
               "y": 50,
-              "w": 230,
-              "h": 190
+              "w": 272,
+              "h": 220
             }
           },
           {
-            "item": "viz_p3",
+            "item": "viz_cpu_connect",
             "type": "block",
             "position": {
-              "x": 240,
+              "x": 292,
               "y": 50,
-              "w": 230,
-              "h": 190
+              "w": 272,
+              "h": 220
             }
           },
           {
-            "item": "viz_p4",
+            "item": "viz_cpu_schemaregistry",
             "type": "block",
             "position": {
-              "x": 480,
+              "x": 584,
               "y": 50,
-              "w": 230,
-              "h": 190
+              "w": 272,
+              "h": 220
             }
           },
           {
-            "item": "viz_p5",
+            "item": "viz_cpu_controlcenter",
             "type": "block",
             "position": {
-              "x": 720,
+              "x": 876,
               "y": 50,
-              "w": 230,
-              "h": 190
+              "w": 272,
+              "h": 220
             }
           },
           {
-            "item": "viz_p6",
+            "item": "viz_cpu_kraftcontroller",
             "type": "block",
             "position": {
-              "x": 960,
+              "x": 1168,
               "y": 50,
-              "w": 230,
-              "h": 190
+              "w": 272,
+              "h": 220
+            }
+          },
+          {
+            "item": "viz_mem_kafka",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 290,
+              "w": 272,
+              "h": 220
+            }
+          },
+          {
+            "item": "viz_mem_connect",
+            "type": "block",
+            "position": {
+              "x": 292,
+              "y": 290,
+              "w": 272,
+              "h": 220
+            }
+          },
+          {
+            "item": "viz_mem_schemaregistry",
+            "type": "block",
+            "position": {
+              "x": 584,
+              "y": 290,
+              "w": 272,
+              "h": 220
+            }
+          },
+          {
+            "item": "viz_mem_controlcenter",
+            "type": "block",
+            "position": {
+              "x": 876,
+              "y": 290,
+              "w": 272,
+              "h": 220
+            }
+          },
+          {
+            "item": "viz_mem_kraftcontroller",
+            "type": "block",
+            "position": {
+              "x": 1168,
+              "y": 290,
+              "w": 272,
+              "h": 220
             }
           },
           {
@@ -743,9 +1187,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 250,
-              "w": 930,
-              "h": 280
+              "y": 530,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -753,9 +1197,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 540,
-              "w": 930,
-              "h": 280
+              "y": 850,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -763,9 +1207,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 830,
-              "w": 930,
-              "h": 280
+              "y": 1170,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -773,9 +1217,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 1120,
-              "w": 930,
-              "h": 280
+              "y": 1490,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -783,7 +1227,7 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 1410,
+              "y": 1810,
               "w": 1440,
               "h": 40
             }
@@ -793,39 +1237,39 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 1460,
-              "w": 230,
-              "h": 140
+              "y": 1860,
+              "w": 345,
+              "h": 160
             }
           },
           {
             "item": "viz_p13",
             "type": "block",
             "position": {
-              "x": 240,
-              "y": 1460,
-              "w": 230,
-              "h": 140
+              "x": 365,
+              "y": 1860,
+              "w": 345,
+              "h": 160
             }
           },
           {
             "item": "viz_p14",
             "type": "block",
             "position": {
-              "x": 480,
-              "y": 1460,
-              "w": 230,
-              "h": 140
+              "x": 730,
+              "y": 1860,
+              "w": 345,
+              "h": 160
             }
           },
           {
             "item": "viz_p15",
             "type": "block",
             "position": {
-              "x": 720,
-              "y": 1460,
-              "w": 230,
-              "h": 140
+              "x": 1095,
+              "y": 1860,
+              "w": 345,
+              "h": 160
             }
           },
           {
@@ -833,9 +1277,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 1610,
-              "w": 930,
-              "h": 280
+              "y": 2040,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -843,9 +1287,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 1900,
-              "w": 930,
-              "h": 280
+              "y": 2360,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -853,9 +1297,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 2190,
-              "w": 930,
-              "h": 280
+              "y": 2680,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -863,19 +1307,19 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 2480,
-              "w": 930,
-              "h": 280
+              "y": 3000,
+              "w": 1080,
+              "h": 300
             }
           },
           {
             "item": "viz_p20",
             "type": "block",
             "position": {
-              "x": 940,
-              "y": 2480,
-              "w": 230,
-              "h": 140
+              "x": 1100,
+              "y": 3000,
+              "w": 340,
+              "h": 300
             }
           },
           {
@@ -883,7 +1327,7 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 2770,
+              "y": 3320,
               "w": 1440,
               "h": 40
             }
@@ -893,9 +1337,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 2820,
-              "w": 930,
-              "h": 280
+              "y": 3370,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -903,9 +1347,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 3110,
-              "w": 930,
-              "h": 280
+              "y": 3690,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -913,9 +1357,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 3400,
-              "w": 930,
-              "h": 280
+              "y": 4010,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -923,9 +1367,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 3690,
-              "w": 930,
-              "h": 280
+              "y": 4330,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -933,9 +1377,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 3980,
-              "w": 930,
-              "h": 280
+              "y": 4650,
+              "w": 1440,
+              "h": 300
             }
           },
           {
@@ -943,9 +1387,9 @@
             "type": "block",
             "position": {
               "x": 0,
-              "y": 4270,
-              "w": 930,
-              "h": 280
+              "y": 4970,
+              "w": 1440,
+              "h": 300
             }
           }
         ]
@@ -961,5 +1405,5 @@
     }
   },
   "title": "Enterprise Confluent Observability (Tier 1/2/3)",
-  "description": "Three-tier cross-cutting view of the CFK deployment: Tier 1 infrastructure (per-component CPU/memory/JVM heap/GC across Kafka, Connect, Schema Registry, Control Center, KRaft Controller pods), Tier 2 platform/protocol health (controller/partition state, broker saturation, P99 request latency, KRaft quorum, Connect task status, Schema Registry leadership), and Tier 3 business/pipeline outcome (topic throughput, consumer lag, connector data quality, sink latency, source production rate, topic data volume). ksqlDB and REST Proxy panels have been excluded per scope."
+  "description": "Three-tier cross-cutting view of the CFK deployment: Tier 1 infrastructure (per-component CPU/memory gauges vs limits, plus CPU/memory/JVM heap/GC trends, across Kafka, Connect, Schema Registry, Control Center, KRaft Controller pods only), Tier 2 platform/protocol health (controller/partition state, broker saturation, P99 request latency, KRaft quorum, Connect task status, Schema Registry leadership), and Tier 3 business/pipeline outcome (topic throughput, consumer lag, connector data quality as rates, sink latency, source production rate, topic data volume). ksqlDB, REST Proxy, and the CFK operator itself are excluded per scope."
 }
