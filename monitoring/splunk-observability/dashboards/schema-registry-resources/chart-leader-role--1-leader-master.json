@@ -1,0 +1,11 @@
+{
+  "name": "Leader Role (1=leader/master)",
+  "description": "Raw kafka_schema_registry_master_slave_role_master_slave_role.",
+  "programText": "data('kafka_schema_registry_master_slave_role_master_slave_role', filter=filter('namespace', 'confluent') and filter('service.name', 'schemaregistry') and filter('service.instance.id', 'schemaregistry-0')).publish(label='Leader Role')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Dimension",
+    "secondaryVisualization": "None",
+    "unitPrefix": "Metric"
+  }
+}

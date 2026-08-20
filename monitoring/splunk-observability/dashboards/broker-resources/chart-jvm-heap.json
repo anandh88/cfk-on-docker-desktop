@@ -1,0 +1,28 @@
+{
+  "name": "JVM Heap %",
+  "description": "jvm_memory_bytes_used{area=heap} / jvm_memory_bytes_max{area=heap}, as a percentage.",
+  "programText": "a = data('jvm_memory_bytes_used', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('area', 'heap') and filter('service.instance.id', 'kafka-0')).sum()\nb = data('jvm_memory_bytes_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('area', 'heap') and filter('service.instance.id', 'kafka-0')).sum()\n(a/b*100).publish(label='JVM Heap %')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Scale",
+    "unitPrefix": "Metric",
+    "secondaryVisualization": "Radial",
+    "colorScale2": [
+      {
+        "gte": 0,
+        "lt": 70,
+        "paletteIndex": 18
+      },
+      {
+        "gte": 70,
+        "lt": 90,
+        "paletteIndex": 6
+      },
+      {
+        "gte": 90,
+        "lte": 100,
+        "paletteIndex": 16
+      }
+    ]
+  }
+}

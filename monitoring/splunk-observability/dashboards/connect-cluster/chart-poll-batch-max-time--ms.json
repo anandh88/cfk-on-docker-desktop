@@ -1,0 +1,29 @@
+{
+  "name": "Poll Batch Max Time (ms)",
+  "description": "kafka_connect_source_task_metrics_poll_batch_max_time_ms, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+  "programText": "data('kafka_connect_source_task_metrics_poll_batch_max_time_ms', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Poll Batch Max Time (ms)')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      null,
+      null
+    ]
+  }
+}

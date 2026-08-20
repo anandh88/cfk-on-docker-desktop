@@ -1,0 +1,31 @@
+{
+  "name": "CPU Usage %",
+  "description": "process_cpu_seconds_total, by broker instance, 2-minute timeshift delta * 100.",
+  "programText": "raw = data('process_cpu_seconds_total', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker')).sum(by=['service.instance.id'])\n(((raw - raw.timeshift('2m')) / 120) * 100).publish(label='CPU Usage %')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "%"
+      },
+      null
+    ]
+  }
+}

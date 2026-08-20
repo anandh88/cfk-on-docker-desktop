@@ -1,0 +1,31 @@
+{
+  "name": "Election Latency (avg / max)",
+  "description": "Raw kafka_server_raft_metrics_election_latency_avg / _max.",
+  "programText": "data('kafka_server_raft_metrics_election_latency_avg', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Avg')\ndata('kafka_server_raft_metrics_election_latency_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Max')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "ms"
+      },
+      null
+    ]
+  }
+}

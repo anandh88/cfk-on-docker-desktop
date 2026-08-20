@@ -1,0 +1,31 @@
+{
+  "name": "Consumer Fetch - Total Time Ms (all percentiles)",
+  "description": "kafka_network_requestmetrics_*thpercentile{name=TotalTimeMs, request=FetchConsumer}.",
+  "programText": "data('kafka_network_requestmetrics_*thpercentile', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'TotalTimeMs') and filter('request', 'FetchConsumer')).publish(label='Fetch Consumer Total Time Ms')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "ms"
+      },
+      null
+    ]
+  }
+}

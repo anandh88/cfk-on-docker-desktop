@@ -1,0 +1,31 @@
+{
+  "name": "Errors",
+  "description": "kafka_network_requestmetrics_count{name=ErrorsPerSec, error!=NONE}, by error type, 2-minute timeshift delta.",
+  "programText": "raw = data('kafka_network_requestmetrics_count', filter=filter('namespace', 'confluent') and filter('name', 'ErrorsPerSec') and filter('service.name', 'kafka-broker')).sum(by=['error'])\n((raw - raw.timeshift('2m')) / 120).publish(label='Errors')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "Errors/sec"
+      },
+      null
+    ]
+  }
+}

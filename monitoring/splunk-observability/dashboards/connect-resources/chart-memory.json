@@ -1,0 +1,28 @@
+{
+  "name": "Memory %",
+  "description": "container_memory_working_set_bytes / kube_pod_container_resource_limits{resource=memory}, as a percentage.",
+  "programText": "a = data('container_memory_working_set_bytes', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0')).sum()\nb = data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0') and filter('resource', 'memory') and filter('container', 'connect')).sum()\n(a/b*100).publish(label='Memory %')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Scale",
+    "unitPrefix": "Metric",
+    "secondaryVisualization": "Radial",
+    "colorScale2": [
+      {
+        "gte": 0,
+        "lt": 70,
+        "paletteIndex": 18
+      },
+      {
+        "gte": 70,
+        "lt": 90,
+        "paletteIndex": 6
+      },
+      {
+        "gte": 90,
+        "lte": 100,
+        "paletteIndex": 16
+      }
+    ]
+  }
+}

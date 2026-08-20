@@ -1,0 +1,29 @@
+{
+  "name": "Total Record Errors",
+  "description": "kafka_connect_task_error_metrics_total_record_errors, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+  "programText": "data('kafka_connect_task_error_metrics_total_record_errors', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Total Record Errors')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      null,
+      null
+    ]
+  }
+}

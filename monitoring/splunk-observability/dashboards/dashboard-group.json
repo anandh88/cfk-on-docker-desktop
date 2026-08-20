@@ -1,0 +1,4 @@
+{
+  "name": "CFK - Splunk Observability Cloud POC",
+  "description": "Confluent for Kubernetes dashboards backed by the federated prometheus/cfk metrics pipeline (see ../otel-collector-values.docker-desktop.yaml). Built as part of the Docker Desktop POC in cfk-on-docker-desktop-github; template for Aniket's team to adapt for Eli Lilly's actual environment."
+}

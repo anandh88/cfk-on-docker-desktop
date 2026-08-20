@@ -113,13 +113,22 @@ question below, none of this lands in built-in Observability Cloud content yet.
   here, that's the existing Splunk Cloud pipeline plus a Log Observer Connect setup
   on top, not a replacement for it. Still waiting on confirmation of whether that's
   actually in scope for this demo.
-- **Dashboards**: Splunk's own docs confirm metrics ingested via a Prometheus
-  receiver (which is how the eventual CFK metrics will arrive here — same federate
-  pattern as the Splunk Cloud side) are "custom metrics, not supported by built-in
-  content." The CFK-specific dashboards (broker throughput, ISR health, Connect
-  task status, Schema Registry domain metrics) will need genuine custom
-  chart/dashboard authoring — likely via `terraform-provider-signalfx` and
-  SignalFlow, not anything that transfers from the Dashboard Studio/SPL work on the
-  Splunk Cloud side. Generic Kubernetes-level resource visibility (CPU/memory by
-  pod), by contrast, likely comes from the built-in Kubernetes navigator once it's
-  confirmed populated — not yet checked live.
+- **Dashboards — 6 of 7 done.** Confirmed via Splunk's own docs: metrics arriving
+  through a Prometheus receiver (the federate pattern used here) are "custom
+  metrics, not supported by built-in content," so none of this was ever going to
+  show up in the built-in Kubernetes navigator or any other built-in dashboard —
+  genuine custom chart/dashboard authoring was always required. Done: the 5
+  Memory/CPU/JVM-Heap "Resources" dashboards (Broker/Connect/Schema Registry/
+  KRaft/Control Center — 63 charts) plus the Kafka Cluster and Connect Cluster
+  dashboards (cluster health, throughput, worker resources, connector/task
+  metrics — 65 more charts), all mirroring the equivalent
+  `../splunk/dashboards/*.json` files panel-for-panel — see
+  [`dashboards/README.md`](dashboards/README.md) for the full list, links, and
+  SPL→SignalFlow translation notes. Built via raw REST API JSON
+  (`POST /v2/chart` / `POST /v2/dashboard`), not `terraform-provider-signalfx` —
+  the earlier plan to use Terraform was superseded once the actual REST payloads
+  turned out to be straightforward to author directly, matching how the Splunk
+  Cloud side's dashboards are just JSON files too. **Not yet ported**:
+  `Enterprise_Tiered_Observability_splunk.json`, a cross-cutting rollup spanning
+  metrics already verified while building the other 6 — reassembly, not fresh
+  verification work.

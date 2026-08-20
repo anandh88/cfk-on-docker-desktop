@@ -1,0 +1,29 @@
+{
+  "name": "Sink Record Send Rate",
+  "description": "kafka_connect_sink_task_metrics_sink_record_send_rate, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+  "programText": "data('kafka_connect_sink_task_metrics_sink_record_send_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Sink Record Send Rate')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      null,
+      null
+    ]
+  }
+}

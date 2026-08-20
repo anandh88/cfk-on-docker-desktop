@@ -1,0 +1,11 @@
+{
+  "name": "Disk Read (MB)",
+  "description": "Raw kafka_server_kafkaserver_value{name=linux-disk-read-bytes}.",
+  "programText": "(data('kafka_server_kafkaserver_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'linux-disk-read-bytes') and filter('service.instance.id', 'kafka-0')) / 1024/1024).publish(label='Disk Read (MB)')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Dimension",
+    "secondaryVisualization": "None",
+    "unitPrefix": "Metric"
+  }
+}

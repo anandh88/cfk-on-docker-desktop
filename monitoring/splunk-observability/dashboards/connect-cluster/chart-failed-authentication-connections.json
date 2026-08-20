@@ -1,0 +1,29 @@
+{
+  "name": "Failed Authentication Connections",
+  "description": "kafka_connect_connect_metrics_failed_authentication_total, by worker instance + client_id.",
+  "programText": "data('kafka_connect_connect_metrics_failed_authentication_total', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Failed Authentication Connections')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      null,
+      null
+    ]
+  }
+}

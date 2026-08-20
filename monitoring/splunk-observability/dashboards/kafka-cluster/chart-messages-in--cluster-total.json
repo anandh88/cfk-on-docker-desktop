@@ -1,0 +1,31 @@
+{
+  "name": "Messages In (cluster total)",
+  "description": "kafka_server_brokertopicmetrics_count{name=MessagesInPerSec}, cluster-wide, 2-minute timeshift delta.",
+  "programText": "raw = data('kafka_server_brokertopicmetrics_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'MessagesInPerSec')).sum()\n((raw - raw.timeshift('2m')) / 120).publish(label='Messages In/sec')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "Messages/sec"
+      },
+      null
+    ]
+  }
+}

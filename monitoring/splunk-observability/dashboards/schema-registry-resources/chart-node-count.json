@@ -1,0 +1,11 @@
+{
+  "name": "Node Count",
+  "description": "Raw kafka_schema_registry_node_count_node_count.",
+  "programText": "data('kafka_schema_registry_node_count_node_count', filter=filter('namespace', 'confluent') and filter('service.name', 'schemaregistry') and filter('service.instance.id', 'schemaregistry-0')).publish(label='Node Count')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Dimension",
+    "secondaryVisualization": "None",
+    "unitPrefix": "Metric"
+  }
+}

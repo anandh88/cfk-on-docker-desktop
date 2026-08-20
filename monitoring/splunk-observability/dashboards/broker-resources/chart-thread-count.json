@@ -1,0 +1,11 @@
+{
+  "name": "Thread Count",
+  "description": "Raw jvm_threads_current.",
+  "programText": "data('jvm_threads_current', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('service.instance.id', 'kafka-0')).publish(label='Thread Count')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Dimension",
+    "secondaryVisualization": "None",
+    "unitPrefix": "Metric"
+  }
+}

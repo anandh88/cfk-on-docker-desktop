@@ -1,0 +1,31 @@
+{
+  "name": "Container Memory Usage vs Limit (GB)",
+  "description": "container_memory_working_set_bytes vs kube_pod_container_resource_limits{resource=memory}.",
+  "programText": "(data('container_memory_working_set_bytes', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0')) / 1024/1024/1024).publish(label='Usage')\n(data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0') and filter('resource', 'memory') and filter('container', 'connect')) / 1024/1024/1024).publish(label='Limit')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "GB"
+      },
+      null
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Running Ratio",
+  "description": "kafka_connect_connector_task_metrics_running_ratio, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+  "programText": "data('kafka_connect_connector_task_metrics_running_ratio', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Running Ratio')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      null,
+      null
+    ]
+  }
+}

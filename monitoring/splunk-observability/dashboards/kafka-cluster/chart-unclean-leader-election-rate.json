@@ -1,0 +1,20 @@
+{
+  "name": "Unclean Leader Election Rate",
+  "description": "kafka_controller_controllerstats_oneminuterate{name=UncleanLeaderElectionsPerSec} - already a computed rate (Yammer Meter), used directly.",
+  "programText": "data('kafka_controller_controllerstats_oneminuterate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('name', 'UncleanLeaderElectionsPerSec')).publish(label='Unclean Leader Election Rate')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Scale",
+    "unitPrefix": "Metric",
+    "colorScale2": [
+      {
+        "lte": 0,
+        "paletteIndex": 18
+      },
+      {
+        "gt": 0,
+        "paletteIndex": 16
+      }
+    ]
+  }
+}

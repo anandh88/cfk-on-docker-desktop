@@ -1,0 +1,31 @@
+{
+  "name": "Linux Disk Write Bytes",
+  "description": "kafka_server_kafkaserver_value{name=linux-disk-write-bytes}, by broker instance, 2-minute timeshift delta.",
+  "programText": "raw = data('kafka_server_kafkaserver_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'linux-disk-write-bytes')).sum(by=['service.instance.id'])\n((raw - raw.timeshift('2m')) / 120).publish(label='Disk Write Bytes/sec')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "Bytes/sec"
+      },
+      null
+    ]
+  }
+}

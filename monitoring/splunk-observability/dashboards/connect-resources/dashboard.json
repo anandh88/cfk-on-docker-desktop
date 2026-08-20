@@ -1,0 +1,72 @@
+{
+  "name": "CFK Kafka Connect Resources (Docker Desktop)",
+  "groupId": "HQMTCAaAwAE",
+  "charts": [
+    {
+      "chartId": "HQMncL7AwAA",
+      "row": 0,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnuVzA0AE",
+      "row": 0,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnc3UA0AA",
+      "row": 2,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnCOKAwAA",
+      "row": 2,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnt8XA0AE",
+      "row": 4,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnrVdAwAI",
+      "row": 4,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMm-ATAwAA",
+      "row": 6,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnR-YA0A8",
+      "row": 6,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    }
+  ],
+  "filters": {
+    "sources": [],
+    "time": {
+      "end": "Now",
+      "start": "-15m"
+    },
+    "variables": []
+  },
+  "id": "HQMnlVXA4AA",
+  "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnlVXA4AA"
+}

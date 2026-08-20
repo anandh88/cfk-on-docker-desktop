@@ -1,0 +1,142 @@
+{
+  "name": "CFK KRaft Controller Resources (Docker Desktop)",
+  "groupId": "HQMTCAaAwAE",
+  "charts": [
+    {
+      "chartId": "HQMngOeA4AA",
+      "row": 0,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMneEfA0AU",
+      "row": 0,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMneXDA4AI",
+      "row": 2,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnj5fA4Bk",
+      "row": 2,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnhkOA4AM",
+      "row": 4,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMoGGWA0AE",
+      "row": 4,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMn4qMAwAM",
+      "row": 6,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnvS0A4AA",
+      "row": 6,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMns9qA4AU",
+      "row": 8,
+      "column": 0,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMnc4SAwAA",
+      "row": 8,
+      "column": 4,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMnZy4AwAE",
+      "row": 8,
+      "column": 8,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMn8jfAwAE",
+      "row": 9,
+      "column": 0,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMnt4HAwAE",
+      "row": 9,
+      "column": 4,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMni1MA0AE",
+      "row": 9,
+      "column": 8,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMn7i1A0AA",
+      "row": 10,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnfQvA4AE",
+      "row": 10,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnxGLA4AI",
+      "row": 12,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnfHgA0AA",
+      "row": 12,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    }
+  ],
+  "filters": {
+    "sources": [],
+    "time": {
+      "end": "Now",
+      "start": "-15m"
+    },
+    "variables": []
+  },
+  "id": "HQMoObZA4AA",
+  "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQMoObZA4AA"
+}

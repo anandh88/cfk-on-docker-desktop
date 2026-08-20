@@ -1,0 +1,357 @@
+{
+  "name": "CFK Kafka Connect Cluster (Docker Desktop)",
+  "groupId": "HQMTCAaAwAE",
+  "charts": [
+    {
+      "chartId": "HQM3MNGA0AE",
+      "row": 0,
+      "column": 0,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQM3sKVA0AI",
+      "row": 0,
+      "column": 4,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQM3K47A0AA",
+      "row": 0,
+      "column": 8,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQM3R_zA0AE",
+      "row": 1,
+      "column": 0,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQM34nHA0AM",
+      "row": 1,
+      "column": 4,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQM3e39AwAA",
+      "row": 1,
+      "column": 8,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQM3tzxA0AI",
+      "row": 2,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3CnRA4AA",
+      "row": 2,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM4WW6AwAA",
+      "row": 4,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3ae1A4AA",
+      "row": 4,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3G-xAwAA",
+      "row": 6,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3SO1A4AA",
+      "row": 6,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM2vqIAwAE",
+      "row": 8,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3FegA0AE",
+      "row": 8,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3P1rA4AA",
+      "row": 10,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3s5sAwAM",
+      "row": 10,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3s36A0AQ",
+      "row": 12,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM25fSAwAA",
+      "row": 12,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3g36A0AE",
+      "row": 14,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3s-cA0Ak",
+      "row": 14,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3uQeA0AA",
+      "row": 16,
+      "column": 0,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQM3fVvAwAM",
+      "row": 17,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3Q8PAwAA",
+      "row": 17,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3Z4OAwAA",
+      "row": 19,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3NqHA0AA",
+      "row": 19,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3fWfAwAE",
+      "row": 21,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3LyMA0AI",
+      "row": 21,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3vQdA0AQ",
+      "row": 23,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM38EPAwAE",
+      "row": 23,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3jXWAwAE",
+      "row": 25,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM4XD7AwAQ",
+      "row": 25,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3PUaAwAI",
+      "row": 27,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3vroAwAA",
+      "row": 27,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM2rjvA4AI",
+      "row": 29,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3UCgA0AE",
+      "row": 29,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM37vRA4AA",
+      "row": 31,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3tPyA0AA",
+      "row": 31,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3OXmA4AE",
+      "row": 33,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3P7aA0AE",
+      "row": 33,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3Ux0A4AE",
+      "row": 35,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3xpaAwAM",
+      "row": 35,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3UEnA4AE",
+      "row": 37,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3snEA0AA",
+      "row": 37,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3xgqA4AI",
+      "row": 39,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3dh5AwAI",
+      "row": 39,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3adwAwAA",
+      "row": 41,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM2wpnA4AA",
+      "row": 41,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM3seWA0AY",
+      "row": 43,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQM303yA4AM",
+      "row": 43,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    }
+  ],
+  "filters": {
+    "time": {
+      "start": "-15m",
+      "end": "Now"
+    }
+  },
+  "id": "HQM38FJA4AA",
+  "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQM38FJA4AA"
+}

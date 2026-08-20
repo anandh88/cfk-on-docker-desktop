@@ -1,0 +1,20 @@
+{
+  "name": "Under Replicated Partitions",
+  "description": "Sum of kafka_server_replicamanager_value{name=UnderReplicatedPartitions} across brokers.",
+  "programText": "data('kafka_server_replicamanager_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'UnderReplicatedPartitions')).sum().publish(label='Under Replicated Partitions')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Scale",
+    "unitPrefix": "Metric",
+    "colorScale2": [
+      {
+        "lte": 0,
+        "paletteIndex": 18
+      },
+      {
+        "gt": 0,
+        "paletteIndex": 16
+      }
+    ]
+  }
+}

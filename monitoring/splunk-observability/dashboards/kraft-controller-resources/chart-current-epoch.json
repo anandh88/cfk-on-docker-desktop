@@ -1,0 +1,11 @@
+{
+  "name": "Current Epoch",
+  "description": "Raw kafka_server_raft_metrics_current_epoch.",
+  "programText": "data('kafka_server_raft_metrics_current_epoch', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Current Epoch')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Dimension",
+    "secondaryVisualization": "None",
+    "unitPrefix": "Metric"
+  }
+}

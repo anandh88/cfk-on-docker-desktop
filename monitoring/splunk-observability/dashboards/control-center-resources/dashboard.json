@@ -1,0 +1,72 @@
+{
+  "name": "CFK Control Center Resources (Docker Desktop)",
+  "groupId": "HQMTCAaAwAE",
+  "charts": [
+    {
+      "chartId": "HQMnJM3A4AA",
+      "row": 0,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnbC6AwAE",
+      "row": 0,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMntgVA4AA",
+      "row": 2,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnzCdA4AE",
+      "row": 2,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMoIGyAwAI",
+      "row": 4,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnv3BA4AA",
+      "row": 4,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMny-hA4AE",
+      "row": 6,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnHm6AwAA",
+      "row": 6,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    }
+  ],
+  "filters": {
+    "sources": [],
+    "time": {
+      "end": "Now",
+      "start": "-15m"
+    },
+    "variables": []
+  },
+  "id": "HQMnZTVA0AM",
+  "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnZTVA0AM"
+}

@@ -1,0 +1,121 @@
+{
+  "name": "CFK Schema Registry Resources (Docker Desktop)",
+  "groupId": "HQMTCAaAwAE",
+  "charts": [
+    {
+      "chartId": "HQMnSoEA0AA",
+      "row": 0,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMntUOAwAE",
+      "row": 0,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMoAwkA4AA",
+      "row": 2,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnzjkA4AA",
+      "row": 2,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnG-vA4AI",
+      "row": 4,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnehwA4AA",
+      "row": 4,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnqrsA4AA",
+      "row": 6,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnxrDA4AA",
+      "row": 6,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMntXoA0AA",
+      "row": 8,
+      "column": 0,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMny0NAwBE",
+      "row": 8,
+      "column": 4,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMnnPOA0AA",
+      "row": 8,
+      "column": 8,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMngctA0AE",
+      "row": 9,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnyTdA4AI",
+      "row": 9,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnoz1A4AA",
+      "row": 11,
+      "column": 0,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnhyIA4AA",
+      "row": 11,
+      "column": 6,
+      "width": 6,
+      "height": 2
+    }
+  ],
+  "filters": {
+    "sources": [],
+    "time": {
+      "end": "Now",
+      "start": "-15m"
+    },
+    "variables": []
+  },
+  "id": "HQMnYsHA4AA",
+  "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnYsHA4AA"
+}

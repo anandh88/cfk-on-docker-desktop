@@ -1,0 +1,11 @@
+{
+  "name": "Tasks Destroyed",
+  "description": "Sum of kafka_connect_connect_worker_metrics_connector_destroyed_task_count across connectors.",
+  "programText": "data('kafka_connect_connect_worker_metrics_connector_destroyed_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='Tasks Destroyed')\n",
+  "options": {
+    "type": "SingleValue",
+    "unitPrefix": "Metric",
+    "colorBy": "Dimension",
+    "secondaryVisualization": "None"
+  }
+}

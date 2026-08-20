@@ -1,0 +1,29 @@
+{
+  "name": "Source Record Active Count Max",
+  "description": "kafka_connect_source_task_metrics_source_record_active_count_max, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+  "programText": "data('kafka_connect_source_task_metrics_source_record_active_count_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Source Record Active Count Max')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      null,
+      null
+    ]
+  }
+}

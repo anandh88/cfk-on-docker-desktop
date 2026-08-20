@@ -1,0 +1,31 @@
+{
+  "name": "JVM Heap Memory Usage vs Max (GB)",
+  "description": "jvm_memory_bytes_used{area=heap} vs jvm_memory_bytes_max{area=heap}.",
+  "programText": "(data('jvm_memory_bytes_used', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('area', 'heap') and filter('service.instance.id', 'connect-0')) / 1024/1024/1024).publish(label='Usage')\n(data('jvm_memory_bytes_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('area', 'heap') and filter('service.instance.id', 'connect-0')) / 1024/1024/1024).publish(label='Max')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "GB"
+      },
+      null
+    ]
+  }
+}

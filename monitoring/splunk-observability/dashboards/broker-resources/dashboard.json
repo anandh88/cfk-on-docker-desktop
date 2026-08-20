@@ -1,0 +1,114 @@
+{
+  "name": "CFK Kafka Broker Resources (Docker Desktop)",
+  "groupId": "HQMTCAaAwAE",
+  "charts": [
+    {
+      "chartId": "HQMnYY8A0AA",
+      "row": 0,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMn49OA4AI",
+      "row": 0,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMne2NAwAM",
+      "row": 2,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMm_PqA4AA",
+      "row": 2,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMm_1CA4Bs",
+      "row": 4,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMncfIAwAE",
+      "row": 4,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMn56ZAwAA",
+      "row": 6,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnc2LA4AA",
+      "row": 6,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMoKPDAwAA",
+      "row": 8,
+      "column": 0,
+      "width": 8,
+      "height": 2
+    },
+    {
+      "chartId": "HQMnc80A4AE",
+      "row": 8,
+      "column": 8,
+      "width": 4,
+      "height": 2
+    },
+    {
+      "chartId": "HQMneD3A4AA",
+      "row": 10,
+      "column": 0,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMm_2DAwAA",
+      "row": 10,
+      "column": 4,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMnhAoA4AA",
+      "row": 10,
+      "column": 8,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "chartId": "HQMnqaKA0AE",
+      "row": 11,
+      "column": 0,
+      "width": 12,
+      "height": 2
+    }
+  ],
+  "filters": {
+    "sources": [],
+    "time": {
+      "end": "Now",
+      "start": "-15m"
+    },
+    "variables": []
+  },
+  "id": "HQMnOAUA0Bs",
+  "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnOAUA0Bs"
+}

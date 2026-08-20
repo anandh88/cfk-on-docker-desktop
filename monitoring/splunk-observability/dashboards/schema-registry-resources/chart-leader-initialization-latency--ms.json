@@ -1,0 +1,11 @@
+{
+  "name": "Leader Initialization Latency (ms)",
+  "description": "Raw kafka_schema_registry_leader_initialization_latency_leader_initialization_latency.",
+  "programText": "data('kafka_schema_registry_leader_initialization_latency_leader_initialization_latency', filter=filter('namespace', 'confluent') and filter('service.name', 'schemaregistry') and filter('service.instance.id', 'schemaregistry-0')).publish(label='Leader Init Latency (ms)')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Dimension",
+    "secondaryVisualization": "None",
+    "unitPrefix": "Metric"
+  }
+}

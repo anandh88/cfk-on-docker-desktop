@@ -1,0 +1,31 @@
+{
+  "name": "Schemas Created by Format",
+  "description": "2-minute timeshift delta of avro/json/protobuf schemas created.",
+  "programText": "raw_0 = data('kafka_schema_registry_avro_schemas_created_avro_schemas_created', filter=filter('namespace', 'confluent') and filter('service.name', 'schemaregistry') and filter('service.instance.id', 'schemaregistry-0'))\n((raw_0 - raw_0.timeshift('2m')) / 120).publish(label='Avro')\nraw_1 = data('kafka_schema_registry_json_schemas_created_json_schemas_created', filter=filter('namespace', 'confluent') and filter('service.name', 'schemaregistry') and filter('service.instance.id', 'schemaregistry-0'))\n((raw_1 - raw_1.timeshift('2m')) / 120).publish(label='JSON')\nraw_2 = data('kafka_schema_registry_protobuf_schemas_created_protobuf_schemas_created', filter=filter('namespace', 'confluent') and filter('service.name', 'schemaregistry') and filter('service.instance.id', 'schemaregistry-0'))\n((raw_2 - raw_2.timeshift('2m')) / 120).publish(label='Protobuf')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "Schemas/sec"
+      },
+      null
+    ]
+  }
+}

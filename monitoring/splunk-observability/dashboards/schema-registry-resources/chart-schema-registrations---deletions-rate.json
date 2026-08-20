@@ -1,0 +1,31 @@
+{
+  "name": "Schema Registrations / Deletions Rate",
+  "description": "2-minute timeshift delta of registered_count and deleted_count.",
+  "programText": "raw_a = data('kafka_schema_registry_registered_count_registered_count', filter=filter('namespace', 'confluent') and filter('service.name', 'schemaregistry') and filter('service.instance.id', 'schemaregistry-0'))\n((raw_a - raw_a.timeshift('2m')) / 120).publish(label='Registered')\nraw_b = data('kafka_schema_registry_deleted_count_deleted_count', filter=filter('namespace', 'confluent') and filter('service.name', 'schemaregistry') and filter('service.instance.id', 'schemaregistry-0'))\n((raw_b - raw_b.timeshift('2m')) / 120).publish(label='Deleted')\n",
+  "options": {
+    "type": "TimeSeriesChart",
+    "defaultPlotType": "LineChart",
+    "colorBy": "Dimension",
+    "stacked": false,
+    "includeZero": false,
+    "axisPrecision": 3,
+    "unitPrefix": "Metric",
+    "lineChartOptions": {
+      "showDataMarkers": false
+    },
+    "onChartLegendOptions": {
+      "showLegend": true,
+      "dimensionInLegend": "plot_label"
+    },
+    "programOptions": {
+      "disableSampling": false,
+      "timezone": "UTC"
+    },
+    "axes": [
+      {
+        "label": "Schemas/sec"
+      },
+      null
+    ]
+  }
+}

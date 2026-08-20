@@ -1,0 +1,28 @@
+{
+  "name": "CPU %",
+  "description": "CPU cores used (2-minute timeshift delta) / kube_pod_container_resource_limits{resource=cpu}, as a percentage.",
+  "programText": "raw = data('container_cpu_usage_seconds_total', filter=filter('namespace', 'confluent') and filter('pod', 'controlcenter-0')).sum()\nusage = (raw - raw.timeshift('2m')) / 120\nlimit = data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'controlcenter-0') and filter('resource', 'cpu') and filter('container', 'controlcenter')).sum()\n(usage/limit*100).publish(label='CPU %')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Scale",
+    "unitPrefix": "Metric",
+    "secondaryVisualization": "Radial",
+    "colorScale2": [
+      {
+        "gte": 0,
+        "lt": 70,
+        "paletteIndex": 18
+      },
+      {
+        "gte": 70,
+        "lt": 90,
+        "paletteIndex": 6
+      },
+      {
+        "gte": 90,
+        "lte": 100,
+        "paletteIndex": 16
+      }
+    ]
+  }
+}

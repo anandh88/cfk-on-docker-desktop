@@ -1,0 +1,11 @@
+{
+  "name": "Disk Write (MB)",
+  "description": "Raw kafka_server_kafkaserver_value{name=linux-disk-write-bytes}.",
+  "programText": "(data('kafka_server_kafkaserver_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'linux-disk-write-bytes') and filter('service.instance.id', 'kafka-0')) / 1024/1024).publish(label='Disk Write (MB)')\n",
+  "options": {
+    "type": "SingleValue",
+    "colorBy": "Dimension",
+    "secondaryVisualization": "None",
+    "unitPrefix": "Metric"
+  }
+}
