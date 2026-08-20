@@ -25,17 +25,28 @@ repo, since it happens in Splunk Web / the Splunk REST API, not Kubernetes.
    - This stack's cert on :8088 is issued by Splunk's own internal CA (`SplunkCommonCA`), not a publicly-trusted one, so `insecureSkipVerify: true` is required or every export fails TLS verification. Already set in `otel-collector-values.docker-desktop.yaml`.
 4. **A metrics-type index for the new metrics pipeline**, e.g. `cfk_metrics`: Splunk Web → **Settings → Indexes → New Index → Index Data Type: Metrics**. None of the trial's default indexes (`history`, `lastchanceindex`, `main`, `summary`) are metrics indexes, and HEC metrics ingestion requires one. Then edit the HEC token (Settings → Data Inputs → HTTP Event Collector → your token → Edit) and add `cfk_metrics` to its allowed indexes.
 
-The Kubernetes side (namespace, Helm repo, the collector itself) is fully automated —
-see Deployment below.
+The Kubernetes side (namespace, HEC token secret, Helm repo, the collector itself) is
+fully automated — see Deployment below.
 
 ## Deployment
+
+The HEC token is provided to the collector as a Kubernetes Secret
+(`splunk-hec`, key `splunk_platform_hec_token`) rather than via `--set` or a plaintext
+value in the values file — `--set` would land the token in `helm get values`/release
+history in the clear. This is the chart's own documented pattern
+(`docs/advanced-configuration.md#provide-tokens-as-a-secret`), wired up in
+`otel-collector-values.docker-desktop.yaml` via `secret.create: false` /
+`secret.name: splunk-hec`, not a local invention. The secret has to exist in the
+`splunk-otel` namespace *before* the Helm install runs, or the collector pods will fail
+to start with a missing-secret error — hence "before everything starts."
 
 ### Automated (recommended)
 
 `scripts/deploy-monitoring.sh` deploys this collector as one of two optional,
 additive stages (alongside Datadog) after Prometheus/Grafana. It creates the
-`splunk-otel` namespace, adds the Helm repo, and installs/upgrades the release using
-this directory's values file:
+`splunk-otel` namespace, creates/updates the `splunk-hec` secret from
+`$SPLUNK_HEC_TOKEN`, adds the Helm repo, and installs/upgrades the release using this
+directory's values file:
 
 ```bash
 export SPLUNK_HEC_TOKEN=<your HEC token>
@@ -48,12 +59,20 @@ If `SPLUNK_HEC_TOKEN` isn't set, the script prompts for it interactively (hidden
 or — non-interactively — skips the Splunk stage with a warning and leaves the rest of
 the deploy unaffected. Set `DEPLOY_SPLUNK=false` to suppress that warning if you don't
 want Splunk at all. Tearing down is symmetric: `scripts/teardown-monitoring.sh`
-uninstalls the release and deletes the `splunk-otel` namespace.
+uninstalls the release and deletes the `splunk-otel` namespace (which takes the secret
+with it).
 
 ### Manual (equivalent, for standalone use outside this repo's scripts)
 
 ```bash
 kubectl create namespace splunk-otel
+
+# Create the HEC token secret BEFORE installing the chart — the collector pods read
+# it at startup and will fail if it doesn't exist yet. Key name must be exactly
+# 'splunk_platform_hec_token'; that's the chart's own convention, not arbitrary.
+kubectl create secret generic splunk-hec \
+  --from-literal=splunk_platform_hec_token=<YOUR_HEC_TOKEN> \
+  -n splunk-otel
 
 helm repo add splunk-otel-collector-chart https://signalfx.github.io/splunk-otel-collector-chart
 helm repo update
@@ -61,8 +80,7 @@ helm repo update
 helm upgrade --install splunk-otel-collector \
   splunk-otel-collector-chart/splunk-otel-collector \
   -n splunk-otel \
-  -f monitoring/splunk/otel-collector-values.docker-desktop.yaml \
-  --set splunkPlatform.token=<YOUR_HEC_TOKEN>
+  -f monitoring/splunk/otel-collector-values.docker-desktop.yaml
 ```
 
 ### Verify deployment

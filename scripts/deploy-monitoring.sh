@@ -169,6 +169,16 @@ if [ "${DEPLOY_SPLUNK}" = "true" ]; then
     echo "  Creating splunk-otel namespace..."
     kubectl create namespace splunk-otel --dry-run=client -o yaml | kubectl apply -f -
 
+    echo "  Creating/updating splunk-hec secret (HEC token, key: splunk_platform_hec_token)..."
+    # Created as its own Secret, referenced via secret.create=false/secret.name in the values
+    # file, rather than passed with --set - --set would land the plaintext token in
+    # `helm get values`/release history. This is the chart's own documented pattern for
+    # providing tokens as a secret, not a local invention.
+    kubectl create secret generic splunk-hec \
+      --from-literal=splunk_platform_hec_token="$SPLUNK_HEC_TOKEN" \
+      --namespace splunk-otel \
+      --dry-run=client -o yaml | kubectl apply -f -
+
     echo "  Adding Splunk OTel Collector Helm repo..."
     helm repo add splunk-otel-collector-chart https://signalfx.github.io/splunk-otel-collector-chart 2>/dev/null || true
     helm repo update splunk-otel-collector-chart
@@ -178,7 +188,6 @@ if [ "${DEPLOY_SPLUNK}" = "true" ]; then
       splunk-otel-collector-chart/splunk-otel-collector \
       --namespace splunk-otel \
       --values "$MONITORING_DIR/splunk/otel-collector-values.docker-desktop.yaml" \
-      --set splunkPlatform.token="$SPLUNK_HEC_TOKEN" \
       --wait
 
     echo "  Splunk OTel Collector pods:"

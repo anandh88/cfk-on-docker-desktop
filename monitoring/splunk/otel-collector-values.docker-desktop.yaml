@@ -15,7 +15,9 @@ splunkPlatform:
   # NOTE: the stack id is "1qc41" (single c) - the previously deployed value "1qcc41" (double c)
   # doesn't resolve in DNS at all, which is why exports were silently failing.
   endpoint: "https://prd-p-1qc41.splunkcloud.com:8088/services/collector/event"
-  # Token: pass via --set splunkPlatform.token=<YOUR_TOKEN> at deployment time
+  # Token: NOT set here and NOT passed via --set (that lands in `helm get values`/release
+  # history in plaintext). Sourced from a pre-existing Kubernetes Secret instead - see
+  # `secret:` below. Leave this empty.
   token: ""
   index: "main"
   sourcetype: "stash_hec"
@@ -25,6 +27,18 @@ splunkPlatform:
   insecureSkipVerify: true
   maxConnections: 200
   timeout: 10s
+
+# Read the HEC token from a Secret created ahead of time (kubectl create secret generic
+# splunk-hec --from-literal=splunk_platform_hec_token=<token> -n splunk-otel) rather than
+# letting the chart create its own from splunkPlatform.token. `splunk_platform_hec_token`
+# is the exact key name the chart's templates look for in this secret - confirmed against
+# the chart's own advanced-configuration docs ("Provide tokens as a secret"), not guessed.
+# scripts/deploy-monitoring.sh creates/updates this secret automatically from
+# $SPLUNK_HEC_TOKEN before installing; see monitoring/splunk/README.md for the manual
+# equivalent if deploying outside that script.
+secret:
+  create: false
+  name: "splunk-hec"
 
 agent:
   enabled: true
