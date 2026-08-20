@@ -42,13 +42,33 @@ spec:
       limits:
         cpu: 4000m
         memory: 4Gi
+    spec:
+      containers:
+      - name: connect
+        readinessProbe:
+          httpGet:
+            path: /v1/metadata/id
+            port: 8083
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 6
+        livenessProbe:
+          httpGet:
+            path: /v1/metadata/id
+            port: 8083
+          initialDelaySeconds: 180
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 6
   configOverrides:
     server:
       - config.storage.replication.factor=1
       - offset.storage.replication.factor=1
       - status.storage.replication.factor=1
-      - producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
-      - consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+      # Monitoring interceptors disabled - not available in cp-server-connect:8.2.2
+      # - producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+      # - consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
   dependencies:
     kafka:
       bootstrapEndpoint: kafka.confluent.svc.cluster.local:9071
