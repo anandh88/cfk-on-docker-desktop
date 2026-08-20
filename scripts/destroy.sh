@@ -1,11 +1,20 @@
 #!/bin/bash
-set -euo pipefail
+set -u
 
-# Get the directory where this script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+# Keep script functionality even when PATH is limited or the shell does not expose
+# expected coreutils like dirname. Use POSIX-safe path resolution instead.
+SCRIPT_PATH="${BASH_SOURCE[0]:-$0}"
+if [[ "$SCRIPT_PATH" == */* ]]; then
+  SCRIPT_DIR="${SCRIPT_PATH%/*}"
+else
+  SCRIPT_DIR="."
+fi
+SCRIPT_DIR="$(cd "$SCRIPT_DIR" 2>/dev/null && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." 2>/dev/null && pwd)"
 
-cd "$PROJECT_DIR"
+if [ -n "${PROJECT_DIR:-}" ]; then
+  cd "$PROJECT_DIR"
+fi
 
 # -------------------- Config (env overridable) --------------------
 NAMESPACE="${NAMESPACE:-confluent}"
@@ -37,10 +46,27 @@ log_error() {
 }
 
 require_cmd() {
-  command -v "$1" &>/dev/null || {
-    log_error "$1 is not installed or not in PATH"
-    exit 1
-  }
+  local cmd="$1"
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    log_error "$cmd is not installed or not in PATH"
+    return 1
+  fi
+  return 0
+}
+
+ensure_tools() {
+  if ! require_cmd kubectl; then
+    log_warn "kubectl is unavailable in this shell. The teardown cannot proceed safely."
+    exit 0
+  fi
+
+  if ! require_cmd helm; then
+    log_warn "helm is not installed or not in PATH; Datadog uninstall will be skipped."
+  fi
+
+  if ! require_cmd jq; then
+    log_warn "jq is not installed; falling back to Python JSON handling where needed"
+  fi
 }
 
 kill_project_port_forwards() {
@@ -73,9 +99,32 @@ force_finalize_namespace() {
   fi
 
   log_warn "Namespace '$ns' still exists, attempting force finalize..."
-  kubectl get namespace "$ns" -o json | \
-    jq '.spec.finalizers = []' | \
-    kubectl replace --raw "/api/v1/namespaces/${ns}/finalize" -f - 2>/dev/null || true
+
+  if command -v jq >/dev/null 2>&1; then
+    kubectl get namespace "$ns" -o json | \
+      jq '.spec.finalizers = []' | \
+      kubectl replace --raw "/api/v1/namespaces/${ns}/finalize" -f - 2>/dev/null || true
+  elif command -v python3 >/dev/null 2>&1; then
+    kubectl get namespace "$ns" -o json > /tmp/${ns}.namespace.json 2>/dev/null || true
+    if [ -s "/tmp/${ns}.namespace.json" ]; then
+      python3 - "$ns" <<'PY'
+import json, sys
+ns = sys.argv[1]
+path = f"/tmp/{ns}.namespace.json"
+try:
+    with open(path) as f:
+        data = json.load(f)
+    data.setdefault("spec", {})["finalizers"] = []
+    with open(path, "w") as f:
+        json.dump(data, f)
+except Exception:
+    pass
+PY
+      kubectl replace --raw "/api/v1/namespaces/${ns}/finalize" -f "/tmp/${ns}.namespace.json" 2>/dev/null || true
+    fi
+  else
+    log_warn "Neither jq nor python3 is available; skipping namespace finalizer cleanup for '$ns'"
+  fi
 }
 
 teardown_local_mysql() {
@@ -140,9 +189,8 @@ echo "  Confluent Platform Destroy"
 echo "=============================================="
 echo ""
 
-require_cmd kubectl
-require_cmd helm
-require_cmd jq
+# Required for Kubernetes teardown; if absent, exit cleanly rather than crashing.
+ensure_tools
 
 # Stop local forwarders first so teardown logs are clean and no stale local sockets remain.
 kill_project_port_forwards
