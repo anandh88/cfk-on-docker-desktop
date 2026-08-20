@@ -42,11 +42,13 @@ practice as the Splunk Cloud side's HEC token. Pass it via `--set` at deploy tim
 
 ## What's actually running right now
 
-Deliberately **no CFK-specific configuration yet** — this first pass only validates
-the collector's default Kubernetes infrastructure receivers (`kubelet_stats`,
-`k8s_cluster`, etc.) against this cluster, confirming the built-in Kubernetes
-navigator in Splunk Observability Cloud populates, before layering in a CFK metrics
-pipeline on top. That's the deliberate next step, not yet done.
+Both layers are in now: the collector's default Kubernetes infrastructure receivers
+(`kubelet_stats`, `k8s_cluster`, etc.), confirmed populating the built-in Kubernetes
+navigator in Splunk Observability Cloud, **and** a `prometheus/cfk` receiver +
+`metrics/cfk` pipeline federating CFK's metrics off kube-prometheus-stack's
+Prometheus, the same pattern already proven on the Splunk Cloud collector — see
+issue 5 below for the one real problem this second pipeline caused and how it was
+fixed.
 
 ## Real issues found and fixed getting here (not obvious from the docs)
 
@@ -85,8 +87,23 @@ pipeline on top. That's the deliberate next step, not yet done.
    Grafana/Prometheus side of this repo (control-plane metrics disabled there too).
    Not a CFK or Observability Cloud-specific concern.
 
+5. **Agent OOMKilled (`exitCode 137`) within a minute of adding the `prometheus/cfk`
+   federate receiver.** Measured directly, not guessed: the federated
+   `{namespace="confluent"}` match returns ~107k series / ~48MB per scrape — every
+   CFK component's JMX percentile families and per-topic/per-instance breakouts,
+   plus cAdvisor/kube-state-metrics riding along on the same match. This is the
+   identical cardinality problem already hit and fixed on the Splunk Cloud
+   collector (`../splunk/otel-collector-values.docker-desktop.yaml`). Fixed the
+   same way: raised `agent.resources.limits.memory` from the chart's 500Mi default
+   to 1Gi. Confirmed stable afterward (0 restarts across multiple scrape cycles,
+   no error/OOM log lines). Narrowing the federate `match[]` is the real fix if
+   this keeps growing with the cluster — raising the memory ceiling again is not
+   a durable answer.
+
 Verified working: the `signalfx` exporter is synchronizing host metadata with zero
 errors, confirming the token/realm/export path is genuinely functional end to end.
+The `prometheus/cfk` receiver is running and scraping successfully, but per the open
+question below, none of this lands in built-in Observability Cloud content yet.
 
 ## Open questions, not yet resolved
 

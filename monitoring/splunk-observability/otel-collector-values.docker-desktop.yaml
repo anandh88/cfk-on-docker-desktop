@@ -58,6 +58,25 @@ agent:
     otlp: null
     otlp-http: null
 
+  # Bumped from the chart's 500Mi default -> 1Gi 2026-08-20: adding the
+  # prometheus/cfk receiver below OOMKilled the agent (confirmed via
+  # `lastState.reason: OOMKilled`, exitCode 137) within a minute of the first
+  # scrape. Root cause measured directly: the federated `{namespace="confluent"}`
+  # match returns ~107k series / ~48MB per scrape (every CFK component's JMX
+  # percentile families and per-topic/per-instance breakouts, plus
+  # cAdvisor/kube-state-metrics) - the same cardinality problem already hit and
+  # fixed identically on the Splunk Cloud collector
+  # (../splunk/otel-collector-values.docker-desktop.yaml), matched here to the
+  # same 1Gi ceiling. Narrowing the federate match[] is the real fix if this
+  # keeps growing - see that file's comment for the same caveat.
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
+
   config:
     receivers:
       # Docker Desktop's kubelet presents a self-signed cert with no IP SANs for
@@ -69,6 +88,36 @@ agent:
       # all would reach the built-in Kubernetes navigator.
       kubelet_stats:
         insecure_skip_verify: true
+      # Same federate pattern as the Splunk Cloud collector's prometheus/cfk
+      # receiver (monitoring/splunk/otel-collector-values.docker-desktop.yaml) -
+      # scrapes kube-prometheus-stack's Prometheus /federate endpoint, scoped to
+      # namespace="confluent", so the same CFK JMX + Kubernetes-resource series
+      # land here too. Per Splunk's own docs, metrics arriving via a Prometheus
+      # receiver are "custom metrics, not supported by built-in content" - these
+      # won't populate the built-in Kubernetes navigator or any other built-in
+      # dashboard; they need custom charts (see README.md's open questions).
+      prometheus/cfk:
+        config:
+          scrape_configs:
+            - job_name: cfk-metrics
+              honor_labels: true
+              scrape_interval: 30s
+              metrics_path: /federate
+              params:
+                'match[]': ['{namespace="confluent"}']
+              static_configs:
+                - targets: ['prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090']
+    service:
+      pipelines:
+        # New pipeline, not added to the existing "metrics" pipeline's receiver
+        # list - Helm's --set can't append to an array (it replaces), and a
+        # values-file deep-merge on `service.pipelines` (a map) adds this key
+        # alongside the existing ones without touching them, same as the Splunk
+        # Cloud collector's metrics/cfk pipeline.
+        metrics/cfk:
+          receivers: [prometheus/cfk]
+          processors: [memory_limiter, batch, resource_detection, resource]
+          exporters: [signalfx]
 
 # Not fixed and not expected to be, on Docker Desktop: kube-scheduler (:10259),
 # kube-proxy (:10249), and kube-controller-manager (:10257) all refuse the
