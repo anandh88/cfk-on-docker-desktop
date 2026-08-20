@@ -312,7 +312,7 @@ Datadog and Splunk are both optional and additive — they default to attempting
 if their API key/token isn't set (prompted interactively, or set `DD_API_KEY`/
 `SPLUNK_HEC_TOKEN` as env vars beforehand). Neither gates the Prometheus/Grafana stack.
 Splunk additionally requires a metrics-type index (`cfk_metrics`) created ahead of time on
-the Splunk Cloud side — see `monitoring/splunk/README.md` — and its 8 Dashboard Studio
+the Splunk Cloud side — see `monitoring/splunk/README-local-poc.md` — and its 8 Dashboard Studio
 JSON dashboards (`monitoring/splunk/dashboards/`) must be imported by hand, since Splunk
 Cloud has no kubectl-equivalent for that step.
 

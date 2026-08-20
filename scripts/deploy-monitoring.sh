@@ -16,7 +16,7 @@ DD_SITE="${DD_SITE:-us5.datadoghq.com}"
 DEPLOY_SPLUNK="${DEPLOY_SPLUNK:-true}"   # set to false to skip Splunk entirely
 # SPLUNK_HEC_TOKEN must be exported or entered interactively; there's no safe default.
 # Requires a metrics-type Splunk index ("cfk_metrics") already created — see
-# monitoring/splunk/README.md.
+# monitoring/splunk/README-local-poc.md.
 
 cd "$MONITORING_DIR"
 
@@ -163,7 +163,7 @@ if [ "${DEPLOY_SPLUNK}" = "true" ]; then
   if [ -z "${SPLUNK_HEC_TOKEN:-}" ]; then
     echo "  WARN: SPLUNK_HEC_TOKEN is not set — skipping Splunk OTel Collector install."
     echo "  Export SPLUNK_HEC_TOKEN and re-run, or set DEPLOY_SPLUNK=false to suppress this warning."
-    echo "  See monitoring/splunk/README.md for how to create a metrics-type index"
+    echo "  See monitoring/splunk/README-local-poc.md for how to create a metrics-type index"
     echo "  ('cfk_metrics') and HEC token — required before this will forward any data."
   else
     echo "  Creating splunk-otel namespace..."
