@@ -290,16 +290,31 @@ Kafka Connectors
    ├── Prometheus
    ├── Grafana
    └── Alertmanager
-4. Create Grafana dashboard ConfigMaps
+4. Apply Confluent ServiceMonitors + create Grafana dashboard ConfigMaps
 5. Apply alert rules
+6. Datadog Agent (optional, additive — DEPLOY_DATADOG=false to skip)
+7. Splunk OTel Collector (optional, additive — DEPLOY_SPLUNK=false to skip)
 ```
 
 **Usage**:
 ```bash
 ./scripts/deploy-monitoring.sh
+
+# Skip the optional add-ons, or provide credentials for them:
+DEPLOY_DATADOG=false DEPLOY_SPLUNK=false ./scripts/deploy-monitoring.sh
+DD_API_KEY=xxx SPLUNK_HEC_TOKEN=xxx ./scripts/deploy-monitoring.sh
 ```
 
 **Note**: This is automatically called by `setup.sh`. Use this only if you need to deploy monitoring independently.
+
+Datadog and Splunk are both optional and additive — they default to attempting install
+(`DEPLOY_DATADOG`/`DEPLOY_SPLUNK` both default `true`) but skip gracefully with a warning
+if their API key/token isn't set (prompted interactively, or set `DD_API_KEY`/
+`SPLUNK_HEC_TOKEN` as env vars beforehand). Neither gates the Prometheus/Grafana stack.
+Splunk additionally requires a metrics-type index (`cfk_metrics`) created ahead of time on
+the Splunk Cloud side — see `monitoring/splunk/README.md` — and its 8 Dashboard Studio
+JSON dashboards (`monitoring/splunk/dashboards/`) must be imported by hand, since Splunk
+Cloud has no kubectl-equivalent for that step.
 
 ---
 
@@ -309,11 +324,16 @@ Kafka Connectors
 
 **What it does**:
 ```
-1. Delete Grafana dashboard ConfigMaps
-2. Delete alert rules
-3. Uninstall kube-prometheus-stack
-4. Delete 'monitoring' namespace
+1. Uninstall Datadog Agent (if installed)
+2. Uninstall Splunk OTel Collector (if installed) + delete 'splunk-otel' namespace
+3. Delete Grafana dashboard ConfigMaps
+4. Delete alert rules
+5. Uninstall kube-prometheus-stack
+6. Delete 'monitoring' namespace
 ```
+
+Splunk Dashboard Studio dashboards themselves aren't touched — they live in Splunk Cloud,
+not this cluster, and are unaffected by tearing down the collector.
 
 **Usage**:
 ```bash

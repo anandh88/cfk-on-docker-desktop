@@ -29,6 +29,10 @@ log_info "Uninstalling Datadog Agent (if installed)..."
 helm uninstall datadog -n datadog-agent 2>/dev/null || true
 kubectl delete namespace datadog-agent --ignore-not-found --timeout=60s || true
 
+log_info "Uninstalling Splunk OTel Collector (if installed)..."
+helm uninstall splunk-otel-collector -n splunk-otel 2>/dev/null || true
+kubectl delete namespace splunk-otel --ignore-not-found --timeout=60s || true
+
 # Check if monitoring namespace exists
 if ! kubectl get namespace monitoring &>/dev/null; then
   log_info "Monitoring namespace does not exist, nothing to clean up"
