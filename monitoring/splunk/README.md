@@ -8,8 +8,6 @@ Logs **and** metrics integration with Splunk Cloud for Confluent Platform (Flink
 - **Logs**: Collected via OpenTelemetry Collector (DaemonSet), forwarded to Splunk Cloud HEC as events.
 - **Scope**: All CFK components (Kafka, KRaft, Schema Registry, Connect, Control Center, REST Proxy) + Flink workloads.
 
-> **Reference check:** this integration was meant to follow implementation patterns from `mkurre/openshift-cfk-gitops`, but that repo doesn't exist. The nearest match — `anandh88/openshift-cfk-gitops-lilly` (this user's own repo, with `mkurre` as a collaborator) — has no Splunk/HEC work in it, in the last 2 days or otherwise; its observability docs (`docs/observability/`) are Prometheus/Grafana-only. This pipeline was designed from scratch rather than mirrored from prior art.
-
 ## Prerequisites
 
 Everything below is on the **Splunk Cloud side** — none of it can be scripted from this
