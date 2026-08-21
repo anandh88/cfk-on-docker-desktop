@@ -22,13 +22,18 @@ drifts from what's actually live.
 from the org on 2026-08-21 (dashboard *and* every one of their charts return 404) — not
 caused by anything in this repo's own scripts (nothing here ever targeted those specific
 chart IDs for deletion), and not an org/token-wide issue (the other 4 dashboards, and the
-metric catalog itself, were all confirmed still working normally at the same time). Their
-last-known-good JSON is preserved in the old scattered format at
-`schema-registry-resources/`, `kraft-controller-resources/`, and
-`control-center-resources/` (one file per chart + a `dashboard.json`, from before this
-directory was consolidated) — recreate them via the same generator functions in
-`build_resources_dashboards.py` when ready, then run `sync_dashboard_files.py` against the
-result to fold them into the combined-file format like the other 5.
+metric catalog itself, were all confirmed still working normally at the same time).
+
+`kraft-controller-resources.json` is nonetheless already in the combined-file format —
+its 18 charts' full definitions and layout are the last-known-good record from before the
+404s, reconstructed **entirely from local files, no live API calls** (there was nothing
+left to pull from). Each chart's `id` there won't resolve against the live org until the
+dashboard is recreated; the file carries a top-level `"_status"` field saying so
+explicitly rather than looking identical to a working one. `schema-registry-resources/`
+and `control-center-resources/` haven't had this done yet and remain in the old scattered
+format (one file per chart + a `dashboard.json`). Recreate any of the 3 via the generator
+functions in `build_resources_dashboards.py` when ready, then run `sync_dashboard_files.py`
+against the result to pull in real, resolvable ids.
 
 Every metric name and dimension key used below was verified against the live org's metric
 catalog (`GET /v2/metric`, `GET /v2/metrictimeseries`) before being written into a

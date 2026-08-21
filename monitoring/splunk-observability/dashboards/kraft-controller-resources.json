@@ -1,0 +1,548 @@
+{
+  "dashboardGroupId": "HQMTCAaAwAE",
+  "dashboard": {
+    "id": "HQMoObZA4AA",
+    "name": "CFK KRaft Controller Resources (Docker Desktop)",
+    "url": null,
+    "timeRange": {
+      "end": "Now",
+      "start": "-15m"
+    }
+  },
+  "_status": "UNAVAILABLE: this dashboard and every chart above returned 404 as of 2026-08-21 (confirmed live, cause unknown - see ../README.md). This file is the last-known-good record from before that; the ids above will not resolve against the live org until it is recreated.",
+  "charts": [
+    {
+      "id": "HQMngOeA4AA",
+      "name": "Container Memory Usage vs Limit (GB)",
+      "description": "container_memory_working_set_bytes vs kube_pod_container_resource_limits{resource=memory}.",
+      "programText": "(data('container_memory_working_set_bytes', filter=filter('namespace', 'confluent') and filter('pod', 'kraftcontroller-0')) / 1024/1024/1024).publish(label='Usage')\n(data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'kraftcontroller-0') and filter('resource', 'memory') and filter('container', 'kraftcontroller')) / 1024/1024/1024).publish(label='Limit')\n",
+      "options": {
+        "type": "TimeSeriesChart",
+        "defaultPlotType": "LineChart",
+        "colorBy": "Dimension",
+        "stacked": false,
+        "includeZero": false,
+        "axisPrecision": 3,
+        "unitPrefix": "Metric",
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "onChartLegendOptions": {
+          "showLegend": true,
+          "dimensionInLegend": "plot_label"
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "timezone": "UTC"
+        },
+        "axes": [
+          {
+            "label": "GB"
+          },
+          null
+        ]
+      },
+      "layout": {
+        "row": 0,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMneEfA0AU",
+      "name": "Memory %",
+      "description": "container_memory_working_set_bytes / kube_pod_container_resource_limits{resource=memory}, as a percentage.",
+      "programText": "a = data('container_memory_working_set_bytes', filter=filter('namespace', 'confluent') and filter('pod', 'kraftcontroller-0')).sum()\nb = data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'kraftcontroller-0') and filter('resource', 'memory') and filter('container', 'kraftcontroller')).sum()\n(a/b*100).publish(label='Memory %')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Scale",
+        "unitPrefix": "Metric",
+        "secondaryVisualization": "Radial",
+        "colorScale2": [
+          {
+            "gte": 0,
+            "lt": 70,
+            "paletteIndex": 18
+          },
+          {
+            "gte": 70,
+            "lt": 90,
+            "paletteIndex": 6
+          },
+          {
+            "gte": 90,
+            "lte": 100,
+            "paletteIndex": 16
+          }
+        ]
+      },
+      "layout": {
+        "row": 0,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMneXDA4AI",
+      "name": "CPU Usage vs Limit (cores)",
+      "description": "container_cpu_usage_seconds_total (2-minute timeshift delta, not .rate() - see repo notes) vs kube_pod_container_resource_limits{resource=cpu}.",
+      "programText": "raw = data('container_cpu_usage_seconds_total', filter=filter('namespace', 'confluent') and filter('pod', 'kraftcontroller-0'))\n((raw - raw.timeshift('2m')) / 120).publish(label='Usage')\nlimit = data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'kraftcontroller-0') and filter('resource', 'cpu') and filter('container', 'kraftcontroller'))\nlimit.publish(label='Limit')\n",
+      "options": {
+        "type": "TimeSeriesChart",
+        "defaultPlotType": "LineChart",
+        "colorBy": "Dimension",
+        "stacked": false,
+        "includeZero": false,
+        "axisPrecision": 3,
+        "unitPrefix": "Metric",
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "onChartLegendOptions": {
+          "showLegend": true,
+          "dimensionInLegend": "plot_label"
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "timezone": "UTC"
+        },
+        "axes": [
+          {
+            "label": "Cores"
+          },
+          null
+        ]
+      },
+      "layout": {
+        "row": 2,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnj5fA4Bk",
+      "name": "CPU %",
+      "description": "CPU cores used (2-minute timeshift delta) / kube_pod_container_resource_limits{resource=cpu}, as a percentage.",
+      "programText": "raw = data('container_cpu_usage_seconds_total', filter=filter('namespace', 'confluent') and filter('pod', 'kraftcontroller-0')).sum()\nusage = (raw - raw.timeshift('2m')) / 120\nlimit = data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'kraftcontroller-0') and filter('resource', 'cpu') and filter('container', 'kraftcontroller')).sum()\n(usage/limit*100).publish(label='CPU %')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Scale",
+        "unitPrefix": "Metric",
+        "secondaryVisualization": "Radial",
+        "colorScale2": [
+          {
+            "gte": 0,
+            "lt": 70,
+            "paletteIndex": 18
+          },
+          {
+            "gte": 70,
+            "lt": 90,
+            "paletteIndex": 6
+          },
+          {
+            "gte": 90,
+            "lte": 100,
+            "paletteIndex": 16
+          }
+        ]
+      },
+      "layout": {
+        "row": 2,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnhkOA4AM",
+      "name": "JVM Heap Memory Usage vs Max (GB)",
+      "description": "jvm_memory_bytes_used{area=heap} vs jvm_memory_bytes_max{area=heap}.",
+      "programText": "(data('jvm_memory_bytes_used', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('area', 'heap') and filter('service.instance.id', 'kraftcontroller-0')) / 1024/1024/1024).publish(label='Usage')\n(data('jvm_memory_bytes_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('area', 'heap') and filter('service.instance.id', 'kraftcontroller-0')) / 1024/1024/1024).publish(label='Max')\n",
+      "options": {
+        "type": "TimeSeriesChart",
+        "defaultPlotType": "LineChart",
+        "colorBy": "Dimension",
+        "stacked": false,
+        "includeZero": false,
+        "axisPrecision": 3,
+        "unitPrefix": "Metric",
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "onChartLegendOptions": {
+          "showLegend": true,
+          "dimensionInLegend": "plot_label"
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "timezone": "UTC"
+        },
+        "axes": [
+          {
+            "label": "GB"
+          },
+          null
+        ]
+      },
+      "layout": {
+        "row": 4,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMoGGWA0AE",
+      "name": "JVM Heap %",
+      "description": "jvm_memory_bytes_used{area=heap} / jvm_memory_bytes_max{area=heap}, as a percentage.",
+      "programText": "a = data('jvm_memory_bytes_used', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('area', 'heap') and filter('service.instance.id', 'kraftcontroller-0')).sum()\nb = data('jvm_memory_bytes_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('area', 'heap') and filter('service.instance.id', 'kraftcontroller-0')).sum()\n(a/b*100).publish(label='JVM Heap %')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Scale",
+        "unitPrefix": "Metric",
+        "secondaryVisualization": "Radial",
+        "colorScale2": [
+          {
+            "gte": 0,
+            "lt": 70,
+            "paletteIndex": 18
+          },
+          {
+            "gte": 70,
+            "lt": 90,
+            "paletteIndex": 6
+          },
+          {
+            "gte": 90,
+            "lte": 100,
+            "paletteIndex": 16
+          }
+        ]
+      },
+      "layout": {
+        "row": 4,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMn4qMAwAM",
+      "name": "GC Time (% of wall-clock)",
+      "description": "2-minute timeshift delta of jvm_gc_collection_seconds_sum, as % of wall-clock time.",
+      "programText": "raw = data('jvm_gc_collection_seconds_sum', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0'))\n(((raw - raw.timeshift('2m')) / 120) * 100).publish(label='GC Time %')\n",
+      "options": {
+        "type": "TimeSeriesChart",
+        "defaultPlotType": "LineChart",
+        "colorBy": "Dimension",
+        "stacked": false,
+        "includeZero": false,
+        "axisPrecision": 3,
+        "unitPrefix": "Metric",
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "onChartLegendOptions": {
+          "showLegend": true,
+          "dimensionInLegend": "plot_label"
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "timezone": "UTC"
+        },
+        "axes": [
+          {
+            "label": "%"
+          },
+          null
+        ]
+      },
+      "layout": {
+        "row": 6,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnvS0A4AA",
+      "name": "Thread Count",
+      "description": "Raw jvm_threads_current.",
+      "programText": "data('jvm_threads_current', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Thread Count')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Dimension",
+        "secondaryVisualization": "None",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 6,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMns9qA4AU",
+      "name": "Current Leader (node id)",
+      "description": "Raw kafka_server_raft_metrics_current_leader.",
+      "programText": "data('kafka_server_raft_metrics_current_leader', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Current Leader')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Dimension",
+        "secondaryVisualization": "None",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 8,
+        "column": 0,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQMnc4SAwAA",
+      "name": "Current Vote (node id)",
+      "description": "Raw kafka_server_raft_metrics_current_vote.",
+      "programText": "data('kafka_server_raft_metrics_current_vote', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Current Vote')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Dimension",
+        "secondaryVisualization": "None",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 8,
+        "column": 4,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQMnZy4AwAE",
+      "name": "Current Epoch",
+      "description": "Raw kafka_server_raft_metrics_current_epoch.",
+      "programText": "data('kafka_server_raft_metrics_current_epoch', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Current Epoch')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Dimension",
+        "secondaryVisualization": "None",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 8,
+        "column": 8,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQMn8jfAwAE",
+      "name": "Metadata Error Count (should be 0)",
+      "description": "Raw kafka_controller_kafkacontroller_value{name=MetadataErrorCount}.",
+      "programText": "data('kafka_controller_kafkacontroller_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('name', 'MetadataErrorCount') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Metadata Error Count')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Dimension",
+        "secondaryVisualization": "None",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 9,
+        "column": 0,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQMnt4HAwAE",
+      "name": "Unknown Voter Connections",
+      "description": "Raw kafka_server_raft_metrics_number_unknown_voter_connections.",
+      "programText": "data('kafka_server_raft_metrics_number_unknown_voter_connections', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Unknown Voter Connections')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Dimension",
+        "secondaryVisualization": "None",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 9,
+        "column": 4,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQMni1MA0AE",
+      "name": "Poll Idle Ratio (avg)",
+      "description": "Raw kafka_server_raft_metrics_poll_idle_ratio_avg.",
+      "programText": "data('kafka_server_raft_metrics_poll_idle_ratio_avg', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Poll Idle Ratio')\n",
+      "options": {
+        "type": "SingleValue",
+        "colorBy": "Dimension",
+        "secondaryVisualization": "None",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 9,
+        "column": 8,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQMn7i1A0AA",
+      "name": "High Watermark / Log End Offset",
+      "description": "Raw kafka_server_raft_metrics_high_watermark and log_end_offset.",
+      "programText": "data('kafka_server_raft_metrics_high_watermark', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='High Watermark')\ndata('kafka_server_raft_metrics_log_end_offset', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Log End Offset')\n",
+      "options": {
+        "type": "TimeSeriesChart",
+        "defaultPlotType": "LineChart",
+        "colorBy": "Dimension",
+        "stacked": false,
+        "includeZero": false,
+        "axisPrecision": 3,
+        "unitPrefix": "Metric",
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "onChartLegendOptions": {
+          "showLegend": true,
+          "dimensionInLegend": "plot_label"
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "timezone": "UTC"
+        },
+        "axes": [
+          null,
+          null
+        ]
+      },
+      "layout": {
+        "row": 10,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnfQvA4AE",
+      "name": "Commit Latency (avg / max)",
+      "description": "Raw kafka_server_raft_metrics_commit_latency_avg / _max.",
+      "programText": "data('kafka_server_raft_metrics_commit_latency_avg', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Avg')\ndata('kafka_server_raft_metrics_commit_latency_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Max')\n",
+      "options": {
+        "type": "TimeSeriesChart",
+        "defaultPlotType": "LineChart",
+        "colorBy": "Dimension",
+        "stacked": false,
+        "includeZero": false,
+        "axisPrecision": 3,
+        "unitPrefix": "Metric",
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "onChartLegendOptions": {
+          "showLegend": true,
+          "dimensionInLegend": "plot_label"
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "timezone": "UTC"
+        },
+        "axes": [
+          {
+            "label": "ms"
+          },
+          null
+        ]
+      },
+      "layout": {
+        "row": 10,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnxGLA4AI",
+      "name": "Election Latency (avg / max)",
+      "description": "Raw kafka_server_raft_metrics_election_latency_avg / _max.",
+      "programText": "data('kafka_server_raft_metrics_election_latency_avg', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Avg')\ndata('kafka_server_raft_metrics_election_latency_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Max')\n",
+      "options": {
+        "type": "TimeSeriesChart",
+        "defaultPlotType": "LineChart",
+        "colorBy": "Dimension",
+        "stacked": false,
+        "includeZero": false,
+        "axisPrecision": 3,
+        "unitPrefix": "Metric",
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "onChartLegendOptions": {
+          "showLegend": true,
+          "dimensionInLegend": "plot_label"
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "timezone": "UTC"
+        },
+        "axes": [
+          {
+            "label": "ms"
+          },
+          null
+        ]
+      },
+      "layout": {
+        "row": 12,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnfHgA0AA",
+      "name": "Append / Fetch Records Rate",
+      "description": "Raw kafka_server_raft_metrics_append_records_rate / fetch_records_rate (already rate-typed JMX meters, no delta needed).",
+      "programText": "data('kafka_server_raft_metrics_append_records_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Append')\ndata('kafka_server_raft_metrics_fetch_records_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('service.instance.id', 'kraftcontroller-0')).publish(label='Fetch')\n",
+      "options": {
+        "type": "TimeSeriesChart",
+        "defaultPlotType": "LineChart",
+        "colorBy": "Dimension",
+        "stacked": false,
+        "includeZero": false,
+        "axisPrecision": 3,
+        "unitPrefix": "Metric",
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "onChartLegendOptions": {
+          "showLegend": true,
+          "dimensionInLegend": "plot_label"
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "timezone": "UTC"
+        },
+        "axes": [
+          {
+            "label": "Records/sec"
+          },
+          null
+        ]
+      },
+      "layout": {
+        "row": 12,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    }
+  ]
+}
