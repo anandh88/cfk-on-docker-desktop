@@ -333,19 +333,17 @@ DASHBOARDS = [
 
 
 def main():
+    """Same one-combined-file-per-dashboard approach as
+    build_resources_dashboards.py.main() - see its docstring."""
     for dboard in DASHBOARDS:
-        dir_path = os.path.join(OUT_ROOT, dboard["dir"])
-        os.makedirs(dir_path, exist_ok=True)
         panels = dboard["panels"]
         chart_ids = {}
+        chart_json_by_title = {}
         print(f"\n=== {dboard['title']} ({len(panels)} panels) ===")
         for kind, title, chart_json in panels:
-            fname = f"chart-{b.slugify(title)}.json"
-            with open(os.path.join(dir_path, fname), "w") as fh:
-                json.dump(chart_json, fh, indent=2)
-                fh.write("\n")
             resp = api("POST", "/v2/chart", chart_json)
             chart_ids[title] = resp["id"]
+            chart_json_by_title[title] = chart_json
             print(f"  [{resp['id']}] {title}")
 
         layout = b.layout_rows(panels)
@@ -364,12 +362,31 @@ def main():
         }
         resp = api("POST", "/v2/dashboard", dashboard_body)
         dash_id = resp["id"]
-        dashboard_body["id"] = dash_id
-        dashboard_body["url"] = f"https://app.us1.observability.splunkcloud.com/#/dashboard/{dash_id}"
-        with open(os.path.join(dir_path, "dashboard.json"), "w") as fh:
-            json.dump(dashboard_body, fh, indent=2)
+        dash_url = f"https://app.us1.observability.splunkcloud.com/#/dashboard/{dash_id}"
+
+        combined = {
+            "dashboardGroupId": GROUP_ID,
+            "dashboard": {"id": dash_id, "name": dboard["title"], "url": dash_url,
+                          "timeRange": dashboard_body["filters"]["time"]},
+            "charts": [
+                {
+                    "id": chart_ids[item["title"]],
+                    "name": chart_json_by_title[item["title"]]["name"],
+                    "description": chart_json_by_title[item["title"]]["description"],
+                    "programText": chart_json_by_title[item["title"]]["programText"],
+                    "options": chart_json_by_title[item["title"]]["options"],
+                    "layout": {"row": item["row"], "column": item["column"],
+                               "width": item["width"], "height": item["height"]},
+                }
+                for item in layout
+            ],
+        }
+        out_path = os.path.join(OUT_ROOT, f"{dboard['dir']}.json")
+        with open(out_path, "w") as fh:
+            json.dump(combined, fh, indent=2)
             fh.write("\n")
-        print(f"  DASHBOARD: {dashboard_body['url']}")
+        print(f"  DASHBOARD: {dash_url}")
+        print(f"  WROTE: {out_path}")
 
 
 if __name__ == "__main__":

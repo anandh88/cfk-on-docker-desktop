@@ -2,13 +2,33 @@
 
 Seven dashboards, mirroring the structure and panel coverage of the equivalent files in
 [`../../splunk/dashboards/`](../../splunk/dashboards/) — same purpose per dashboard, same
-metric families, translated from SPL to SignalFlow. The JSON shape is different because the
-platforms are: Splunk Cloud's Dashboard Studio bundles panels+layout+datasources into one
-file per dashboard; Splunk Observability Cloud has no equivalent single-file import — charts
-are independent objects created via `POST /v2/chart`, then referenced by ID from a dashboard
-object via `POST /v2/dashboard`. This directory's structure follows that: one clean JSON file
-per chart, one `dashboard.json` per dashboard assembling them (chart IDs + grid layout),
-matching what's actually live.
+metric families, translated from SPL to SignalFlow.
+
+**File layout**: one combined JSON file per dashboard (`broker-resources.json`,
+`kafka-cluster.json`, etc.) — every chart's full definition plus its grid position, all in
+one file, matching the Splunk Cloud side's one-file-per-dashboard feel. This is a slight
+fiction, worth being explicit about: unlike Dashboard Studio, where a dashboard genuinely
+*is* one importable JSON blob, Splunk Observability Cloud has no such API — charts are
+independent objects created via `POST /v2/chart`, then referenced by ID from a dashboard
+object via `POST /v2/dashboard`. Deploying one of these files still means N chart-creates
++ 1 dashboard-create under the hood (see `build_resources_dashboards.py` /
+`build_functional_dashboards.py`); the single file is a readability/review convenience on
+top of that reality, not a native import format. `sync_dashboard_files.py` re-pulls a
+dashboard's live state back into its file after any manual API patch, so the file never
+drifts from what's actually live.
+
+**3 of the 7 are currently unavailable, cause unknown**: `schema-registry-resources`,
+`kraft-controller-resources`, and `control-center-resources` were found completely gone
+from the org on 2026-08-21 (dashboard *and* every one of their charts return 404) — not
+caused by anything in this repo's own scripts (nothing here ever targeted those specific
+chart IDs for deletion), and not an org/token-wide issue (the other 4 dashboards, and the
+metric catalog itself, were all confirmed still working normally at the same time). Their
+last-known-good JSON is preserved in the old scattered format at
+`schema-registry-resources/`, `kraft-controller-resources/`, and
+`control-center-resources/` (one file per chart + a `dashboard.json`, from before this
+directory was consolidated) — recreate them via the same generator functions in
+`build_resources_dashboards.py` when ready, then run `sync_dashboard_files.py` against the
+result to fold them into the combined-file format like the other 5.
 
 Every metric name and dimension key used below was verified against the live org's metric
 catalog (`GET /v2/metric`, `GET /v2/metrictimeseries`) before being written into a
@@ -21,16 +41,17 @@ queries; the short version is in `../README.md`.
 |---|---|---|---|
 | Kafka Broker Resources | 14 | Memory/CPU/JVM Heap gauges + Usage-vs-Limit trends, GC, Threads + Disk I/O, Disk Usage %, PVC Capacity, Log Directory Usage vs PVC | https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnOAUA0Bs |
 | Kafka Connect Resources | 8 | Memory/CPU/JVM Heap gauges + Usage-vs-Limit trends, GC, Threads | https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnlVXA4AA |
-| Schema Registry Resources | 15 | Memory/CPU/JVM Heap gauges + Usage-vs-Limit trends, GC, Threads + Leader Role, Node Count, Registrations/Deletions, Schemas by Format, API Success/Failure, TLS Cert Expiry | https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnYsHA4AA |
-| KRaft Controller Resources | 18 | Memory/CPU/JVM Heap gauges + Usage-vs-Limit trends, GC, Threads + Leader/Vote/Epoch, Metadata Error Count, High Watermark/LEO, Commit/Election Latency, Append/Fetch Rate | https://app.us1.observability.splunkcloud.com/#/dashboard/HQMoObZA4AA |
-| Control Center Resources | 8 | Memory/CPU/JVM Heap gauges + Usage-vs-Limit trends, GC, Threads | https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnZTVA0AM |
+| Schema Registry Resources | 15 | Memory/CPU/JVM Heap gauges + Usage-vs-Limit trends, GC, Threads + Leader Role, Node Count, Registrations/Deletions, Schemas by Format, API Success/Failure, TLS Cert Expiry | ⚠️ **unavailable** — see below |
+| KRaft Controller Resources | 18 | Memory/CPU/JVM Heap gauges + Usage-vs-Limit trends, GC, Threads + Leader/Vote/Epoch, Metadata Error Count, High Watermark/LEO, Commit/Election Latency, Append/Fetch Rate | ⚠️ **unavailable** — see below |
+| Control Center Resources | 8 | Memory/CPU/JVM Heap gauges + Usage-vs-Limit trends, GC, Threads | ⚠️ **unavailable** — see below |
 | Kafka Cluster | 16 | Cluster health (Active Controllers, Brokers Online, Offline/Under-Replicated/Under-Min-ISR Partitions, Unclean Leader Election Rate), broker throughput, errors, CPU/JVM/GC/disk resources, cluster-wide message rate, consumer group lag, Produce/Consumer-Fetch tail latency (all percentiles) | https://app.us1.observability.splunkcloud.com/#/dashboard/HQM3KmKAwAI |
 | Kafka Connect Cluster | 49 | Task counts/status, worker CPU/JVM/GC, worker network/IO/auth metrics, rebalance activity, per-connector-task batch/offset/error/source/sink record metrics | https://app.us1.observability.splunkcloud.com/#/dashboard/HQM38FJA4AA |
 
-128 charts total across the 7 dashboards (Resources: 63, down from an initial 93 — see
+128 charts across the 7 dashboards by design (Resources: 63, down from an initial 93 — see
 "Fixes applied after first render" below; Kafka/Connect Cluster: 65, straight through with
 no post-render issues, since the fixes from the Resources tier were applied proactively
-this time instead of discovered after the fact).
+this time instead of discovered after the fact). **Only 87 are live right now** (128 minus
+the 41 charts across the 3 missing dashboards below) — see the file-layout note above.
 
 All 7 live in the `CFK - Splunk Observability Cloud POC` dashboard group
 ([`dashboard-group.json`](dashboard-group.json)).
@@ -178,25 +199,36 @@ right now. Built anyway for full parity with the source dashboard's coverage.
 
 ## Regenerating / updating
 
-`build_resources_dashboards.py` (Resources tier) is kept up to date with the fixes
-above — `single_value()` bakes in the gauge color-scale fix for every `radial=True`
-chart, `core_panels()` no longer generates the 6 now-removed tiles per component,
-and `layout_rows()` pairs each line chart with its immediately-following
-single-value — so it reflects the current 63-chart design and layout.
-`build_functional_dashboards.py` (Kafka Cluster / Connect Cluster) reflects exactly
-what was deployed, no drift, since those fixes went in before the first live run
-rather than as later patches. Neither script was re-run end-to-end after the
-Resources tier's post-render fixes, though: that live org was patched directly via
-targeted, one-off `PUT`/`DELETE` scripts (not checked into this repo). Both scripts
-create new chart objects rather than updating existing ones (not idempotent) —
-treat them as the accurate record of the current design and a starting point for
-deliberate changes, not a one-command redeploy of an org that already has these
-charts in it.
+Two different tools, two different jobs:
+
+- **`build_resources_dashboards.py`** / **`build_functional_dashboards.py`** create
+  dashboards **from scratch** — every `POST /v2/chart` + `POST /v2/dashboard` call,
+  from the panel definitions in the script itself. `single_value()` bakes in the
+  gauge color-scale fix for every `radial=True` chart, `core_panels()` no longer
+  generates the 6 removed tiles per component, and `layout_rows()` pairs each line
+  chart with its immediately-following single-value — so both scripts reflect the
+  current design, and both now write the combined one-file-per-dashboard output
+  described above. **Not idempotent**: re-running either against an org that
+  already has these dashboards creates new, duplicate objects rather than updating
+  the existing ones — only use them against an empty org (recreating one of the 3
+  currently-missing dashboards, for instance).
+- **`sync_dashboard_files.py`** goes the other direction — it never creates or
+  changes anything live, it only re-pulls a dashboard's current state (every chart,
+  fresh via `GET`) back into its combined JSON file. Run this after any manual
+  `PUT`/`DELETE` patch against the API (the gauge/layout fixes below were all
+  applied this way — targeted one-off patches, not full script re-runs — so this
+  is what kept the checked-in files honest afterward).
 
 ```bash
 export SFX_TOKEN=<your Splunk Observability Cloud access token>
+
+# Create fresh (only against an org that doesn't already have these):
 python3 build_resources_dashboards.py
 python3 build_functional_dashboards.py
+
+# Re-sync a file with what's actually live, after a manual patch:
+python3 sync_dashboard_files.py broker-resources kafka-cluster
+python3 sync_dashboard_files.py --all
 ```
 
 ## Not yet done

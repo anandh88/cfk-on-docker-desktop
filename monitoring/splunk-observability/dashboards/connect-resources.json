@@ -1,0 +1,408 @@
+{
+  "dashboardGroupId": "HQMTCAaAwAE",
+  "dashboard": {
+    "id": "HQMnlVXA4AA",
+    "name": "CFK Kafka Connect Resources (Docker Desktop)",
+    "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQMnlVXA4AA",
+    "timeRange": {
+      "end": "Now",
+      "start": "-15m"
+    }
+  },
+  "charts": [
+    {
+      "id": "HQMncL7AwAA",
+      "name": "Container Memory Usage vs Limit (GB)",
+      "description": "container_memory_working_set_bytes vs kube_pod_container_resource_limits{resource=memory}.",
+      "programText": "(data('container_memory_working_set_bytes', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0')) / 1024/1024/1024).publish(label='Usage')\n(data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0') and filter('resource', 'memory') and filter('container', 'connect')) / 1024/1024/1024).publish(label='Limit')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "GB",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 0,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnuVzA0AE",
+      "name": "Memory %",
+      "description": "container_memory_working_set_bytes / kube_pod_container_resource_limits{resource=memory}, as a percentage.",
+      "programText": "a = data('container_memory_working_set_bytes', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0')).sum()\nb = data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0') and filter('resource', 'memory') and filter('container', 'connect')).sum()\n(a/b*100).publish(label='Memory %')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": null,
+            "gte": 90.0,
+            "lt": null,
+            "lte": 100.0,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": 70.0,
+            "lt": 90.0,
+            "lte": null,
+            "paletteIndex": 6
+          },
+          {
+            "gt": null,
+            "gte": 0.0,
+            "lt": 70.0,
+            "lte": null,
+            "paletteIndex": 18
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "Radial",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 0,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnc3UA0AA",
+      "name": "CPU Usage vs Limit (cores)",
+      "description": "container_cpu_usage_seconds_total (2-minute timeshift delta, not .rate() - see repo notes) vs kube_pod_container_resource_limits{resource=cpu}.",
+      "programText": "raw = data('container_cpu_usage_seconds_total', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0'))\n((raw - raw.timeshift('2m')) / 120).publish(label='Usage')\nlimit = data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0') and filter('resource', 'cpu') and filter('container', 'connect'))\nlimit.publish(label='Limit')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Cores",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 2,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnCOKAwAA",
+      "name": "CPU %",
+      "description": "CPU cores used (2-minute timeshift delta) / kube_pod_container_resource_limits{resource=cpu}, as a percentage.",
+      "programText": "raw = data('container_cpu_usage_seconds_total', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0')).sum()\nusage = (raw - raw.timeshift('2m')) / 120\nlimit = data('kube_pod_container_resource_limits', filter=filter('namespace', 'confluent') and filter('pod', 'connect-0') and filter('resource', 'cpu') and filter('container', 'connect')).sum()\n(usage/limit*100).publish(label='CPU %')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": null,
+            "gte": 90.0,
+            "lt": null,
+            "lte": 100.0,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": 70.0,
+            "lt": 90.0,
+            "lte": null,
+            "paletteIndex": 6
+          },
+          {
+            "gt": null,
+            "gte": 0.0,
+            "lt": 70.0,
+            "lte": null,
+            "paletteIndex": 18
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "Radial",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 2,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnt8XA0AE",
+      "name": "JVM Heap Memory Usage vs Max (GB)",
+      "description": "jvm_memory_bytes_used{area=heap} vs jvm_memory_bytes_max{area=heap}.",
+      "programText": "(data('jvm_memory_bytes_used', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('area', 'heap') and filter('service.instance.id', 'connect-0')) / 1024/1024/1024).publish(label='Usage')\n(data('jvm_memory_bytes_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('area', 'heap') and filter('service.instance.id', 'connect-0')) / 1024/1024/1024).publish(label='Max')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "GB",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 4,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnrVdAwAI",
+      "name": "JVM Heap %",
+      "description": "jvm_memory_bytes_used{area=heap} / jvm_memory_bytes_max{area=heap}, as a percentage.",
+      "programText": "a = data('jvm_memory_bytes_used', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('area', 'heap') and filter('service.instance.id', 'connect-0')).sum()\nb = data('jvm_memory_bytes_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('area', 'heap') and filter('service.instance.id', 'connect-0')).sum()\n(a/b*100).publish(label='JVM Heap %')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": null,
+            "gte": 90.0,
+            "lt": null,
+            "lte": 100.0,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": 70.0,
+            "lt": 90.0,
+            "lte": null,
+            "paletteIndex": 6
+          },
+          {
+            "gt": null,
+            "gte": 0.0,
+            "lt": 70.0,
+            "lte": null,
+            "paletteIndex": 18
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "Radial",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 4,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMm-ATAwAA",
+      "name": "GC Time (% of wall-clock)",
+      "description": "2-minute timeshift delta of jvm_gc_collection_seconds_sum, as % of wall-clock time.",
+      "programText": "raw = data('jvm_gc_collection_seconds_sum', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('service.instance.id', 'connect-0'))\n(((raw - raw.timeshift('2m')) / 120) * 100).publish(label='GC Time %')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "%",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 6,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQMnR-YA0A8",
+      "name": "Thread Count",
+      "description": "Raw jvm_threads_current.",
+      "programText": "data('jvm_threads_current', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('service.instance.id', 'connect-0')).publish(label='Thread Count')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 6,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    }
+  ]
+}

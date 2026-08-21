@@ -1,0 +1,2195 @@
+{
+  "dashboardGroupId": "HQMTCAaAwAE",
+  "dashboard": {
+    "id": "HQM38FJA4AA",
+    "name": "CFK Kafka Connect Cluster (Docker Desktop)",
+    "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQM38FJA4AA",
+    "timeRange": {
+      "start": "-15m",
+      "end": "Now"
+    }
+  },
+  "charts": [
+    {
+      "id": "HQM3MNGA0AE",
+      "name": "Tasks Total",
+      "description": "Sum of kafka_connect_connect_worker_metrics_connector_total_task_count across connectors.",
+      "programText": "data('kafka_connect_connect_worker_metrics_connector_total_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='Tasks Total')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 0,
+        "column": 0,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3sKVA0AI",
+      "name": "Tasks Running",
+      "description": "Sum of kafka_connect_connect_worker_metrics_connector_running_task_count across connectors.",
+      "programText": "data('kafka_connect_connect_worker_metrics_connector_running_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='Tasks Running')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 0,
+        "column": 4,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3K47A0AA",
+      "name": "Tasks Paused",
+      "description": "Sum of kafka_connect_connect_worker_metrics_connector_paused_task_count across connectors.",
+      "programText": "data('kafka_connect_connect_worker_metrics_connector_paused_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='Tasks Paused')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 0,
+        "column": 8,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3R_zA0AE",
+      "name": "Tasks Failed",
+      "description": "Sum of kafka_connect_connect_worker_metrics_connector_failed_task_count across connectors.",
+      "programText": "data('kafka_connect_connect_worker_metrics_connector_failed_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='Tasks Failed')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": 0.0,
+            "gte": null,
+            "lt": null,
+            "lte": null,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": null,
+            "lt": null,
+            "lte": 0.0,
+            "paletteIndex": 18
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 1,
+        "column": 0,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM34nHA0AM",
+      "name": "Tasks Unassigned",
+      "description": "Sum of kafka_connect_connect_worker_metrics_connector_unassigned_task_count across connectors.",
+      "programText": "data('kafka_connect_connect_worker_metrics_connector_unassigned_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='Tasks Unassigned')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 1,
+        "column": 4,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3e39AwAA",
+      "name": "Tasks Destroyed",
+      "description": "Sum of kafka_connect_connect_worker_metrics_connector_destroyed_task_count across connectors.",
+      "programText": "data('kafka_connect_connect_worker_metrics_connector_destroyed_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='Tasks Destroyed')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 1,
+        "column": 8,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3tzxA0AI",
+      "name": "Status of Tasks Over Time",
+      "description": "The 5 task-status counts above, summed across connectors, over time.",
+      "programText": "data('kafka_connect_connect_worker_metrics_connector_running_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='running')\ndata('kafka_connect_connect_worker_metrics_connector_failed_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='failed')\ndata('kafka_connect_connect_worker_metrics_connector_paused_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='paused')\ndata('kafka_connect_connect_worker_metrics_connector_unassigned_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='unassigned')\ndata('kafka_connect_connect_worker_metrics_connector_destroyed_task_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum().publish(label='destroyed')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Tasks",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 2,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3CnRA4AA",
+      "name": "CPU Usage",
+      "description": "process_cpu_seconds_total, by worker instance, 2-minute timeshift delta.",
+      "programText": "raw = data('process_cpu_seconds_total', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id'])\n((raw - raw.timeshift('2m')) / 120).publish(label='CPU Usage')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Cores",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 2,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM4WW6AwAA",
+      "name": "JVM Memory Used",
+      "description": "jvm_memory_bytes_used vs jvm_memory_bytes_max{area=heap}, by worker instance.",
+      "programText": "data('jvm_memory_bytes_used', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id']).publish(label='Used')\ndata('jvm_memory_bytes_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('area', 'heap')).sum(by=['service.instance.id']).publish(label='Max Heap')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Bytes",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 4,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3ae1A4AA",
+      "name": "JVM GC Time",
+      "description": "jvm_gc_collection_seconds_sum, by worker instance, 2-minute timeshift delta.",
+      "programText": "raw = data('jvm_gc_collection_seconds_sum', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id'])\n((raw - raw.timeshift('2m')) / 120).publish(label='GC Time')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "sec/sec",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 4,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3G-xAwAA",
+      "name": "Network IO Rate",
+      "description": "kafka_connect_connect_metrics_network_io_rate, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_network_io_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Network IO Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 6,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3SO1A4AA",
+      "name": "Incoming Byte Rate",
+      "description": "kafka_connect_connect_metrics_incoming_byte_rate, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_incoming_byte_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Incoming Byte Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 6,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM2vqIAwAE",
+      "name": "Outgoing Byte Rate",
+      "description": "kafka_connect_connect_metrics_outgoing_byte_rate, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_outgoing_byte_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Outgoing Byte Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 8,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3FegA0AE",
+      "name": "Current Active Connections",
+      "description": "kafka_connect_connect_metrics_connection_count, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_connection_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Current Active Connections')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 8,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3P1rA4AA",
+      "name": "Failed Authentication Connections",
+      "description": "kafka_connect_connect_metrics_failed_authentication_total, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_failed_authentication_total', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Failed Authentication Connections')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 10,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3s5sAwAM",
+      "name": "Successful Authentication Rate",
+      "description": "kafka_connect_connect_metrics_successful_authentication_rate, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_successful_authentication_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Successful Authentication Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 10,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3s36A0AQ",
+      "name": "IO Ratio",
+      "description": "kafka_connect_connect_metrics_io_ratio, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_io_ratio', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='IO Ratio')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 12,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM25fSAwAA",
+      "name": "Responses Received and Sent",
+      "description": "kafka_connect_connect_metrics_response_rate, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_response_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Responses Received and Sent')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 12,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3g36A0AE",
+      "name": "Average Number of Requests",
+      "description": "kafka_connect_connect_metrics_request_rate, by worker instance + client_id.",
+      "programText": "data('kafka_connect_connect_metrics_request_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id','client_id']).publish(label='Average Number of Requests')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 14,
+        "column": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3s-cA0Ak",
+      "name": "Total Number of Rebalances",
+      "description": "Raw kafka_connect_connect_worker_rebalance_metrics_completed_rebalances_total.",
+      "programText": "data('kafka_connect_connect_worker_rebalance_metrics_completed_rebalances_total', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).publish(label='Total Rebalances')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 14,
+        "column": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3uQeA0AA",
+      "name": "Time Since Last Rebalance (ms)",
+      "description": "Raw kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms.",
+      "programText": "data('kafka_connect_connect_worker_rebalance_metrics_time_since_last_rebalance_ms', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).publish(label='Time Since Last Rebalance')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 16,
+        "column": 0,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3fVvAwAM",
+      "name": "Rebalance Average Time (ms)",
+      "description": "kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms, by worker instance.",
+      "programText": "data('kafka_connect_connect_worker_rebalance_metrics_rebalance_avg_time_ms', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['service.instance.id']).publish(label='Rebalance Avg Time')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "ms",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 17,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3Q8PAwAA",
+      "name": "Batch Size Average",
+      "description": "kafka_connect_connector_task_metrics_batch_size_avg, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_connector_task_metrics_batch_size_avg', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Batch Size Average')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 17,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3Z4OAwAA",
+      "name": "Batch Size Max",
+      "description": "kafka_connect_connector_task_metrics_batch_size_max, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_connector_task_metrics_batch_size_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Batch Size Max')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 19,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3NqHA0AA",
+      "name": "Offset Commit Success Percentage",
+      "description": "kafka_connect_connector_task_metrics_offset_commit_success_percentage, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_connector_task_metrics_offset_commit_success_percentage', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Offset Commit Success Percentage')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "%",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 19,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3fWfAwAE",
+      "name": "Offset Commit Average Time (ms)",
+      "description": "kafka_connect_connector_task_metrics_offset_commit_avg_time_ms, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_connector_task_metrics_offset_commit_avg_time_ms', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Offset Commit Average Time (ms)')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "ms",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 21,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3LyMA0AI",
+      "name": "Running Ratio",
+      "description": "kafka_connect_connector_task_metrics_running_ratio, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_connector_task_metrics_running_ratio', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Running Ratio')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 21,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3vQdA0AQ",
+      "name": "Total Record Failures",
+      "description": "kafka_connect_task_error_metrics_total_record_failures, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_task_error_metrics_total_record_failures', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Total Record Failures')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 23,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM38EPAwAE",
+      "name": "Total Record Errors",
+      "description": "kafka_connect_task_error_metrics_total_record_errors, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_task_error_metrics_total_record_errors', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Total Record Errors')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 23,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3jXWAwAE",
+      "name": "Total Records Skipped",
+      "description": "kafka_connect_task_error_metrics_total_records_skipped, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_task_error_metrics_total_records_skipped', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Total Records Skipped')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 25,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM4XD7AwAQ",
+      "name": "Total Errors Logged",
+      "description": "kafka_connect_task_error_metrics_total_errors_logged, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_task_error_metrics_total_errors_logged', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Total Errors Logged')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 25,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3PUaAwAI",
+      "name": "Total Retries",
+      "description": "kafka_connect_task_error_metrics_total_retries, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_task_error_metrics_total_retries', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Total Retries')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 27,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3vroAwAA",
+      "name": "Dead Letter Queue Produce Requests",
+      "description": "kafka_connect_task_error_metrics_deadletterqueue_produce_requests, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_task_error_metrics_deadletterqueue_produce_requests', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Dead Letter Queue Produce Requests')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 27,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM2rjvA4AI",
+      "name": "Dead Letter Queue Produce Failures",
+      "description": "kafka_connect_task_error_metrics_deadletterqueue_produce_failures, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_task_error_metrics_deadletterqueue_produce_failures', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['connector','task']).publish(label='Dead Letter Queue Produce Failures')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 29,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3UCgA0AE",
+      "name": "Source Record Write Rate",
+      "description": "kafka_connect_source_task_metrics_source_record_write_rate, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_source_task_metrics_source_record_write_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Source Record Write Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 29,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM37vRA4AA",
+      "name": "Source Record Poll Rate",
+      "description": "kafka_connect_source_task_metrics_source_record_poll_rate, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_source_task_metrics_source_record_poll_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Source Record Poll Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 31,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3tPyA0AA",
+      "name": "Source Record Active Count Average",
+      "description": "kafka_connect_source_task_metrics_source_record_active_count_avg, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_source_task_metrics_source_record_active_count_avg', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Source Record Active Count Average')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 31,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3OXmA4AE",
+      "name": "Source Record Active Count Max",
+      "description": "kafka_connect_source_task_metrics_source_record_active_count_max, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_source_task_metrics_source_record_active_count_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Source Record Active Count Max')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 33,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3P7aA0AE",
+      "name": "Poll Batch Average Time (ms)",
+      "description": "kafka_connect_source_task_metrics_poll_batch_avg_time_ms, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_source_task_metrics_poll_batch_avg_time_ms', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Poll Batch Average Time (ms)')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 33,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3Ux0A4AE",
+      "name": "Poll Batch Max Time (ms)",
+      "description": "kafka_connect_source_task_metrics_poll_batch_max_time_ms, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_source_task_metrics_poll_batch_max_time_ms', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Poll Batch Max Time (ms)')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 35,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3xpaAwAM",
+      "name": "Sink Record Read Rate",
+      "description": "kafka_connect_sink_task_metrics_sink_record_read_rate, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_sink_record_read_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Sink Record Read Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 35,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3UEnA4AE",
+      "name": "Sink Record Send Rate",
+      "description": "kafka_connect_sink_task_metrics_sink_record_send_rate, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_sink_record_send_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Sink Record Send Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 37,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3snEA0AA",
+      "name": "Sink Record Active Count Average",
+      "description": "kafka_connect_sink_task_metrics_sink_record_active_count_avg, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_sink_record_active_count_avg', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Sink Record Active Count Average')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 37,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3xgqA4AI",
+      "name": "Sink Record Active Count Max",
+      "description": "kafka_connect_sink_task_metrics_sink_record_active_count_max, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_sink_record_active_count_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Sink Record Active Count Max')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 39,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3dh5AwAI",
+      "name": "Offset Commit Completion Rate",
+      "description": "kafka_connect_sink_task_metrics_offset_commit_completion_rate, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_offset_commit_completion_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Offset Commit Completion Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 39,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3adwAwAA",
+      "name": "Offset Commit Skip Rate",
+      "description": "kafka_connect_sink_task_metrics_offset_commit_skip_rate, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_offset_commit_skip_rate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Offset Commit Skip Rate')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 41,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM2wpnA4AA",
+      "name": "Put Batch Average Time (ms)",
+      "description": "kafka_connect_sink_task_metrics_put_batch_avg_time_ms, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_put_batch_avg_time_ms', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Put Batch Average Time (ms)')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 41,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3seWA0AY",
+      "name": "Put Batch Max Time (ms)",
+      "description": "kafka_connect_sink_task_metrics_put_batch_max_time_ms, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_put_batch_max_time_ms', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Put Batch Max Time (ms)')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 43,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM303yA4AM",
+      "name": "Partition Count",
+      "description": "kafka_connect_sink_task_metrics_partition_count, by connector+task. Currently no live data - zero connectors deployed on this cluster.",
+      "programText": "data('kafka_connect_sink_task_metrics_partition_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect') and filter('task', '*')).sum(by=['connector','task']).publish(label='Partition Count')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          null,
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 43,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    }
+  ]
+}

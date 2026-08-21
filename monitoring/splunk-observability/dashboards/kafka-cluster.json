@@ -1,0 +1,804 @@
+{
+  "dashboardGroupId": "HQMTCAaAwAE",
+  "dashboard": {
+    "id": "HQM3KmKAwAI",
+    "name": "CFK Kafka Cluster (Docker Desktop)",
+    "url": "https://app.us1.observability.splunkcloud.com/#/dashboard/HQM3KmKAwAI",
+    "timeRange": {
+      "start": "-15m",
+      "end": "Now"
+    }
+  },
+  "charts": [
+    {
+      "id": "HQM3cfVA4AE",
+      "name": "Active Controllers",
+      "description": "kafka_controller_kafkacontroller_value{name=ActiveControllerCount}. Exactly 1 is healthy; 0 or 2+ indicates a split-brain or leaderless controller.",
+      "programText": "data('kafka_controller_kafkacontroller_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('name', 'ActiveControllerCount')).publish(label='Active Controllers')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": null,
+            "gte": 2.0,
+            "lt": null,
+            "lte": null,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": 1.0,
+            "lt": 2.0,
+            "lte": null,
+            "paletteIndex": 18
+          },
+          {
+            "gt": null,
+            "gte": null,
+            "lt": 1.0,
+            "lte": null,
+            "paletteIndex": 16
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 0,
+        "column": 0,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM2rOcAwAA",
+      "name": "Brokers Online",
+      "description": "Distinct count of broker instances reporting kafka_server_replicamanager_value{name=LeaderCount}.",
+      "programText": "data('kafka_server_replicamanager_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'LeaderCount')).count().publish(label='Brokers Online')\n",
+      "options": {
+        "colorBy": "Dimension",
+        "colorScale": null,
+        "colorScale2": null,
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 0,
+        "column": 4,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM275sA0AQ",
+      "name": "Unclean Leader Election Rate",
+      "description": "kafka_controller_controllerstats_oneminuterate{name=UncleanLeaderElectionsPerSec} - already a computed rate (Yammer Meter), used directly.",
+      "programText": "data('kafka_controller_controllerstats_oneminuterate', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('name', 'UncleanLeaderElectionsPerSec')).publish(label='Unclean Leader Election Rate')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": 0.0,
+            "gte": null,
+            "lt": null,
+            "lte": null,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": null,
+            "lt": null,
+            "lte": 0.0,
+            "paletteIndex": 18
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 0,
+        "column": 8,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3tn0AwAc",
+      "name": "Under Replicated Partitions",
+      "description": "Sum of kafka_server_replicamanager_value{name=UnderReplicatedPartitions} across brokers.",
+      "programText": "data('kafka_server_replicamanager_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'UnderReplicatedPartitions')).sum().publish(label='Under Replicated Partitions')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": 0.0,
+            "gte": null,
+            "lt": null,
+            "lte": null,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": null,
+            "lt": null,
+            "lte": 0.0,
+            "paletteIndex": 18
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 1,
+        "column": 0,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3u6GA0AI",
+      "name": "Under Min ISR Partitions",
+      "description": "Sum of kafka_server_replicamanager_value{name=UnderMinIsrPartitionCount} across brokers.",
+      "programText": "data('kafka_server_replicamanager_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'UnderMinIsrPartitionCount')).sum().publish(label='Under Min ISR Partitions')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": 0.0,
+            "gte": null,
+            "lt": null,
+            "lte": null,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": null,
+            "lt": null,
+            "lte": 0.0,
+            "paletteIndex": 18
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 1,
+        "column": 4,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3T9lA0AE",
+      "name": "Offline Partitions Count",
+      "description": "Sum of kafka_controller_kafkacontroller_value{name=OfflinePartitionsCount} across controllers.",
+      "programText": "data('kafka_controller_kafkacontroller_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-controller') and filter('name', 'OfflinePartitionsCount')).sum().publish(label='Offline Partitions Count')\n",
+      "options": {
+        "colorBy": "Scale",
+        "colorScale": null,
+        "colorScale2": [
+          {
+            "gt": 0.0,
+            "gte": null,
+            "lt": null,
+            "lte": null,
+            "paletteIndex": 16
+          },
+          {
+            "gt": null,
+            "gte": null,
+            "lt": null,
+            "lte": 0.0,
+            "paletteIndex": 18
+          }
+        ],
+        "maximumPrecision": null,
+        "noDataOptions": null,
+        "programOptions": null,
+        "publishLabelOptions": null,
+        "refreshInterval": null,
+        "secondaryVisualization": "None",
+        "showSparkLine": false,
+        "time": null,
+        "timestampHidden": false,
+        "type": "SingleValue",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 1,
+        "column": 8,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": "HQM3pGGA4Ao",
+      "name": "Broker Network Throughput",
+      "description": "kafka_server_brokertopicmetrics_count{name=BytesInPerSec|BytesOutPerSec}, cluster-wide, 2-minute timeshift delta (not .rate()).",
+      "programText": "raw_in = data('kafka_server_brokertopicmetrics_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'BytesInPerSec')).sum()\n((raw_in - raw_in.timeshift('2m')) / 120).publish(label='bytes_in')\nraw_out = data('kafka_server_brokertopicmetrics_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'BytesOutPerSec')).sum()\n((raw_out - raw_out.timeshift('2m')) / 120).publish(label='bytes_out')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Bytes/sec",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 2,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3YDzAwAA",
+      "name": "Errors",
+      "description": "kafka_network_requestmetrics_count{name=ErrorsPerSec, error!=NONE}, by error type, 2-minute timeshift delta.",
+      "programText": "raw = data('kafka_network_requestmetrics_count', filter=filter('namespace', 'confluent') and filter('name', 'ErrorsPerSec') and filter('service.name', 'kafka-broker')).sum(by=['error'])\n((raw - raw.timeshift('2m')) / 120).publish(label='Errors')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Errors/sec",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 2,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3mL_A4AA",
+      "name": "CPU Usage %",
+      "description": "process_cpu_seconds_total, by broker instance, 2-minute timeshift delta * 100.",
+      "programText": "raw = data('process_cpu_seconds_total', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker')).sum(by=['service.instance.id'])\n(((raw - raw.timeshift('2m')) / 120) * 100).publish(label='CPU Usage %')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "%",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 4,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3T5vA4AA",
+      "name": "JVM Memory Used",
+      "description": "jvm_memory_bytes_used vs jvm_memory_bytes_max{area=heap}, by broker instance.",
+      "programText": "data('jvm_memory_bytes_used', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker')).sum(by=['service.instance.id']).publish(label='Used')\ndata('jvm_memory_bytes_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('area', 'heap')).sum(by=['service.instance.id']).publish(label='Max Heap')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Bytes",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 4,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3TQuA0AE",
+      "name": "Time Spent in GC",
+      "description": "jvm_gc_collection_seconds_sum, by broker instance, 2-minute timeshift delta.",
+      "programText": "raw = data('jvm_gc_collection_seconds_sum', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker')).sum(by=['service.instance.id'])\n((raw - raw.timeshift('2m')) / 120).publish(label='GC Time')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "sec/sec",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 6,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM23GMA4AA",
+      "name": "Linux Disk Write Bytes",
+      "description": "kafka_server_kafkaserver_value{name=linux-disk-write-bytes}, by broker instance, 2-minute timeshift delta.",
+      "programText": "raw = data('kafka_server_kafkaserver_value', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'linux-disk-write-bytes')).sum(by=['service.instance.id'])\n((raw - raw.timeshift('2m')) / 120).publish(label='Disk Write Bytes/sec')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Bytes/sec",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 6,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3HscA4AE",
+      "name": "Messages In (cluster total)",
+      "description": "kafka_server_brokertopicmetrics_count{name=MessagesInPerSec}, cluster-wide, 2-minute timeshift delta.",
+      "programText": "raw = data('kafka_server_brokertopicmetrics_count', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'MessagesInPerSec')).sum()\n((raw - raw.timeshift('2m')) / 120).publish(label='Messages In/sec')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Messages/sec",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 8,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM3ZL5A4AA",
+      "name": "Consumer Group Lag (records, max)",
+      "description": "kafka_consumer_consumer_fetch_manager_metrics_records_lag_max, by client_id/topic/partition (reported under job=kafka-connect - Connect's embedded consumer).",
+      "programText": "data('kafka_consumer_consumer_fetch_manager_metrics_records_lag_max', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-connect')).sum(by=['client_id','topic','partition']).publish(label='Consumer Group Lag')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "Records",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 8,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM33syA0AI",
+      "name": "Produce - Total Time Ms (all percentiles)",
+      "description": "kafka_network_requestmetrics_*thpercentile{name=TotalTimeMs, request=Produce} - wildcarded metric name, one series per percentile.",
+      "programText": "data('kafka_network_requestmetrics_*thpercentile', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'TotalTimeMs') and filter('request', 'Produce')).publish(label='Produce Total Time Ms')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "ms",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 10,
+        "column": 0,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": "HQM23QKAwAA",
+      "name": "Consumer Fetch - Total Time Ms (all percentiles)",
+      "description": "kafka_network_requestmetrics_*thpercentile{name=TotalTimeMs, request=FetchConsumer}.",
+      "programText": "data('kafka_network_requestmetrics_*thpercentile', filter=filter('namespace', 'confluent') and filter('service.name', 'kafka-broker') and filter('name', 'TotalTimeMs') and filter('request', 'FetchConsumer')).publish(label='Fetch Consumer Total Time Ms')\n",
+      "options": {
+        "areaChartOptions": null,
+        "axes": [
+          {
+            "highWatermark": null,
+            "highWatermarkLabel": null,
+            "label": "ms",
+            "lowWatermark": null,
+            "lowWatermarkLabel": null,
+            "max": null,
+            "min": null
+          },
+          null
+        ],
+        "axisPrecision": 3,
+        "colorBy": "Dimension",
+        "defaultPlotType": "LineChart",
+        "eventPublishLabelOptions": null,
+        "histogramChartOptions": null,
+        "includeZero": false,
+        "legendOptions": null,
+        "lineChartOptions": {
+          "showDataMarkers": false
+        },
+        "noDataOptions": null,
+        "onChartLegendOptions": {
+          "dimensionInLegend": "plot_label",
+          "showLegend": true
+        },
+        "programOptions": {
+          "disableSampling": false,
+          "maxDelay": null,
+          "minimumResolution": null,
+          "timezone": "UTC"
+        },
+        "publishLabelOptions": null,
+        "showEventLines": false,
+        "stacked": false,
+        "time": null,
+        "type": "TimeSeriesChart",
+        "unitPrefix": "Metric"
+      },
+      "layout": {
+        "row": 10,
+        "column": 6,
+        "width": 6,
+        "height": 2
+      }
+    }
+  ]
+}

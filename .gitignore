@@ -42,6 +42,10 @@ logs/
 tmp/
 temp/
 
+# Python bytecode cache
+__pycache__/
+*.pyc
+
 # Build artifacts
 *.tar.gz
 *.zip
